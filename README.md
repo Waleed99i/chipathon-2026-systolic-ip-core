@@ -4,9 +4,11 @@
 ![Team](https://img.shields.io/badge/Team-A34_SiliconForge-orange)
 ![Project](https://img.shields.io/badge/Project-AI_Accelerator(Systolic)-blue)
 ![Technology](https://img.shields.io/badge/Technology-GF180MCU-success)
-![Language](https://img.shields.io/badge/HDL-SystemVerilog-red)
+![Language](https://img.shields.io/badge/Language-HDL_Verilog-red)
 ![Status](https://img.shields.io/badge/Status-In_Development-yellow)
 ![Target](https://img.shields.io/badge/Target-RTL_to_GDSII-informational)
+![Extension](https://img.shields.io/badge/Extension-RiscV_Core-orange)
+
 
 
 ## Overview
