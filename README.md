@@ -66,34 +66,12 @@ The current design uses **FP16 inputs**, performs approximate floating-point mul
 
 ---
 
-## Project Highlights
-
-| Feature | Status |
-|---------|:------:|
-| Parameterized NxN Systolic Array | In Progress |
-| Approximate MAC Architecture | Completed |
-| Processing Element Design | In Progress |
-| Data Feeder Architecture | In Progress |
-| Ready-Valid Interface | Planned |
-| FPGA Validation | In Progress |
-| RTL Verification | In Progress |
-| RTL-to-GDSII Flow | Planned |
-| Lightweight RISC-V Integration (Optional) | Planned |
-
----
 
 
 
 ## Project Goals
 
 The primary objective of this project is to design a configurable systolic matrix accelerator IP capable of accelerating matrix multiplication workloads for machine learning and digital signal processing applications. The design emphasizes modularity, scalability, and hardware efficiency while following a complete ASIC design methodology.
-
-The project is divided into four major development phases:
-
-- RTL Design
-- Functional Verification
-- FPGA Validation
-- ASIC RTL-to-GDSII Implementation
 
 Key design objectives include:
 
@@ -103,6 +81,7 @@ Key design objectives include:
 - Ready-Valid protocol based communication
 - FPGA validation prior to ASIC implementation
 - Optional lightweight RISC-V integration
+- OR integration with a ML Framework
 - Tapeout-ready RTL targeting GF180MCU
 
 ---
