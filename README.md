@@ -1,251 +1,328 @@
-# chipathon-2026-systolic-ip-core
+# RTL-to-GDSII Design of a Configurable Matrix Accelerator IP on GF180MCU
 
-Chipathon 2026 workshop fork of the wafer-space `gf180mcu-project-template`.
-Adds a new LibreLane slot, `workshop`, that mirrors Juan Moya's
-standalone workshop padring as a native LibreLane slot definition so
-participants can take the flow all the way to GDS with the stock
-template Makefile.
+![Track](https://img.shields.io/badge/Track-A-blue)
+![Team](https://img.shields.io/badge/Team-A34_SiliconForge-orange)
+![Project](https://img.shields.io/badge/Project-AI_Accelerator(Systolic)-blue)
+![Technology](https://img.shields.io/badge/Technology-GF180MCU-success)
+![Language](https://img.shields.io/badge/HDL-SystemVerilog-red)
+![Status](https://img.shields.io/badge/Status-In_Development-yellow)
+![Target](https://img.shields.io/badge/Target-RTL_to_GDSII-informational)
 
-No PRs are planned against upstream; all chipathon-specific material
-stays in this fork.
-
-## Credits
-
-This repository is a **derivation**. The template, Nix flake, and
-LibreLane flow are the work of Leo Moser and the wafer-space
-contributors; the workshop pad layout is a port of Juan Moya's
-`padring_gf180`. Both are Apache-2.0.
-
-- Upstream template — https://github.com/wafer-space/gf180mcu-project-template
-  pinned at commit `8bd0f6ff28947bf222c5288343f8f3ee1fc04632`
-  (`chore: update flake to librelane 3.0`, 2026-03-26).
-- Workshop pad layout — https://github.com/JuanMoya/padring_gf180
-  (`Workshop_CASS/padring/workshop_padring.cfg`).
-
-See `CREDITS.md` for the per-artifact attribution and `NOTICE` for
-the formal Apache-2.0 notice.
-
-## What this fork changes vs upstream
-
-Exactly 6 files (one commit on top of pinned upstream):
-
-| File | Change |
-|------|--------|
-| `src/slot_defines.svh` | add `SLOT_WORKSHOP` block (NUM_INPUT=1, BIDIR=20, ANALOG=60, 4/4 DVDD/DVSS) |
-| `src/chip_core.sv` | replace example counter with a 20-bit counter driving the 20 bidir pads; analog pads float through |
-| `librelane/slots/slot_workshop.yaml` | **new** slot (DIE 2935x2935 um, CORE 2051x2051 um, VERILOG_DEFINES=SLOT_WORKSHOP) |
-| `librelane/config.yaml` | drop SRAM `MACROS` entry and PDN macro connections - not used in this slot |
-| `librelane/pdn_cfg.tcl` | drop SRAM-specific `define_pdn_grid` blocks |
-| `Makefile` | `AVAILABLE_SLOTS += workshop` |
-
-`git log upstream/main..main` shows the single derivation commit;
-`git diff upstream/main..main` shows the delta.
-
-## Workshop slot - pad map at a glance
-
-- Die: **2935 x 2935 um** (same as Juan Moya's reference).
-- **60 x analog** (`gf180mcu_fd_io__asig_5p0`)
-- **20 x bidir** (`gf180mcu_fd_io__bi_24t`)
-- **4 x DVDD** + **4 x DVSS** (`gf180mcu_ws_io__dvdd` / `__dvss`)
-- **clk_pad** (`gf180mcu_fd_io__in_s`), **rst_n_pad** (`gf180mcu_fd_io__in_c`)
-- **1 x input_pad** - Yosys zero-width-vector workaround; chipathon
-  participants can ignore it (documented in `docs/workshop-slot-spec.md`).
-- **4 x corner** (`gf180mcu_fd_io__cor`, inserted by LibreLane).
-
-Pad ordering in `PAD_NORTH` and `PAD_WEST` is **reversed** relative to
-Juan Moya's standalone `workshop_padring.cfg` because LibreLane reads
-pad lists clockwise from the SW corner. Full pad-by-pad mapping in
-`docs/workshop-slot-spec.md`.
-
-## Quickstart
-
-### Build the workshop slot (native, nix-shell)
-
-```bash
-git clone <this-repo-url> chipathon-2026-gf180mcu-padring
-cd chipathon-2026-gf180mcu-padring
-nix-shell               # provides LibreLane 3.0.0
-make clone-pdk          # clones wafer-space/gf180mcu @ 1.8.0
-SLOT=workshop make librelane
-```
-
-Runtime on a modern laptop: **~2h 15m** for the full signoff run
-(Magic DRC + KLayout DRC + LVS + antenna + STA across 3 corners).
-
-Final artifacts land in `final/`:
-- `final/gds/chip_top.gds` (~85 MB)
-- `final/metrics.csv` (signoff metrics)
-- `final/*.log` (per-stage logs)
-
-### Inspect a built GDS (Docker, hpretl/iic-osic-tools)
-
-`scripts/run_docker_iic.sh` spawns the iic-osic-tools container with
-this repo mounted; inside the container run `klayout final/gds/chip_top.gds`
-or `magic -T .../gf180mcuD.magicrc ...`.
-
-See `docs/reproducing-native.md` and `docs/reproducing-docker.md` for
-the detailed walkthroughs.
-
-### Use the workshop slot for your own RTL
-
-Swap `src/chip_core.sv` with your design, keeping the port list
-(NUM_INPUT=1, NUM_BIDIR=20, NUM_ANALOG=60, clk, rst_n), and re-run
-`SLOT=workshop make librelane`. Padring stays fixed.
-
-## Verification
-
-The repository was validated **end-to-end** against a known-good
-reference build. To re-run the pragmatic check (byte-compare the
-six tracked files against the reference tree):
-
-```bash
-scripts/verify_workshop_slot.sh /path/to/reference/template
-```
-
-The reference build (DRC/LVS/antenna/STA signoff on 2026-04-23 with
-LibreLane 3.0 + wafer-space PDK 1.8.0) is the source of truth for
-"clean". As long as the fork's six files byte-match that reference,
-a fresh build on a compatible host will reproduce the same result.
-
-If you do not have the reference tree, the repo itself is the ground
-truth - this fork *is* those six files.
-
-## Repository layout
-
-```
-.
-|-- README.md                       # this file
-|-- NOTICE                          # Apache-2.0 attribution
-|-- CREDITS.md                      # detailed credits
-|-- AUTHORS.md                      # copyright holders (upstream + fork)
-|-- LICENSE                         # Apache-2.0
-|-- docs/
-|   |-- workshop-slot-spec.md       # full pad-by-pad mapping
-|   |-- reproducing-native.md       # nix-shell walkthrough
-|   `-- reproducing-docker.md       # iic-osic-tools walkthrough
-|-- examples/
-|   `-- rtl2gds_chipathon_padring.ipynb   # standalone notebook
-|-- scripts/
-|   |-- run_docker_iic.sh           # iic-osic-tools launcher
-|   `-- verify_workshop_slot.sh     # pragmatic end-to-end check
-|-- librelane/
-|   |-- config.yaml                 # top-level LibreLane config (patched)
-|   |-- pdn_cfg.tcl                 # PDN generator (patched)
-|   |-- chip_top.sdc                # upstream, unchanged
-|   `-- slots/
-|       |-- slot_0p5x0p5.yaml       # upstream, unchanged
-|       |-- slot_0p5x1.yaml         # upstream, unchanged
-|       |-- slot_1x0p5.yaml         # upstream, unchanged
-|       |-- slot_1x1.yaml           # upstream, unchanged
-|       `-- slot_workshop.yaml      # new (this fork)
-|-- src/
-|   |-- chip_top.sv                 # upstream, unchanged
-|   |-- chip_core.sv                # patched (counter->bidir)
-|   `-- slot_defines.svh            # patched (SLOT_WORKSHOP)
-|-- Makefile                        # patched (AVAILABLE_SLOTS += workshop)
-`-- (upstream infra: flake.nix, gf180mcu/, ip/, cocotb/, scripts/, ...)
-```
-
-## License
-
-Apache-2.0, inherited from upstream. See `LICENSE` for the full text,
-`NOTICE` for attribution of third-party material, and `AUTHORS.md`
-for the list of copyright holders.
-
-
----
-
-## " RTL-to-GDSII Design of a Configurable Matrix Accelerator IP on GF180MCU "
----
 
 ## Overview
 
-This project focuses on the RTL-to-GDSII implementation of a configurable systolic matrix accelerator IP designed for efficient matrix computations. The design emphasizes scalability, modularity, and ASIC-oriented implementation flow, covering the complete pipeline from RTL design to physical design exploration.
+This project implements a configurable **NxN systolic matrix accelerator IP** targeting **GF180MCU**, following a complete **RTL-to-GDSII** design flow. The architecture consists of modular **Processing Elements (PEs)** built around an **approximate logarithmic MAC unit** to improve hardware efficiency.
 
-The accelerator is based on a parameterized systolic array architecture, enabling flexible configuration of array dimensions and data widths to explore different performance, area, and power trade-offs.
-
----
-
-## Objectives
-
-- Design a scalable systolic matrix accelerator IP  
-- Develop a modular RTL architecture based on Processing Elements (PEs)  
-- Implement a configurable systolic array structure  
-- Integrate memory-aware dataflow using SRAM buffering and streaming  
-- Build a complete verification environment using testbenches  
-- Target a full RTL-to-GDSII ASIC flow using gf180mcu  
-- Explore tapeout-ready design practices for chip implementation  
-- Validate functionality through FPGA implementation  
----
-
-
-## System Workflow
-
-1. Input matrices are loaded into on-chip SRAM buffers
-2. Data is streamed into the systolic array
-3. Each Processing Element performs MAC operations in a pipelined fashion
-4. Intermediate results propagate through the array
-5. Final outputs are stored in output buffers
-6. Results are retrieved through testbench or external interface
+The current design uses **FP16 inputs**, performs approximate floating-point multiplication, converts the result to fixed-point, and accumulates partial sums using a **32-bit Q16.16 accumulator**. While the architecture is fully parameterized, the current implementation and validation are based on a **4×4 systolic array**, with FPGA validation on the **Xilinx Nexys A7**.
 
 ---
 
-## Design Constraints
+## Design Specifications
 
-The detailed design constraints, including architecture parameters, memory structure, verification strategy, and ASIC design flow, are documented in:
-
-[Design Constraints](Project%20Proposal/design_constraints.md)
-
----
-## Schematic Review
-[Slides Link](https://docs.google.com/presentation/d/1XbPeDPZbSCVIkTJ6YJzha1Qlfp463J90a_zdM6emGkA/edit?usp=sharing)
-
-[Presentation Video Link](https://youtu.be/ZGd18GQEK7I?si=cJApcDfwtI_DK_bS)
+| Specification | Details |
+|--------------|---------|
+| Project Name | RTL-to-GDSII Design of a Configurable Matrix Accelerator IP on GF180MCU |
+| Track | A |
+| Team | A34 – SiliconForge |
+| Target Technology | GF180MCU |
+| Hardware Description Language | Verilog |
+| Target Flow | RTL → FPGA Validation → RTL-to-GDSII |
+| Architecture | Parameterized NxN Systolic Array |
+| Demonstration Configuration | 4×4 Systolic Array |
+| Compute Unit | Processing Element (PE) |
+| Arithmetic Unit | Approximate Multiply-Accumulate (MAC) |
+| Input Precision | FP16 (IEEE-754 Half Precision) |
+| Multiplier Output | FP16 (Approximate Logarithmic Multiplier) |
+| Accumulator Precision | Q16.16 (32-bit Fixed Point) |
+| Interface | Ready-Valid Protocol + SPI |
+| FPGA Platform | Xilinx Nexys A7 |
+| ASIC Block | Block B |
+| Estimated Area | 1117 μm × 558 μm |
+| Available Pins | 16 |
+| Optional Extension | Lightweight Open-Source RISC-V Integration |
 
 ---
 
 
-## Project Roadmap
+## Project Resources
 
-The phased development plan is documented separately in:
-
-[Phased Implementation Plan](Project%20Proposal/phased_implementation.md)
-
-
----
-
-## Optional Extensions
-
-We plan to integrate a lightweight and an open-source RISC-V Core with our IP if time permits .
-
----
-
-## Progress Tracker
-
-[Link](https://docs.google.com/spreadsheets/d/1-T_ZC2E8IlozA7BDgOPqUjp5dZac3WXzmJ67Tr54c2c/edit?usp=sharing)
-
----
-
-## Team
+| Resource | Link |
+|----------|------|
+| GitHub Repository | https://github.com/Waleed99i/chipathon-2026-systolic-ip-core |
+| PadFrame Proposal | https://docs.google.com/presentation/d/1hGlZvZFFLWlx8hJLkmKaFUCYW1uyk7dkF3z44zS5dTQ/edit?usp=sharing |
+| Proposal Slides | https://docs.google.com/presentation/d/1u3HMhi0KsbPWeEo2SdxVy66h3A2EKqcJ1DBfrJLO6gw/edit?usp=sharing |
+| Detailed Proposal | https://docs.google.com/document/d/1xj1mtmIwVFShTZUq7PKGKg6W1PffVR4_vp0zMOgc8iE/edit?usp=sharing |
+| Pin Requirements | https://docs.google.com/spreadsheets/d/1KH9oZjetv38rxIAL1lnZPNvuW3Qhh9-GSiZVkqRqzDc/edit?usp=sharing |
+| Progress Tracker | https://docs.google.com/spreadsheets/d/1-T_ZC2E8IlozA7BDgOPqUjp5dZac3WXzmJ67Tr54c2c/edit?usp=sharing |
+| Proposal Presentation Video | https://youtu.be/i-fauhB5LK8 |
+| Schematic Review Slides | https://docs.google.com/presentation/d/1XbPeDPZbSCVIkTJ6YJzha1Qlfp463J90a_zdM6emGkA/edit?usp=sharing |
+| Schematic Review Presentation | https://youtu.be/ZGd18GQEK7I?si=cJApcDfwtI_DK_bS |
+| Layout Review Slides | TBA |
 
 
-| Name                     | GitHub Username | Gmail |
-|--------------------------|--------|-------|
-| Muhammad Waleed Akram    | Waleed99i    | waleedakram059@gmail.com   |
-| Abdul Muiz               | abdmz162    | abdmz.uetian23@gmail.com   |
-| Rumali Siddiqua          | Rumali-Siddiqua    | rumalisiddiqua@gmail.com   |
-| Nur Cahyo Ihsan Prastyawan         | cprastyawan   |  cahyoprastyawan@gmail.com  |
+
+
 
 
 ---
 
+## Project Highlights
 
-## License
-
-Apache License 2.0
+| Feature | Status |
+|---------|:------:|
+| Parameterized NxN Systolic Array | In Progress |
+| Approximate MAC Architecture | Completed |
+| Processing Element Design | In Progress |
+| Data Feeder Architecture | In Progress |
+| Ready-Valid Interface | Planned |
+| FPGA Validation | In Progress |
+| RTL Verification | In Progress |
+| RTL-to-GDSII Flow | Planned |
+| Lightweight RISC-V Integration (Optional) | Planned |
 
 ---
 
-## Status
 
-Project Proposal in progress .
+
+## Project Goals
+
+The primary objective of this project is to design a configurable systolic matrix accelerator IP capable of accelerating matrix multiplication workloads for machine learning and digital signal processing applications. The design emphasizes modularity, scalability, and hardware efficiency while following a complete ASIC design methodology.
+
+The project is divided into four major development phases:
+
+- RTL Design
+- Functional Verification
+- FPGA Validation
+- ASIC RTL-to-GDSII Implementation
+
+Key design objectives include:
+
+- Parameterized NxN systolic array architecture
+- Modular Processing Element (PE) based design
+- Approximate MAC implementation for reduced hardware complexity
+- Ready-Valid protocol based communication
+- FPGA validation prior to ASIC implementation
+- Optional lightweight RISC-V integration
+- Tapeout-ready RTL targeting GF180MCU
+
+---
+
+# System Architecture
+
+The accelerator consists of a parameterized systolic array built from Processing Elements (PEs). Each PE performs Multiply-Accumulate (MAC) operations while forwarding operands to neighboring PEs, enabling highly parallel matrix multiplication.
+
+Current demonstrations are based on a **4×4 systolic array**, while the RTL is being developed to support configurable **NxN** array dimensions.
+
+<div align="center">
+
+**Top-Level Architecture**
+
+![systolic](docs/systolic.png)
+
+</div>
+
+---
+
+## Data Flow
+
+```
+             Input Matrix A
+                    │
+                    ▼
+            Input Datapath
+                    │
+                    ▼
+             Data Feeders
+                    │
+                    ▼
+      ┌─────────────────────────┐
+      │ Parameterized NxN       │
+      │     Systolic Array      │
+      │                         │
+      │    Processing Elements  │
+      └─────────────────────────┘
+                    │
+                    ▼
+            Output Datapath
+                    │
+                    ▼
+              Output Results
+```
+
+and will do integration afterwards with riscv core or ML framework
+
+---
+# Major Hardware Blocks
+
+| Block | Inputs | Outputs | Description |
+|------|--------|---------|-------------|
+| **MAC Unit** | FP16, FP16 | Q16.16 | Performs approximate logarithmic multiplication on two FP16 operands, converts the product to fixed-point, and accumulates the result using a 32-bit Q16.16 accumulator. |
+| **Processing Element (PE)** | FP16 activation, FP16 weight, Q16.16 partial sum | FP16 activation, FP16 weight, Q16.16 partial sum | Core computational element of the systolic array. Each PE performs one MAC operation while forwarding activations and weights to neighboring PEs. |
+| **Input Datapath** | **16 × 2N** | **16 × 2N** | Accepts the external input stream, separates activations and weights, and prepares row and column data streams for the Data Feeders. |
+| **Data Feeders** | **16 × (2N-1)** | **FP16 streams** | Aligns and schedules incoming operands with appropriate delays before injecting them into the systolic array. |
+| **Ready-Valid (RV) Interface** | Ready, Valid, Data | Ready, Valid, Data | Implements a standard ready-valid handshake protocol for modular communication between external logic and the accelerator. |
+| **Output Datapath** | **32 × (N × N)** | **32 × (N × N)** | Collects the final outputs from every Processing Element and formats the result matrix for external transfer. |
+| **Register** | Data, Clock, Reset | Registered Data | Pipeline register with reset logic and multiplexing support. Stores intermediate values between clock cycles. |
+| **Counter** | Clock, Reset | Count | Controls systolic computation timing. Counts from **0** to **2N−1** (0–7 for a 4×4 array). |
+
+In Our Example N=4 since 4x4 systolic
+
+
+---
+
+# Chip Information
+
+| Item | Value |
+|------|-------|
+| Chip Block | B |
+| Fraction of Chip | 1/8 |
+| Estimated Area | 1117 μm × 558 μm |
+| Digital Pins | 16 |
+| Supply | Single VDD |
+| Ground | Common GND |
+
+---
+
+# Pin Configuration
+
+| Pin | Signal | Direction | Type | Description |
+|----|--------|-----------|------|-------------|
+| 1 | clk | Input | Digital | System Clock |
+| 2 | rst_n | Input | Digital | Active-Low Reset |
+| 3 | spi_clk | Input | Digital | SPI Clock |
+| 4 | spi_mosi | Input | Digital | SPI Master-Out Slave-In |
+| 5 | spi_miso | Output | Digital | SPI Master-In Slave-Out |
+| 6 | spi_cs_n | Input | Digital | SPI Chip Select |
+| 7–12 | data_in[5:0] | Input | Digital | Accelerator Input Data Bus |
+| 13–14 | data_out[1:0] | Output | Digital | Accelerator Output Data Bus |
+| 15 | VDD | Power | Power | Supply Voltage |
+| 16 | GND | Power | Ground | Common Ground |
+
+
+
+---
+
+# Design Flow
+
+The development follows a structured hardware design methodology beginning from architecture definition and RTL implementation, progressing through verification and FPGA validation, and culminating in an ASIC RTL-to-GDSII flow targeting GF180MCU.
+
+```
+Architecture Design
+        │
+        ▼
+RTL Development
+        │
+        ▼
+Module Verification
+        │
+        ▼
+System Integration
+        │
+        ▼
+FPGA Validation
+        │
+        ▼
+RTL Synthesis
+        │
+        ▼
+Physical Design
+        │
+        ▼
+Signoff Verification
+        │
+        ▼
+GDSII Generation
+```
+
+---
+
+# Development Roadmap
+
+The project follows a structured four-phase implementation strategy, progressing from RTL development to ASIC implementation.
+
+| Phase | Objectives |  | Status |
+|--------|------------|------|--------|
+| **Phase 1** | Approximate MAC, Processing Element (PE), Parameterized Systolic Array RTL, Functional Verification | | In Progress |
+| **Phase 2** | Input/Output Datapaths, Data Feeders, Ready-Valid Interface, System Integration | | In Progress |
+| **Phase 3** | FPGA Synthesis & Validation, Performance Optimization | | Pending |
+| **Phase 4** | RTL Synthesis, Physical Design, Signoff Verification, RTL-to-GDSII | | Pending |
+
+---
+
+# Current Progress
+
+
+
+A detailed project tracker is available here:
+
+[Progress Tracker](https://docs.google.com/spreadsheets/d/1-T_ZC2E8IlozA7BDgOPqUjp5dZac3WXzmJ67Tr54c2c/edit?usp=sharing)
+
+
+
+---
+
+# Success Metrics
+
+The project will be considered successful upon meeting the following objectives.
+
+| Metric | Target |
+|---------|--------|
+| Functional Correctness | Complete matrix multiplication verified through simulation and FPGA validation |
+| Frequency | Meet timing for the target GF180MCU implementation |
+| Area | Fit within the allocated **Block B (1117 μm × 558 μm)** |
+| Throughput | Sustain one MAC operation per Processing Element per clock after pipeline fill |
+| Scalability | Support parameterized NxN systolic arrays |
+| FPGA Validation | Successful implementation on Xilinx Nexys A7 |
+| ASIC Flow | Successful RTL-to-GDSII implementation using GF180MCU |
+
+
+
+---
+
+# FPGA Validation
+
+The Approximate MAC architecture has been synthesized and validated on the **Xilinx Nexys A7 FPGA**.
+
+Future FPGA validation includesComplete Synthesis of Systolic Array
+
+---
+
+# ASIC Design Flow
+
+The project targets a complete RTL-to-GDSII implementation using the **GF180MCU** technology.
+
+The planned backend flow includes:
+
+- RTL Synthesis
+- Static Timing Analysis
+- Floorplanning
+- Power Planning
+- Placement
+- Clock Tree Synthesis
+- Routing
+- DRC
+- LVS
+- Signoff
+- GDSII Generation
+
+---
+
+
+# Team
+
+| Member | GitHub | Discord | Affiliation | Role |
+|----------|--------|----------|-------------|------|
+| Muhammad Waleed Akram | Waleed99i | waleed_07 | University of Engineering and Technology, Lahore (Undergraduate) | Team Lead |
+| Abdul Muiz | abdmz162 | abdmz | University of Engineering and Technology, Lahore (Undergraduate) | RTL Designer |
+| Rumali Siddiqua | Rumali-Siddiqua | rumali24 | University of Virginia, USA (PhD Student) | Physical Designer |
+| Nur Cahyo Ihsan Prastyawan | cprastyawan | chyp2640 | Universitas Gadjah Mada, Indonesia (Master's Graduate) | RTL Designer |
+
+---
+
+
+
+# License
+
+This project is licensed under the Apache License 2.0.
+
+See the **LICENSE** file for details.
