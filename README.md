@@ -136,11 +136,11 @@ and will do integration afterwards with riscv core or ML framework
 | Block | Inputs | Outputs | Description |
 |------|--------|---------|-------------|
 | **MAC Unit** | FP16, FP16 | Q16.16 | Performs approximate logarithmic multiplication on two FP16 operands, converts the product to fixed-point, and accumulates the result using a 32-bit Q16.16 accumulator. |
-| **Processing Element (PE)** | FP16 activation, FP16 weight, Q16.16 partial sum | FP16 activation, FP16 weight, Q16.16 partial sum | Core computational element of the systolic array. Each PE performs one MAC operation while forwarding activations and weights to neighboring PEs. |
-| **Input Datapath** | **16 × 2N** | **16 × 2N** | Accepts the external input stream, separates activations and weights, and prepares row and column data streams for the Data Feeders. |
+| **Processing Element (PE)** | FP16 activation, FP16 weight | FP16 activation, FP16 weight, Q16.16 partial sum | Core computational element of the systolic array. Each PE performs one MAC operation while forwarding activations and weights to neighboring PEs. |
+| **Input Datapath** | **16 × 2N** | **16 × (2N-1)** | Accepts the external input stream, separates activations and weights, and prepares row and column data streams for the Data Feeders. |
 | **Data Feeders** | **16 × (2N-1)** | **FP16 streams** | Aligns and schedules incoming operands with appropriate delays before injecting them into the systolic array. |
 | **Ready-Valid (RV) Interface** | Ready, Valid, Data | Ready, Valid, Data | Implements a standard ready-valid handshake protocol for modular communication between external logic and the accelerator. |
-| **Output Datapath** | **32 × (N × N)** | **32 × (N × N)** | Collects the final outputs from every Processing Element and formats the result matrix for external transfer. |
+| **Output Datapath** | **32 × (N × N)** | **64** | Collects the final outputs from every Processing Element and formats the result matrix for external transfer. |
 | **Register** | Data, Clock, Reset | Registered Data | Pipeline register with reset logic and multiplexing support. Stores intermediate values between clock cycles. |
 | **Counter** | Clock, Reset | Count | Controls systolic computation timing. Counts from **0** to **2N−1** (0–7 for a 4×4 array). |
 
