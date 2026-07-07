@@ -46,29 +46,6 @@ The current design uses **FP16 inputs**, performs approximate floating-point mul
 ---
 
 
-## Project Resources
-
-| Resource | Link |
-|----------|------|
-| GitHub Repository | https://github.com/Waleed99i/chipathon-2026-systolic-ip-core |
-| PadFrame Proposal | https://docs.google.com/presentation/d/1hGlZvZFFLWlx8hJLkmKaFUCYW1uyk7dkF3z44zS5dTQ/edit?usp=sharing |
-| Proposal Slides | https://docs.google.com/presentation/d/1u3HMhi0KsbPWeEo2SdxVy66h3A2EKqcJ1DBfrJLO6gw/edit?usp=sharing |
-| Detailed Proposal | https://docs.google.com/document/d/1xj1mtmIwVFShTZUq7PKGKg6W1PffVR4_vp0zMOgc8iE/edit?usp=sharing |
-| Pin Requirements | https://docs.google.com/spreadsheets/d/1KH9oZjetv38rxIAL1lnZPNvuW3Qhh9-GSiZVkqRqzDc/edit?usp=sharing |
-| Progress Tracker | https://docs.google.com/spreadsheets/d/1-T_ZC2E8IlozA7BDgOPqUjp5dZac3WXzmJ67Tr54c2c/edit?usp=sharing |
-| Proposal Presentation Video | https://youtu.be/i-fauhB5LK8 |
-| Schematic Review Slides | https://docs.google.com/presentation/d/1XbPeDPZbSCVIkTJ6YJzha1Qlfp463J90a_zdM6emGkA/edit?usp=sharing |
-| Schematic Review Presentation | https://youtu.be/ZGd18GQEK7I?si=cJApcDfwtI_DK_bS |
-| Layout Review Slides | TBA |
-
-
-
-
-
-
----
-
-
 
 
 ## Project Goals
@@ -288,15 +265,40 @@ The planned backend flow includes:
 
 ---
 
+# Resources Links
+[Github Repository](https://github.com/Waleed99i/chipathon-2026-systolic-ip-core)
+
+[Padring Proposal Slide Link](https://docs.google.com/presentation/d/1hGlZvZFFLWlx8hJLkmKaFUCYW1uyk7dkF3z44zS5dTQ/edit?usp=sharing)
+
+[Proposal Slide Link](https://docs.google.com/presentation/d/1u3HMhi0KsbPWeEo2SdxVy66h3A2EKqcJ1DBfrJLO6gw/edit?usp=sharing)
+
+[Detailed Proposal Link](https://docs.google.com/document/d/1xj1mtmIwVFShTZUq7PKGKg6W1PffVR4_vp0zMOgc8iE/edit?usp=sharing)
+
+[Pin Requirements Link](https://docs.google.com/spreadsheets/d/1KH9oZjetv38rxIAL1lnZPNvuW3Qhh9-GSiZVkqRqzDc/edit?usp=sharing)
+
+[Progress Tracker](https://docs.google.com/spreadsheets/d/1-T_ZC2E8IlozA7BDgOPqUjp5dZac3WXzmJ67Tr54c2c/edit?usp=sharing)
+
+[Propsal Presentation Video Link](https://youtu.be/i-fauhB5LK8)
+
+[schematic Review Slides (Extended) Link](https://docs.google.com/presentation/d/1XbPeDPZbSCVIkTJ6YJzha1Qlfp463J90a_zdM6emGkA/edit?usp=sharing)
+
+[Schematic Review Slides (Abbreviated) Link](https://docs.google.com/presentation/d/17mgk9Z8jL2Bk6rWpr8gs7IuxJLaOlyg4A5BWRhehygI/edit?usp=sharing)
+
+[Schematic Review Presentation Video Link](https://youtu.be/ZGd18GQEK7I?si=cJApcDfwtI_DK_bS)
+
+Layout Review slide Link: TBA
+
+---
+
 
 # Team
 
 | Member | GitHub | Discord | Affiliation | Role |
 |----------|--------|----------|-------------|------|
-| Muhammad Waleed Akram | Waleed99i | waleed_07 | University of Engineering and Technology, Lahore (Undergraduate) | Team Lead |
-| Abdul Muiz | abdmz162 | abdmz | University of Engineering and Technology, Lahore (Undergraduate) | RTL Designer |
-| Rumali Siddiqua | Rumali-Siddiqua | rumali24 | University of Virginia, USA (PhD Student) | Physical Designer |
-| Nur Cahyo Ihsan Prastyawan | cprastyawan | chyp2640 | Universitas Gadjah Mada, Indonesia (Master's Graduate) | RTL Designer |
+| Muhammad Waleed Akram | [@Waleed99i](https://github.com/Waleed99i) | `waleed_07` | University of Engineering and Technology, Lahore (Undergraduate) | Team Lead |
+| Abdul Muiz | [@abdmz162](https://github.com/abdmz162) | `abdmz` | University of Engineering and Technology, Lahore (Undergraduate) | RTL Designer |
+| Rumali Siddiqua | [@Rumali-Siddiqua](https://github.com/Rumali-Siddiqua) | `rumali24` | University of Virginia, USA (PhD Student) | Physical Designer |
+| Nur Cahyo Ihsan Prastyawan | [@cprastyawan](https://github.com/cprastyawan) | `chyp2640` | Universitas Gadjah Mada, Indonesia (Master's Graduate) | RTL Designer |
 
 ---
 
