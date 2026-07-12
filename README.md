@@ -282,7 +282,7 @@ The planned backend flow includes:
 
 [schematic Review Slides (Extended) Link](https://docs.google.com/presentation/d/1XbPeDPZbSCVIkTJ6YJzha1Qlfp463J90a_zdM6emGkA/edit?usp=sharing)
 
-[Schematic Review Slides (Abbreviated) Link](https://docs.google.com/presentation/d/17mgk9Z8jL2Bk6rWpr8gs7IuxJLaOlyg4A5BWRhehygI/edit?usp=sharing)
+[Schematic Review Slides (Abbreviated) Link](https://docs.google.com/presentation/d/1Jb6dxnFrmxyFip32HSGO6qTabfnJVp7GGHKu2foIoVM/edit?slide=id.g3effe2bdfe7_4_10#slide=id.g3effe2bdfe7_4_10)
 
 [Schematic Review Presentation Video Link](https://youtu.be/ZGd18GQEK7I?si=cJApcDfwtI_DK_bS)
 
