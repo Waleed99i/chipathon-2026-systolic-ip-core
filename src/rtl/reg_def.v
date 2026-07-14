@@ -4,17 +4,17 @@ module reg_def #(
     parameter WIDTH = 16
 )(
     input clk,
-    input rst,
-    input en,
-    input [WIDTH-1:0] d,
-    output reg [WIDTH-1:0] q
+    input clear,
+    input enable,
+    input [WIDTH-1:0] x,
+    output reg [WIDTH-1:0] y
 );
 
 always @(posedge clk) begin
-    if (rst)
-        q <= {WIDTH{1'b0}};
-    else if (en)
-        q <= d;
+    if (clear)
+        y <= {WIDTH{1'b0}};
+    else if (enable)
+        y <= x;
 end
 
 endmodule
