@@ -3,8 +3,8 @@
 module data_feeder_tb;
 
 parameter N = 4;
-parameter DATA_WIDTH = 16;
-parameter IN_WIDTH = DATA_WIDTH*(2*N-1);
+parameter OUT_WIDTH = 16;
+parameter IN_WIDTH = OUT_WIDTH*(2*N-1);
 
 reg clk = 0;
 reg reset = 0;
@@ -14,7 +14,7 @@ reg load = 0;
 reg [IN_WIDTH-1:0] data_in;
 reg [IN_WIDTH-1:0] data_to_be_fed;
 
-wire [DATA_WIDTH-1:0] data_out;
+wire [OUT_WIDTH-1:0] data_out;
 
 // Clock generation
 always #5 clk = ~clk;
