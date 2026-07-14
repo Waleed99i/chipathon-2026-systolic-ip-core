@@ -1,3 +1,41 @@
+CC = iverilog
+SIM = vvp
+VIEWER = gtkwave
+CC_VPI = iverilog-vpi
+
+CFLAGS = -m ./shortreals -g2012 -Wall
+
+RTL_DIR = src/rtl
+SIM_DIR = src/tb
+BUILD_DIR = build
+VPI_DIR = vpi
+
+TB ?= module_name_tb
+
+RTL_FILES = $(wildcard $(RTL_DIR)/*.v)
+SIM_FILE  = $(SIM_DIR)/$(TB).sv
+
+OBJECT_FILES = $(wildcard *.o)
+VPI_FILES    = $(wildcard *.vpi)
+CVPI_FILES   = $(wildcard $(VPI_DIR)/*.c)
+
+OUT   = $(BUILD_DIR)/$(TB).vvp
+WAVES = $(BUILD_DIR)/$(TB).vcd
+
+all: compile
+	$(SIM) -M. -mshortreals $(OUT)
+	$(VIEWER) $(WAVES) &
+
+compile:
+	mkdir -p $(BUILD_DIR)
+	$(CC_VPI) $(CVPI_FILES)
+	$(CC) $(CFLAGS) -o $(OUT) $(RTL_FILES) $(SIM_FILE)
+
+clean:
+	rm -rf $(BUILD_DIR)
+	rm -f $(OBJECT_FILES) $(VPI_FILES)
+
+
 # MAKEFILE_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 # RUN_TAG = $(shell ls librelane/runs/ | tail -n 1)
@@ -82,40 +120,3 @@
 # 	mkdir -p img/
 # 	PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 scripts/lay2img.py final/gds/${TOP}.gds img/${TOP}.png --width 2048 --oversampling 4
 # .PHONY: copy-final
-
-CC = iverilog
-SIM = vvp
-VIEWER = gtkwave
-CC_VPI = iverilog-vpi
-
-CFLAGS = -m ./shortreals -g2012 -Wall
-
-RTL_DIR = src/rtl
-SIM_DIR = src/tb
-BUILD_DIR = build
-VPI_DIR = vpi
-
-TB ?= module_name_tb
-
-RTL_FILES = $(wildcard $(RTL_DIR)/*.v)
-SIM_FILE  = $(SIM_DIR)/$(TB).sv
-
-OBJECT_FILES = $(wildcard *.o)
-VPI_FILES    = $(wildcard *.vpi)
-CVPI_FILES   = $(wildcard $(VPI_DIR)/*.c)
-
-OUT   = $(BUILD_DIR)/$(TB).vvp
-WAVES = $(BUILD_DIR)/$(TB).vcd
-
-all: compile
-	$(SIM) -M. -mshortreals $(OUT)
-	$(VIEWER) $(WAVES) &
-
-compile:
-	mkdir -p $(BUILD_DIR)
-	$(CC_VPI) $(CVPI_FILES)
-	$(CC) $(CFLAGS) -o $(OUT) $(RTL_FILES) $(SIM_FILE)
-
-clean:
-	rm -rf $(BUILD_DIR)
-	rm -f $(OBJECT_FILES) $(VPI_FILES)
