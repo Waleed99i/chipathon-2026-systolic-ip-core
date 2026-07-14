@@ -71,7 +71,7 @@ module fp16_to_q16_16_approximate_mac_tb();
 	logic [31:0] in_mac1, in_mac2;
 	logic [31:0] prev_out_mac_fp32;
 	initial begin
-        $dumpfile("build/waves.vcd"); 
+        $dumpfile("build/fp16_to_q16_16_approximate_mac_tb.vcd"); 
         $dumpvars(0, fp16_to_q16_16_approximate_mac_tb);
 		#1
 		reset_mac();
