@@ -1,14 +1,15 @@
 `timescale 1ns/1ps
 
 module controlled_counter #(
-    parameter COUNT_LIMIT = 4 //for parametrized systolic
+    parameter COUNT_LIMIT = 4, //for parametrized systolic
+    parameter COUNT_WIDTH = $clog2(COUNT_LIMIT)
 )(
     input clk,
     input reset,
     input enable,
 
     output reg count_done,
-    output reg [$clog2(COUNT_LIMIT+1)-1:0] count
+    output reg [COUNT_WIDTH-1:0] count
 );
 
 always @(posedge clk or posedge reset) begin
