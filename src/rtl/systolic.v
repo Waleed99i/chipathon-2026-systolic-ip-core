@@ -23,8 +23,8 @@ module systolic(
             PROCESSING  = 4'd5,
             DONE        = 4'd6,
             LOAD_OUT    = 4'd7,
-            TRANSFER    = 4'd8,
-            SHIFT_COUNT = 4'd9;
+            TRANSFER    = 4'd8;
+            // SHIFT_COUNT = 4'd9;   -- removed
 
     reg [3:0] state;
     reg [3:0] next_state;
@@ -60,13 +60,13 @@ module systolic(
     reg res_internal;
 
     // ------------------------------------------------------------------------
-    // Sequential registers (removed from combinational FSM)
+    // Sequential registers
     // ------------------------------------------------------------------------
     always @(posedge clk or posedge reset) begin
         if (reset)
             final_transfer <= 1'b0;
         else begin
-            if (state == SHIFT_COUNT && sh_count_done)
+            if (state == TRANSFER && tx_two_done && sh_count_done)
                 final_transfer <= 1'b1;
             else if (state == IDLE)
                 final_transfer <= 1'b0;
@@ -76,7 +76,7 @@ module systolic(
     always @(posedge clk or posedge reset) begin
         if (reset)
             done_matrix_mult <= 1'b0;
-        else if (state == TRANSFER && tx_two_done && final_transfer)
+        else if (state == TRANSFER && tx_two_done && sh_count_done)
             done_matrix_mult <= 1'b1;
         else if (state == IDLE)
             done_matrix_mult <= 1'b0;
@@ -85,7 +85,7 @@ module systolic(
     always @(posedge clk or posedge reset) begin
         if (reset)
             res_internal <= 1'b0;
-        else if (state == TRANSFER && tx_two_done && final_transfer)
+        else if (state == TRANSFER && tx_two_done && sh_count_done)
             res_internal <= 1'b1;
         else
             res_internal <= 1'b0;
@@ -354,28 +354,21 @@ module systolic(
             dest_valid = 1'b1;
 
             if (tx_two_done) begin
-                if (final_transfer) begin
+                if (sh_count_done) begin
+                    // All chunks transferred; go back to IDLE
                     next_col   = 1'b1;
                     next_row   = 1'b1;
                     next_state = IDLE;
                 end
                 else begin
+                    // One chunk done, shift to next 64-bit slice
                     shift      = 1'b1;
-                    next_state = SHIFT_COUNT;
+                    next_state = TRANSFER;
                 end
             end
             else begin
                 next_state = TRANSFER;
             end
-        end
-
-        SHIFT_COUNT: begin
-            dest_valid = 1'b1;
-
-            if (sh_count_done)
-                next_state = TRANSFER;
-            else
-                next_state = SHIFT_COUNT;
         end
 
         default: begin
