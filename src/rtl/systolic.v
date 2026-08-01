@@ -18,6 +18,7 @@ module systolic(
             RECEIVE     = 4'd1,
             IN_COUNT    = 4'd2,
             LOAD_IN     = 4'd3,
+            LOAD_FEED   = 4'd10,  // new state: load feeders before FEED
             FEED        = 4'd4,
             PROCESSING  = 4'd5,
             DONE        = 4'd6,
@@ -275,40 +276,44 @@ module systolic(
             end
         end
 
-       RECEIVE: begin
+        RECEIVE: begin
             if (load_in_done) begin
-            // All matrix data received; load into feeders and start processing
-            for (x = 0; x < 4; x = x + 1) begin
-                load_fr[x] = 1'b1;
-                load_fc[x] = 1'b1;
-            end
-            next_state = FEED;
+                // Last packet already loaded; skip to feeder loading
+                next_state = LOAD_FEED;
             end
             else if (tx_one_done) begin
-            next_state = IN_COUNT;
+                next_state = IN_COUNT;
             end
             else begin
-            dest_ready = 1'b1;
-            next_state = RECEIVE;
+                dest_ready = 1'b1;
+                next_state = RECEIVE;
             end
         end
 
         IN_COUNT: begin
-            if(load_in_done) begin
-                for(x=0; x<4; x=x+1) begin
-                    load_fr[x] = 1'b1;
-                    load_fc[x] = 1'b1;
-                end
-                next_state = FEED;
+            if (load_in_done) begin
+                // All matrix rows/cols stored; go load feeders
+                next_state = LOAD_FEED;
             end
-            else
+            else begin
                 next_state = LOAD_IN;
+            end
         end
 
         LOAD_IN: begin
             next_col = 1'b1;
             next_row = 1'b1;
             next_state = RECEIVE;
+        end
+
+        LOAD_FEED: begin
+            // Load the parallel data into the serial feeders
+            for (x = 0; x < 4; x = x + 1) begin
+                load_fr[x] = 1'b1;
+                load_fc[x] = 1'b1;
+            end
+            // Proceed to FEED where PEs are validated
+            next_state = FEED;
         end
 
         FEED: begin
