@@ -117,14 +117,16 @@ module systolic(
     integer ia;
     integer ib;
 
-    always @(*) begin
-        for(ia=0; ia<4; ia=ia+1)
-            A_bus[ia][0] = A_r_out[ia];
-        for(ib=0; ib<4; ib=ib+1)
-            B_bus[0][ib] = B_c_out[ib];
+    assign A_bus[0][0] = A_r_out[0];
+    assign A_bus[1][0] = A_r_out[1];
+    assign A_bus[2][0] = A_r_out[2];
+    assign A_bus[3][0] = A_r_out[3];
 
-    end
-
+    assign B_bus[0][0] = B_c_out[0];
+    assign B_bus[0][1] = B_c_out[1];
+    assign B_bus[0][2] = B_c_out[2];
+    assign B_bus[0][3] = B_c_out[3];
+    
     wire signed [31:0] y_o [0:3][0:3];
 
     genvar m,n;
@@ -313,7 +315,6 @@ module systolic(
         end
 
         TRANSFER: begin
-            sh_count_done = sh_count_done ? 1 : 0;
             if(tx_two_done) begin
                 if(final_transfer) begin
                     final_transfer   = 1'b0;
