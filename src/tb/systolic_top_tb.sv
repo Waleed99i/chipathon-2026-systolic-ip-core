@@ -39,55 +39,60 @@ initial begin
 
     #20;
     reset = 0;
+    // after #20; reset = 0;
 
-    //-------------------------
-    // Start transaction
-    //-------------------------
-    @(posedge clk);
-    valid_in = 1;
+// Monitor important signals
+    $monitor("%0t: state=%d, dest_ready=%b, src_valid=%b, tx_one_done=%b, load_in_done=%b",
+    $time, dut.state, dut.dest_ready, src_valid, tx_one_done, dut.load_in_done);
 
-    @(posedge clk);
-    valid_in = 0;
+//-------------------------
+// Start transaction
+//-------------------------
+@(posedge clk);
+valid_in = 1;
+@(posedge clk);
+valid_in = 0;
 
-    //-------------------------
-    // Send one 128-bit packet
-    //-------------------------
-
+//-------------------------
+// Send all 4 input packets (handshake on each)
+//-------------------------
+for (int i = 0; i < 4; i = i + 1) begin
+    // Form one row and one column
     data_in = {
-        16'd1,16'd2,16'd3,16'd4,
-        16'd5,16'd6,16'd7,16'd8
+        16'(i*4+1), 16'(i*4+2), 16'(i*4+3), 16'(i*4+4),   // row i
+        16'(i*4+5), 16'(i*4+6), 16'(i*4+7), 16'(i*4+8)    // col i
     };
+    src_valid = 1'b1;
 
-    src_valid = 1;
-
+    // Wait for this packet to be accepted (tx_one_done pulse)
     @(posedge tx_one_done);
-    src_valid = 0;
+    src_valid = 1'b0;
 
-    $display("Input accepted.");
+    // Small gap between packets (optional but safe)
+    @(negedge clk);
+end
+$display("All inputs accepted.");
 
-    //-------------------------
-    // Receive outputs
-    //-------------------------
+//-------------------------
+// Receive outputs
+//-------------------------
+repeat(8) begin
+    src_ready = 1;
 
-    repeat(8)
-    begin
-        src_ready = 1;
+    @(posedge tx_two_done);
 
-        @(posedge tx_two_done);
+    $display("%t Output = %h", $time, final_data_out);
 
-        $display("%t Output = %h",$time,final_data_out);
+    @(posedge clk);
+    src_ready = 0;
+end
 
-        @(posedge clk);
-        src_ready = 0;
-    end
+wait(done_matrix_mult);
 
-    wait(done_matrix_mult);
+$display("DONE");
 
-    $display("DONE");
-
-    #100;
-    $finish;
-
+#100;
+$finish;
 end
 
 endmodule

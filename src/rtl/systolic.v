@@ -28,7 +28,6 @@ module systolic(
     reg [3:0] state;
     reg [3:0] next_state;
 
-
     wire signed [111:0] A_r [0:3];
     wire signed [111:0] B_c [0:3];
 
@@ -59,6 +58,41 @@ module systolic(
     wire sh_count_done;
     reg res_internal;
 
+    // ------------------------------------------------------------------------
+    // Sequential registers (removed from combinational FSM)
+    // ------------------------------------------------------------------------
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            final_transfer <= 1'b0;
+        else begin
+            if (state == SHIFT_COUNT && sh_count_done)
+                final_transfer <= 1'b1;
+            else if (state == IDLE)
+                final_transfer <= 1'b0;
+        end
+    end
+
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            done_matrix_mult <= 1'b0;
+        else if (state == TRANSFER && tx_two_done && final_transfer)
+            done_matrix_mult <= 1'b1;
+        else if (state == IDLE)
+            done_matrix_mult <= 1'b0;
+    end
+
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            res_internal <= 1'b0;
+        else if (state == TRANSFER && tx_two_done && final_transfer)
+            res_internal <= 1'b1;
+        else
+            res_internal <= 1'b0;
+    end
+
+    // ------------------------------------------------------------------------
+    // Datapath instances
+    // ------------------------------------------------------------------------
     input_datapath input_dp (
         .clk(clk),
         .reset(reset),
@@ -109,8 +143,8 @@ module systolic(
         end
     endgenerate
 
-    reg signed [15:0] A_bus [0:3][0:4];
-    reg signed [15:0] B_bus [0:4][0:3];
+    wire signed [15:0] A_bus [0:3][0:4];
+    wire signed [15:0] B_bus [0:4][0:3];
 
     reg valid [0:3][0:3];
 
@@ -174,7 +208,9 @@ module systolic(
         .tx_two_done(tx_two_done)
     );
 
-
+    // ------------------------------------------------------------------------
+    // State register
+    // ------------------------------------------------------------------------
     always @(posedge clk or posedge reset)
     begin
         if(reset)
@@ -183,6 +219,9 @@ module systolic(
             state <= next_state;
     end
 
+    // ------------------------------------------------------------------------
+    // Combinational next-state logic (FSM)
+    // ------------------------------------------------------------------------
     reg valid_out_flag;
     reg done_flag;
 
@@ -191,14 +230,16 @@ module systolic(
 
     always @(*) begin
 
+        // Safe default for next_state
+        next_state = state;
+
+        // Default assignments for other combinational outputs
         dest_ready       = 1'b0;
         dest_valid       = 1'b0;
         shift            = 1'b0;
-        done_matrix_mult = 1'b0;
         load_out         = 1'b0;
 
         for(x=0; x<4; x=x+1) begin
-
             sh_fr[x]   = 1'b0;
             sh_fc[x]   = 1'b0;
             load_fr[x] = 1'b0;
@@ -206,7 +247,6 @@ module systolic(
 
             for(z=0; z<4; z=z+1)
                 valid[x][z] = 1'b0;
-
         end
 
         next_col = 1'b0;
@@ -226,32 +266,34 @@ module systolic(
 
         case(state)
         IDLE: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
             if(valid_in) begin
                 next_state = RECEIVE;
                 dest_ready = 1'b1;
             end
             else begin
                 next_state = IDLE;
-                done_matrix_mult = (done_matrix_mult==1) ? 1 : 0;
             end
         end
 
-        RECEIVE: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
-            if(tx_one_done)
-                next_state = IN_COUNT;
+       RECEIVE: begin
+            if (load_in_done) begin
+            // All matrix data received; load into feeders and start processing
+            for (x = 0; x < 4; x = x + 1) begin
+                load_fr[x] = 1'b1;
+                load_fc[x] = 1'b1;
+            end
+            next_state = FEED;
+            end
+            else if (tx_one_done) begin
+            next_state = IN_COUNT;
+            end
             else begin
-                dest_ready = 1'b1;
-                next_state = RECEIVE;
+            dest_ready = 1'b1;
+            next_state = RECEIVE;
             end
         end
 
         IN_COUNT: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
             if(load_in_done) begin
                 for(x=0; x<4; x=x+1) begin
                     load_fr[x] = 1'b1;
@@ -264,16 +306,12 @@ module systolic(
         end
 
         LOAD_IN: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
             next_col = 1'b1;
             next_row = 1'b1;
             next_state = RECEIVE;
         end
 
         FEED: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
             if(valid_out_flag)
                 next_state = DONE;
             else begin
@@ -281,13 +319,10 @@ module systolic(
                     for(z=0; z<4; z=z+1)
                         valid[x][z] = 1'b1;
                 next_state = PROCESSING;
-                done_matrix_mult = 1'b0;
             end
         end
 
         PROCESSING: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
             if((~valid_out_flag) && done_flag) begin
                 for(x=0; x<4; x=x+1) begin
                     sh_fr[x] = 1'b1;
@@ -301,63 +336,44 @@ module systolic(
         end
 
         DONE: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
             next_state = LOAD_OUT;
         end
 
         LOAD_OUT: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
             load_out   = 1'b1;
             dest_valid = 1'b1;
             next_state = TRANSFER;
         end
 
         TRANSFER: begin
-            if(tx_two_done) begin
-                if(final_transfer) begin
-                    final_transfer   = 1'b0;
-                    next_state       = IDLE;
-                    done_matrix_mult = 1'b1;
-                    next_col         = 1'b1;
-                    next_row         = 1'b1;
-                    res_internal     = 1'b1;
+            dest_valid = 1'b1;
+
+            if (tx_two_done) begin
+                if (final_transfer) begin
+                    next_col   = 1'b1;
+                    next_row   = 1'b1;
+                    next_state = IDLE;
                 end
                 else begin
-                    res_internal   = 1'b0;
-                    final_transfer = 1'b0;
-                    shift          = 1'b1;
+                    shift      = 1'b1;
                     next_state = SHIFT_COUNT;
                 end
             end
             else begin
-                res_internal   = 1'b0;
-                final_transfer = 1'b0;
-                dest_valid = 1'b1;
                 next_state = TRANSFER;
             end
         end
 
         SHIFT_COUNT: begin
-            if(sh_count_done) begin
-                res_internal   = 1'b0;
-                final_transfer = 1'b1;
-                dest_valid = 1'b1;
-                next_state = TRANSFER;
-            end
+            dest_valid = 1'b1;
 
-            else begin
-                res_internal   = 1'b0;
-                final_transfer = 1'b0;
-                dest_valid = 1'b1;
+            if (sh_count_done)
                 next_state = TRANSFER;
-            end
+            else
+                next_state = SHIFT_COUNT;
         end
 
         default: begin
-            res_internal   = 1'b0;
-            final_transfer = 1'b0;
             next_state = IDLE;
         end
         endcase
