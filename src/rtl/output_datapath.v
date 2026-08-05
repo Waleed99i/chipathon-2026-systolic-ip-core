@@ -58,8 +58,8 @@ controlled_counter #(
     .clk(clk),
     .reset(reset),
     .enable(shift),
-    .count_done(sh_count_done),
-    .count()
+    .count_done(sh_count_done)
+    //.count()
 );
 
 // Ready/Valid Protocol
