@@ -1,0 +1,6 @@
+project:
+  title: "Systolic Array Accelerator"
+  team: "A34 SiliconForge"
+  discord: ""
+  description: "16-bit fixed-point systolic array accelerator on GF180MCU 180nm"
+  lvs_config: "lvs_config.json"
