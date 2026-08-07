@@ -262,6 +262,24 @@ The planned backend flow includes:
 - LVS
 - Signoff
 - GDSII Generation
+---
+
+# Physical Design Results
+
+Full RTL-to-GDSII flow completed using OpenLane 2 / LibreLane on the **GF180MCU** 180nm process.
+
+## Frequency Sweep
+
+| Clock Period | Frequency | DRC | LVS | Setup Slack (worst corner) |
+|---|---|---|---|---|
+| 40ns | 25 MHz | ✅ Pass | ✅ Pass | — |
+| 30ns | 33 MHz | ✅ Pass | ✅ Pass | +13.99ns |
+
+Estimated maximum operating frequency based on the 30ns run's timing margin: **~62 MHz**.
+
+## Dry-Run Submission
+
+`info.yaml` and `lvs_config.json` have been added to the repo root per the chipathon dry-run submission requirements. GDS output (30ns, DRC/LVS clean) is included at `gds/chip_top.gds`.
 
 ---
 
