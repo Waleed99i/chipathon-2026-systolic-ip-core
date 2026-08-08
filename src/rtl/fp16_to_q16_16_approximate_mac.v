@@ -43,7 +43,7 @@ module fp16_to_q16_16_approximate_mac(
 	end
 	
 	fp16_approximate_multiplier_wrapper mul(.a(a), .b(b), .result(mul_res));
-	fp16_to_q8_8 u_convert(.fp16(mul_res), .q8_8(q8_8));
+	fp16_to_q8_8 u_convert(.fp16(mul_res), .q8_8(q8_8), .ovf());
 	
 	assign result = sum;
 endmodule
