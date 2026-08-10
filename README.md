@@ -158,27 +158,7 @@ In Our Example N=4 since 4x4 systolic
 
 # Integration Scenario
 
-```mermaid
-flowchart LR
-    P1["8 Input Pads"] --> IS["input_serializer"]
-    IS -->|"128-bit"| S["systolic.v"]
-
-    S -->|"512-bit"| OD["output_datapath"]
-
-    OD -->|"64-bit RV"| OS["output_serializer"]
-
-    OS -->|"4-bit"| P2["4 Output Pads"]
-
-    CLK["clk"] --> IS
-    CLK --> S
-    CLK --> OD
-    CLK --> OS
-
-    RST["reset"] --> IS
-    RST --> S
-    RST --> OD
-    RST --> OS
-```
+![integration](docs/Implementation/Integration.png)
 
 ---
 
