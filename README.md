@@ -147,16 +147,38 @@ In Our Example N=4 since 4x4 systolic
 |----|--------|-----------|------|-------------|
 | 1 | clk | Input | Digital | System Clock |
 | 2 | rst_n | Input | Digital | Active-Low Reset |
-| 3 | spi_clk | Input | Digital | SPI Clock |
-| 4 | spi_mosi | Input | Digital | SPI Master-Out Slave-In |
-| 5 | spi_miso | Output | Digital | SPI Master-In Slave-Out |
-| 6 | spi_cs_n | Input | Digital | SPI Chip Select |
-| 7–12 | data_in[5:0] | Input | Digital | Accelerator Input Data Bus |
-| 13–14 | data_out[1:0] | Output | Digital | Accelerator Output Data Bus |
+| 3-10 | data_in[7:0] | Input | Digital | Accelerator Input Data Bus |
+| 11–14 | data_out[3:0] | Output | Digital | Accelerator Output Data Bus |
 | 15 | VDD | Power | Power | Supply Voltage |
 | 16 | GND | Power | Ground | Common Ground |
 
 
+
+---
+
+# Integration Scenario
+
+```mermaid
+flowchart LR
+    P1["8 Input Pads"] --> IS["input_serializer"]
+    IS -->|"128-bit"| S["systolic.v"]
+
+    S -->|"512-bit"| OD["output_datapath"]
+
+    OD -->|"64-bit RV"| OS["output_serializer"]
+
+    OS -->|"4-bit"| P2["4 Output Pads"]
+
+    CLK["clk"] --> IS
+    CLK --> S
+    CLK --> OD
+    CLK --> OS
+
+    RST["reset"] --> IS
+    RST --> S
+    RST --> OD
+    RST --> OS
+```
 
 ---
 
