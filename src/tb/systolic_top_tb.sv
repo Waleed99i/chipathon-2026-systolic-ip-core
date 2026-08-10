@@ -57,6 +57,9 @@ module systolic_top_tb;
     always #5 clk = ~clk;
 
     initial begin
+        $dumpfile("build/systolic_top_tb.vcd");
+        $dumpvars(0,systolic_top_tb);
+
         clk = 0;
         reset = 1;
         valid_in = 0;
@@ -99,7 +102,7 @@ module systolic_top_tb;
             src_ready = 0;
         end
 
-        wait(done_matrix_mult);
+        // wait(done_matrix_mult); //// commenting just to see its simulations
         $display("DONE");
         #100;
         $finish;
