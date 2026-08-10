@@ -30,6 +30,8 @@ module input_serializer_tb;
     always #5 clk = ~clk;
 
     initial begin
+        $dumpfile("build/input_serializer_tb.vcd");
+        $dumpvars(0,input_serializer_tb);
 
         $display("========================================");
         $display(" Input Serializer Testbench");
