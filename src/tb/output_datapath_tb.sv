@@ -2,185 +2,282 @@
 
 module output_datapath_tb;
 
-    parameter N = 4;
-    parameter PE_OUT_WIDTH = 32;
-    parameter OUTPUT_WIDTH = 64;
+parameter N = 4;
+parameter PE_OUT_WIDTH = 32;
+parameter OUTPUT_WIDTH = 4;
 
-    localparam TOTAL_WIDTH   = PE_OUT_WIDTH*N*N;
-    localparam NUM_TRANSFERS = TOTAL_WIDTH/OUTPUT_WIDTH;
+localparam TOTAL_WIDTH = 512;
+localparam NUM_TRANSFERS = 128;
 
-    // DUT signals
-    reg clk = 0;
-    reg reset = 0;
-    reg load_out = 0;
-    reg shift = 0;
-    reg src_ready = 0;
-    reg dest_valid = 0;
+reg clk;
+reg reset;
 
-    reg  [TOTAL_WIDTH-1:0] systolic_output;
+reg load_out;
+reg shift;
 
-    wire [OUTPUT_WIDTH-1:0] final_data_out;
-    //wire sh_count_done;
-    wire tx_two_done;
+reg src_ready;
+reg dest_valid;
 
-    // Clock generation
-    always #5 clk = ~clk;
+reg [TOTAL_WIDTH-1:0] systolic_output;
 
-    // DUT
-    output_datapath #(
-        .N(N),
-        .PE_OUT_WIDTH(PE_OUT_WIDTH),
-        .OUTPUT_WIDTH(OUTPUT_WIDTH)
-    ) dut (
-        .clk(clk),
-        .reset(reset),
-        .load_out(load_out),
-        .shift(shift),
-        .src_ready(src_ready),
-        .dest_valid(dest_valid),
-        .systolic_output(systolic_output),
-        .final_data_out(final_data_out),
-        //.sh_count_done(sh_count_done),
-        .tx_two_done(tx_two_done)
-    );
+wire [OUTPUT_WIDTH-1:0] final_data_out;
+wire sh_count_done;
+wire tx_two_done;
 
-    // Reset DUT
-    task reset_dut;
-    begin
-        reset = 1;
-        @(posedge clk);
-        reset = 0;
-        @(posedge clk);
+integer i;
+
+reg [OUTPUT_WIDTH-1:0] expected;
+
+// ------------------------------------------------------------
+// Clock
+// ------------------------------------------------------------
+
+always #5 clk = ~clk;
+
+// ------------------------------------------------------------
+// DUT
+// ------------------------------------------------------------
+
+output_datapath #(
+    .N(N),
+    .PE_OUT_WIDTH(PE_OUT_WIDTH),
+    .OUTPUT_WIDTH(OUTPUT_WIDTH)
+) dut (
+    .clk(clk),
+    .reset(reset),
+    .load_out(load_out),
+    .shift(shift),
+    .src_ready(src_ready),
+    .dest_valid(dest_valid),
+    .systolic_output(systolic_output),
+    .final_data_out(final_data_out),
+    .sh_count_done(sh_count_done),
+    .tx_two_done(tx_two_done)
+);
+
+// ------------------------------------------------------------
+// Reset
+// ------------------------------------------------------------
+
+task reset_dut;
+begin
+    reset = 1'b1;
+
+    @(posedge clk);
+    @(posedge clk);
+
+    reset = 1'b0;
+
+    @(posedge clk);
+end
+endtask
+
+// ------------------------------------------------------------
+// Load 512-bit result
+// ------------------------------------------------------------
+
+task load_data;
+begin
+    load_out = 1'b1;
+
+    // Allow the buffer/feeder to see load
+    @(posedge clk);
+    #1;
+
+    load_out = 1'b0;
+
+    // Allow signals to settle
+    @(posedge clk);
+    #1;
+
+    $display("");
+    $display("After LOAD:");
+    $display("buffer_to_feeder = %h", dut.buffer_to_feeder);
+    $display("feeder_to_rv     = %h", dut.feeder_to_rv);
+    $display("expected first   = %h", systolic_output[511:508]);
+    $display("");
+
+    if (dut.buffer_to_feeder !== systolic_output) begin
+        $display("FAIL: buffer did not receive systolic output.");
+        $finish;
     end
-    endtask
 
-    // Load complete systolic output
-    task load_out_data;
-        input [TOTAL_WIDTH-1:0] data;
-    begin
-        systolic_output = data;
-
-        @(posedge clk);
-        load_out = 1;
-
-        @(posedge clk);
-        load_out = 0;
-
-        @(posedge clk);
+    if (dut.feeder_to_rv !== systolic_output[511:508]) begin
+        $display("FAIL: feeder first nibble incorrect.");
+        $display("Expected = %h", systolic_output[511:508]);
+        $display("Got      = %h", dut.feeder_to_rv);
+        $finish;
     end
-    endtask
 
-    // Observe first 64-bit chunk
-    task observe_chunk;
-        input integer index;
-    begin
-        $display("\nObserving Chunk %0d", index);
+    $display("PASS: buffer and feeder loaded correctly.");
+end
+endtask
 
-        dest_valid = 1;
+// ------------------------------------------------------------
+// Transfer one 4-bit value
+// ------------------------------------------------------------
 
-        @(posedge clk);
+task do_transfer;
+    input integer index;
+    input [3:0] expected_data;
 
-        src_ready = 1;
+begin
 
-        @(posedge clk);
+    dest_valid = 1'b1;
+    src_ready = 1'b1;
 
-        dest_valid = 0;
-        src_ready = 0;
+    // Wait for a clock edge with valid && ready
+    @(posedge clk);
 
-        @(posedge clk);
+    #1;
 
-        $display("Time           = %0t", $time);
-        $display("Chunk          = %0d", index);
-        $display("final_data_out = %h", final_data_out);
-        $display("tx_two_done    = %b\n", tx_two_done);
-    end
-    endtask
+    if (final_data_out !== expected_data) begin
 
-    // Shift and transmit next chunk
-    task transfer_chunk;
-        input integer index;
-    begin
+        $display(
+            "FAIL: transfer=%0d expected=%h got=%h",
+            index,
+            expected_data,
+            final_data_out
+        );
 
-        $display("\nTransferring Chunk %0d", index);
-
-        shift = 1;
-
-        @(posedge clk);
-
-        shift = 0;
-
-        @(posedge clk);
-
-        dest_valid = 1;
-
-        @(posedge clk);
-
-        src_ready = 1;
-
-        @(posedge clk);
-
-        dest_valid = 0;
-        src_ready = 0;
-
-        @(posedge clk);
-
-        $display("Time           = %0t", $time);
-        $display("Chunk          = %0d", index);
-        $display("final_data_out = %h", final_data_out);
-        $display("tx_two_done    = %b\n", tx_two_done);
-
-    end
-    endtask
-
-    integer i;
-
-    initial begin
-
-        $dumpfile("build/output_datapath_tb.vcd");
-        $dumpvars(0, output_datapath_tb);
-
-        systolic_output = 512'hDEADBEEFCAFEBABE112233445566778899AABBCCDDEEFF00123456789ABCDEF013579BDFDEADBEEF2468ACE0FEDCBA980FEDCBA9876543211122334455667788;
-        // its 
-        //systolic_output = {
-        //     64'hDEADBEEFCAFEBABE,
-        //     64'h1122334455667788,
-        //     64'h99AABBCCDDEEFF00,
-        //     64'h123456789ABCDEF0,
-        //     64'h13579BDFDEADBEEF,
-        //     64'h2468ACE0FEDCBA98,
-        //     64'h0FEDCBA987654321,
-        //     64'h1122334455667788
-        // };
-
-
-        reset_dut();
-
-        load_out_data(systolic_output);
-
-        $display("\nBuffer Contents");
-        $display("%h\n", dut.buffer_to_feeder);
-
-        $monitor("T=%0t  feeder_to_rv=%h  count=%0d  ",
-                 $time,
-                 dut.feeder_to_rv,
-                 dut.sh_counter_output_datapath.count);
-
-        @(posedge clk);
-        @(posedge clk);
-
-        // First chunk (already at feeder output)
-        observe_chunk(0);
-
-        // Remaining chunks
-        for(i = 1; i < NUM_TRANSFERS; i = i + 1)
-            transfer_chunk(i);
-
-
-        $display("\nOutput Datapath Test Completed.");
-
-        #50;
         $finish;
 
     end
+    else begin
+
+        $display(
+            "PASS: transfer=%0d data=%h tx_done=%b",
+            index,
+            final_data_out,
+            tx_two_done
+        );
+
+    end
+
+    dest_valid = 1'b0;
+    src_ready = 1'b0;
+
+    @(posedge clk);
+
+end
+endtask
+
+// ------------------------------------------------------------
+// Shift to next 4-bit chunk
+// ------------------------------------------------------------
+
+task do_shift;
+begin
+
+    shift = 1'b1;
+
+    @(posedge clk);
+
+    shift = 1'b0;
+
+    @(posedge clk);
+
+end
+endtask
+
+// ------------------------------------------------------------
+// Main test
+// ------------------------------------------------------------
+
+initial begin
+
+    // Waveform
+    $dumpfile("build/output_datapath_tb.vcd");
+    $dumpvars(0, output_datapath_tb);
+
+    // Clock initial value
+    clk = 1'b0;
+
+    // Inputs initial values
+    reset = 1'b0;
+    load_out = 1'b0;
+    shift = 1'b0;
+    src_ready = 1'b0;
+    dest_valid = 1'b0;
+
+    // --------------------------------------------------------
+    // 512-bit test pattern
+    // --------------------------------------------------------
+
+    systolic_output = 512'hDEADBEEFCAFEBABE112233445566778899AABBCCDDEEFF00123456789ABCDEF013579BDFDEADBEEF2468ACE0FEDCBA980FEDCBA9876543211122334455667788;
+
+    $display("");
+    $display("==============================================");
+    $display(" OUTPUT DATAPATH TEST");
+    $display("==============================================");
+    $display("Input width       = %0d bits", TOTAL_WIDTH);
+    $display("Output width      = %0d bits", OUTPUT_WIDTH);
+    $display("Number transfers  = %0d", NUM_TRANSFERS);
+    $display("==============================================");
+    $display("");
+
+    // --------------------------------------------------------
+    // Reset
+    // --------------------------------------------------------
+
+    reset_dut();
+
+    // --------------------------------------------------------
+    // Load systolic output into buffer
+    // --------------------------------------------------------
+
+    load_data();
+
+    $display("Buffer:");
+    $display("%h", dut.buffer_to_feeder);
+    $display("");
+
+    // --------------------------------------------------------
+    // Transfer 128 x 4-bit chunks
+    // --------------------------------------------------------
+
+    for (i = 0; i < NUM_TRANSFERS; i = i + 1) begin
+
+        // MSB-first expected nibble
+        expected = systolic_output[511 - (i * 4) -: 4];
+
+        do_transfer(i, expected);
+
+        // Shift except after last transfer
+        if (i < NUM_TRANSFERS - 1) begin
+            do_shift();
+        end
+
+    end
+
+    // --------------------------------------------------------
+    // Counter completion
+    // --------------------------------------------------------
+
+    #1;
+
+    if (sh_count_done !== 1'b1) begin
+
+        $display("");
+        $display("FAIL: sh_count_done is not asserted.");
+        $display("");
+
+    end
+    else begin
+
+        $display("");
+        $display("PASS: sh_count_done asserted.");
+        $display("");
+    end
+
+    $display("==============================================");
+    $display(" OUTPUT DATAPATH TEST COMPLETE");
+    $display("==============================================");
+
+    #20;
+
+    $finish;
+
+end
 
 endmodule
