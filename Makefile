@@ -12,7 +12,7 @@ VPI_DIR = vpi
 
 TB ?= module_name_tb
 
-RTL_FILES = $(wildcard $(RTL_DIR)/*.v)
+RTL_FILES = $(wildcard $(RTL_DIR)/*.v) $(wildcard $(RTL_DIR)/*.sv)
 SIM_FILE  = $(SIM_DIR)/$(TB).sv
 
 OBJECT_FILES = $(wildcard *.o)
