@@ -88,10 +88,6 @@ module chip_core_tb;
 
     // ============================================================
     // FP16 ENCODING
-    //
-    // 0 = 0000
-    // 1 = 3C00
-    // 2 = 4000
     // ============================================================
 
     function automatic [15:0] fp16;
@@ -116,6 +112,162 @@ module chip_core_tb;
     endfunction
 
     // ============================================================
+    // OUTPUT STORAGE
+    //
+    // 128 output transfers
+    // Each transfer = 4 bits
+    //
+    // Total:
+    //
+    // 128 x 4 = 512 bits
+    //
+    // 16 matrix elements x 32 bits = 512 bits
+    //
+    // Therefore:
+    //
+    // 8 output chunks = 1 matrix element
+    // ============================================================
+
+    reg [3:0] output_chunks [0:127];
+
+    // ============================================================
+    // OUTPUT MONITOR COUNTER
+    // ============================================================
+
+    integer output_count;
+
+    // ============================================================
+    // RECONSTRUCT ONE 32-BIT Q16.16 ELEMENT
+    //
+    // For element N:
+    //
+    // chunk N*8 + 0 ... N*8 + 3 = bits [31:16]
+    // chunk N*8 + 4 ... N*8 + 7 = bits [15:0]
+    //
+    // Example:
+    //
+    // Output chunks:
+    //
+    // 0 0 0 1 0 0 0 0
+    //
+    // gives:
+    //
+    // 32'h00010000
+    //
+    // Q16.16 = 1.0
+    // ============================================================
+
+    function automatic [31:0] get_output_element;
+
+        input integer element_index;
+
+        integer base;
+
+        begin
+
+            base = element_index * 8;
+
+            get_output_element = {
+                output_chunks[base + 0],
+                output_chunks[base + 1],
+                output_chunks[base + 2],
+                output_chunks[base + 3],
+                output_chunks[base + 4],
+                output_chunks[base + 5],
+                output_chunks[base + 6],
+                output_chunks[base + 7]
+            };
+
+        end
+
+    endfunction
+
+    // ============================================================
+    // PRINT Q16.16 VALUE
+    //
+    // [31:16] = integer part
+    // [15:0]  = fractional part
+    // ============================================================
+
+    task print_q16_16;
+
+        input [31:0] value;
+
+        reg [15:0] integer_part;
+        reg [15:0] fractional_part;
+
+        real decimal_value;
+
+        begin
+
+            integer_part    = value[31:16];
+            fractional_part = value[15:0];
+
+            decimal_value =
+                integer_part +
+                (fractional_part / 65536.0);
+
+            $write("%0.4f", decimal_value);
+
+        end
+
+    endtask
+
+    // ============================================================
+    // PRINT RESULTANT 4x4 MATRIX
+    // ============================================================
+
+    task print_result_matrix;
+
+        integer row;
+        integer col;
+        integer element_index;
+
+        reg [31:0] element;
+
+        begin
+
+            $display("");
+            $display("==============================================");
+            $display(" CHIP CORE RESULTANT MATRIX");
+            $display("==============================================");
+            $display("");
+            $display("Format: Q16.16");
+            $display("[31:16] = Integer");
+            $display("[15:0]  = Fraction");
+            $display("");
+
+            for (row = 0; row < 4; row = row + 1) begin
+
+                $write("[ ");
+
+                for (col = 0; col < 4; col = col + 1) begin
+
+                    element_index = row * 4 + col;
+
+                    element = get_output_element(element_index);
+
+                    print_q16_16(element);
+
+                    if (col != 3)
+                        $write("  ");
+
+                end
+
+                $display(" ]");
+
+            end
+
+            $display("");
+
+            $display("==============================================");
+            $display("");
+
+        end
+
+    endtask
+
+    // ============================================================
     // SEND ONE BYTE
     // ============================================================
 
@@ -137,12 +289,6 @@ module chip_core_tb;
 
     // ============================================================
     // SEND ONE 128-BIT PACKET
-    //
-    // 4 A values + 4 B values
-    //
-    // Each value = FP16 = 16 bits
-    //
-    // Total = 8 x 16 = 128 bits
     // ============================================================
 
     task send_packet;
@@ -208,10 +354,7 @@ module chip_core_tb;
             send_byte(packet[7:0]);
 
             // --------------------------------------------------------
-            // VERY IMPORTANT
-            //
-            // Do not send packet N+1 until packet N has actually
-            // been accepted by systolic.
+            // Wait until packet is accepted
             // --------------------------------------------------------
 
             wait (dut.systolic_tx_one_done);
@@ -229,37 +372,46 @@ module chip_core_tb;
 
     // ============================================================
     // OUTPUT MONITOR
+    //
+    // Store the actual 4-bit output chunks.
     // ============================================================
 
-    integer output_count;
+    always @(posedge clk) begin
 
-always @(posedge clk) begin
+        // --------------------------------------------------------
+        // Capture only the first 128 output transfers.
+        // --------------------------------------------------------
 
-    // Only observe the first 128 real output transfers.
-    if (dut.systolic_tx_two_done &&
-        output_count < 128) begin
+        if (dut.systolic_tx_two_done &&
+            output_count < 128) begin
 
-        $display(
-            "%0t : TX_TWO_DONE | OUTPUT[%0d] = %h",
-            $time,
-            output_count,
-            bidir_out
-        );
+            output_chunks[output_count] = bidir_out;
 
-        output_count = output_count + 1;
+            $display(
+                "%0t : TX_TWO_DONE | OUTPUT[%0d] = %h",
+                $time,
+                output_count,
+                bidir_out
+            );
+
+            output_count = output_count + 1;
+
+        end
+
+        // --------------------------------------------------------
+        // Systolic done
+        // --------------------------------------------------------
+
+        if (dut.systolic_done) begin
+
+            $display(
+                "%0t : SYSTOLIC_DONE",
+                $time
+            );
+
+        end
 
     end
-
-    if (dut.systolic_done) begin
-
-        $display(
-            "%0t : SYSTOLIC_DONE",
-            $time
-        );
-
-    end
-
-end
 
     // ============================================================
     // MAIN TEST
@@ -267,8 +419,16 @@ end
 
     initial begin
 
+        // --------------------------------------------------------
+        // Waveform
+        // --------------------------------------------------------
+
         $dumpfile("build/chip_core_tb.vcd");
         $dumpvars(0, chip_core_tb);
+
+        // --------------------------------------------------------
+        // Initial values
+        // --------------------------------------------------------
 
         clk = 1'b0;
         rst_n = 1'b0;
@@ -276,6 +436,11 @@ end
         input_in = 8'h00;
 
         output_count = 0;
+
+        // Initialize output storage
+        for (integer k = 0; k < 128; k = k + 1) begin
+            output_chunks[k] = 4'b0000;
+        end
 
         // --------------------------------------------------------
         // RESET
@@ -300,6 +465,7 @@ end
         $display("==============================================");
 
         $display("");
+
         $display("Matrix A:");
         $display("[1 0 0 0]");
         $display("[0 1 0 0]");
@@ -307,6 +473,7 @@ end
         $display("[0 0 0 1]");
 
         $display("");
+
         $display("Matrix B:");
         $display("[1 0 0 0]");
         $display("[0 1 0 0]");
@@ -314,7 +481,8 @@ end
         $display("[0 0 0 1]");
 
         $display("");
-        $display("Expected:");
+
+        $display("Expected A x B:");
         $display("[1 0 0 0]");
         $display("[0 1 0 0]");
         $display("[0 0 1 0]");
@@ -394,10 +562,28 @@ end
         $display("==============================================");
         $display("");
 
-        // Give output datapath enough time to finish.
-        #10000;
+        // --------------------------------------------------------
+        // Wait until all 128 output transfers are captured.
+        //
+        // This is better than an arbitrary #10000 because we
+        // specifically wait for the complete 512-bit result.
+        // --------------------------------------------------------
 
-        $display("");
+        wait (output_count == 128);
+
+        // Small delay so final output chunk is settled
+        #1;
+
+        // --------------------------------------------------------
+        // Print resultant matrix
+        // --------------------------------------------------------
+
+        print_result_matrix;
+
+        // --------------------------------------------------------
+        // Final status
+        // --------------------------------------------------------
+
         $display("==============================================");
         $display(" TEST COMPLETED");
         $display(" Output transfers observed = %0d",
