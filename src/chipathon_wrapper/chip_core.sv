@@ -7,217 +7,295 @@ module chip_core #(
     parameter NUM_INPUT_PADS  = 8,
     parameter NUM_BIDIR_PADS  = 4,
     parameter NUM_ANALOG_PADS = 0
-    )(
-    `ifdef USE_POWER_PINS
-        inout  wire VDD,
-        inout  wire VSS,
-    `endif
+)(
+`ifdef USE_POWER_PINS
+    inout wire VDD,
+    inout wire VSS,
+`endif
 
-        input  wire clk,
-        input  wire rst_n,
+    input wire clk,
+    input wire rst_n,
 
-        
-        // Input pads
-        // 8 external input bits
-        
+    // ------------------------------------------------------------
+    // Input pads
+    // ------------------------------------------------------------
 
-        input  wire [NUM_INPUT_PADS-1:0] input_in,
+    input wire [NUM_INPUT_PADS-1:0] input_in,
 
-        output wire [NUM_INPUT_PADS-1:0] input_pu,
-        output wire [NUM_INPUT_PADS-1:0] input_pd,
+    output wire [NUM_INPUT_PADS-1:0] input_pu,
+    output wire [NUM_INPUT_PADS-1:0] input_pd,
 
-        
-        // Bidirectional pads
-        // 4 output bits from systolic
-        
+    // ------------------------------------------------------------
+    // Bidirectional pads
+    // ------------------------------------------------------------
 
-        input  wire [NUM_BIDIR_PADS-1:0] bidir_in,
+    input wire [NUM_BIDIR_PADS-1:0] bidir_in,
 
-        output wire [NUM_BIDIR_PADS-1:0] bidir_out,
-        output wire [NUM_BIDIR_PADS-1:0] bidir_oe,
-        output wire [NUM_BIDIR_PADS-1:0] bidir_cs,
-        output wire [NUM_BIDIR_PADS-1:0] bidir_sl,
-        output wire [NUM_BIDIR_PADS-1:0] bidir_ie,
-        output wire [NUM_BIDIR_PADS-1:0] bidir_pu,
-        output wire [NUM_BIDIR_PADS-1:0] bidir_pd,
+    output wire [NUM_BIDIR_PADS-1:0] bidir_out,
+    output wire [NUM_BIDIR_PADS-1:0] bidir_oe,
+    output wire [NUM_BIDIR_PADS-1:0] bidir_cs,
+    output wire [NUM_BIDIR_PADS-1:0] bidir_sl,
+    output wire [NUM_BIDIR_PADS-1:0] bidir_ie,
+    output wire [NUM_BIDIR_PADS-1:0] bidir_pu,
+    output wire [NUM_BIDIR_PADS-1:0] bidir_pd,
 
-        
-        // Analog pads
-        
+    // ------------------------------------------------------------
+    // Analog pads
+    // ------------------------------------------------------------
 
-        inout wire [NUM_ANALOG_PADS-1:0] analog
+    inout wire [NUM_ANALOG_PADS-1:0] analog
+);
+
+    // ============================================================
+    // INPUT PACKET BUFFER
+    //
+    // One packet = 16 bytes = 128 bits
+    //
+    // We collect bytes directly here instead of relying on the
+    // input_serializer handshake.
+    // ============================================================
+
+    reg [127:0] packet_buffer;
+
+    reg [4:0] byte_count;
+
+    reg packet_valid;
+    reg packet_active;
+
+    wire [7:0] input_byte;
+
+    assign input_byte = input_in;
+
+    // Four packets are required for a 4x4 matrix.
+    reg [2:0] packet_count;
+
+    // ============================================================
+    // SYSTOLIC INTERFACE
+    // ============================================================
+
+    wire [3:0] systolic_output;
+
+    wire systolic_done;
+    wire systolic_tx_one_done;
+    wire systolic_tx_two_done;
+
+    // ============================================================
+    // OUTPUT CONTROL
+    //
+    // Exactly 128 transfers:
+    //
+    // 512-bit result / 4-bit output = 128 transfers
+    // ============================================================
+
+    reg [7:0] output_count;
+
+    wire output_active;
+
+    assign output_active =
+        (output_count < 8'd128) &&
+        (systolic_tx_two_done);
+
+    // ============================================================
+    // SYSTOLIC
+    // ============================================================
+
+    systolic systolic_i (
+
+        .clk   (clk),
+        .reset (~rst_n),
+
+        .valid_in (packet_valid),
+        .data_in  (packet_buffer),
+
+        .src_valid (packet_valid),
+        .src_ready (1'b1),
+
+        .final_data_out   (systolic_output),
+        .done_matrix_mult (systolic_done),
+
+        .tx_one_done (systolic_tx_one_done),
+        .tx_two_done (systolic_tx_two_done)
+
     );
 
+    // ============================================================
+    // PACKET INPUT CONTROLLER
+    //
+    // The testbench drives one byte per clock.
+    //
+    // Byte 0  -> packet[127:120]
+    // Byte 1  -> packet[119:112]
+    // ...
+    // Byte 15 -> packet[7:0]
+    // ============================================================
 
-        
-        // INPUT SERIALIZER
-        //
-        // External input:
-        //
-        //     8 bits
-        //
-        // The serializer collects:
-        //
-        //     16 × 8-bit transfers
-        //
-        // and produces:
-        //
-        //     1 × 128-bit packet
-        //
-        // The 128-bit packet then goes to systolic.
-        
+    always @(posedge clk or negedge rst_n) begin
 
-        wire [127:0] serialized_data;
-        wire         serialized_valid;
-        wire         serialized_ready;
+        if (!rst_n) begin
 
+            packet_buffer <= 128'b0;
+            byte_count    <= 5'd0;
+            packet_valid  <= 1'b0;
+            packet_active <= 1'b1;
+            packet_count  <= 3'd0;
 
-        input_serializer #(
-            .INPUT_WIDTH  (8),
-            .OUTPUT_WIDTH (128)
-        ) input_serializer_i (
+        end
 
-            .clk       (clk),
-            .reset     (~rst_n),
+        else begin
 
-            .data_in   (input_in),
-            .valid_in  (1'b1),
-            .ready_in  (serialized_ready),
+            // ----------------------------------------------------
+            // packet_valid is a ONE-CYCLE pulse
+            // ----------------------------------------------------
 
-            .data_out  (serialized_data),
-            .valid_out (serialized_valid),
-            .ready_out (serialized_ready)
+            packet_valid <= 1'b0;
 
-        );
+            // ----------------------------------------------------
+            // Receive bytes
+            // ----------------------------------------------------
 
+            if (packet_active) begin
 
-        
-        // SYSTOLIC ACCELERATOR
-        //
-        // Input:
-        //
-        //     128-bit packet
-        //
-        // Output:
-        //
-        //     4-bit serialized result
-        //
-        // The systolic module already contains the input datapath and
-        // output datapath.
-        
+                packet_buffer[
+                    127 - (byte_count * 8) -: 8
+                ] <= input_byte;
 
-        wire [3:0] systolic_output;
+                // ------------------------------------------------
+                // 16th byte
+                // ------------------------------------------------
 
-        wire systolic_done;
-        wire systolic_tx_one_done;
-        wire systolic_tx_two_done;
+                if (byte_count == 5'd15) begin
 
+                    byte_count <= 5'd0;
 
-        systolic systolic_i (
+                    packet_valid <= 1'b1;
 
-            .clk              (clk),
-            .reset            (~rst_n),
+                    packet_count <= packet_count + 3'd1;
 
-            // Start/enable the input transaction when a complete
-            // 128-bit packet is available.
-            .valid_in         (serialized_valid),
+                    // Stop receiving until next packet
+                    packet_active <= 1'b0;
 
-            // Complete 128-bit packet from input_serializer.
-            .data_in          (serialized_data),
+                end
 
-            // Input datapath handshake.
-            .src_valid        (serialized_valid),
-            .src_ready        (1'b1),
+                else begin
 
-            // 4-bit output stream.
-            .final_data_out   (systolic_output),
+                    byte_count <= byte_count + 5'd1;
 
-            .done_matrix_mult (systolic_done),
-
-            .tx_one_done      (systolic_tx_one_done),
-            .tx_two_done      (systolic_tx_two_done)
-
-        );
-
-
-        
-        // INPUT SERIALIZER READY
-        //
-        // The serializer must keep its completed 128-bit packet until the
-        // systolic input datapath has accepted it.
-        //
-        // tx_one_done indicates that the systolic input transaction has
-        // completed.
-        
-
-        assign serialized_ready = systolic_tx_one_done;
-
-
-        
-        // INPUT PAD CONFIGURATION
-        
-
-        assign input_pu = '0;
-        assign input_pd = '0;
-
-
-        
-        // OUTPUT PADS
-        //
-        // Four bidirectional pads are used as the 4-bit output interface:
-        //
-        //     bidir_out[3:0] = systolic_output[3:0]
-        //
-        // All four are driven as outputs.
-        
-
-        assign bidir_out = systolic_output;
-
-        assign bidir_oe = 4'b1111;
-
-        assign bidir_cs = 4'b0000;
-        assign bidir_sl = 4'b0000;
-
-        // Output mode: input enable disabled.
-        assign bidir_ie = 4'b0000;
-
-        assign bidir_pu = 4'b0000;
-        assign bidir_pd = 4'b0000;
-
-
-        
-        // UNUSED BIDIR INPUT
-        //
-        // These pads are being used as outputs, so bidir_in is intentionally
-        // unused.
-        
-
-        wire _unused;
-
-        assign _unused = &{
-            1'b0,
-            bidir_in,
-            systolic_done,
-            systolic_tx_two_done
-        };
-
-
-        
-        // ANALOG PADS
-        //
-        // No analog functionality is used by this accelerator.
-        
-
-        generate
-
-            if (NUM_ANALOG_PADS > 0) begin : gen_unused_analog
-
-                assign analog = {NUM_ANALOG_PADS{1'bz}};
+                end
 
             end
 
-        endgenerate
+            // ----------------------------------------------------
+            // Wait for systolic to accept packet
+            // ----------------------------------------------------
 
+            else begin
+
+                if (systolic_tx_one_done) begin
+
+                    // Start next packet only if fewer than 4
+                    // packets have been sent.
+
+                    if (packet_count < 3'd4) begin
+
+                        packet_active <= 1'b1;
+
+                    end
+
+                end
+
+            end
+
+        end
+
+    end
+
+    // ============================================================
+    // OUTPUT COUNTER
+    //
+    // Count only the first 128 tx_two_done events.
+    // ============================================================
+
+    always @(posedge clk or negedge rst_n) begin
+
+        if (!rst_n) begin
+
+            output_count <= 8'd0;
+
+        end
+
+        else begin
+
+            if (systolic_done) begin
+
+                // Keep final count at 128.
+                output_count <= 8'd128;
+
+            end
+
+            else if (systolic_tx_two_done &&
+                     output_count < 8'd128) begin
+
+                output_count <= output_count + 8'd1;
+
+            end
+
+        end
+
+    end
+
+    // ============================================================
+    // OUTPUT PADS
+    //
+    // During the 128 output transfers, expose the systolic
+    // 4-bit result.
+    //
+    // Otherwise drive zero.
+    // ============================================================
+
+    assign bidir_out =
+        (output_count < 8'd128)
+            ? systolic_output
+            : 4'b0000;
+
+    assign bidir_oe = 4'b1111;
+
+    assign bidir_cs = 4'b0000;
+    assign bidir_sl = 4'b0000;
+    assign bidir_ie = 4'b0000;
+    assign bidir_pu = 4'b0000;
+    assign bidir_pd = 4'b0000;
+
+    // ============================================================
+    // INPUT PAD CONFIGURATION
+    // ============================================================
+
+    assign input_pu = {NUM_INPUT_PADS{1'b0}};
+    assign input_pd = {NUM_INPUT_PADS{1'b0}};
+
+    // ============================================================
+    // UNUSED INPUT
+    // ============================================================
+
+    wire _unused;
+
+    assign _unused = &{
+        1'b0,
+        bidir_in
+    };
+
+    // ============================================================
+    // ANALOG
+    // ============================================================
+
+    generate
+
+        if (NUM_ANALOG_PADS > 0) begin : gen_unused_analog
+
+            assign analog = {NUM_ANALOG_PADS{1'bz}};
+
+        end
+
+    endgenerate
 
 endmodule
 
