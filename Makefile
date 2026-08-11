@@ -7,12 +7,14 @@ CFLAGS = -m ./shortreals -g2012 -Wall
 
 RTL_DIR = src/rtl
 SIM_DIR = src/tb
+CHIPATHON_WRAPPER = src/chipathon_wrapper
 BUILD_DIR = build
 VPI_DIR = vpi
 
 TB ?= module_name_tb
 
-RTL_FILES = $(wildcard $(RTL_DIR)/*.v) $(wildcard $(RTL_DIR)/*.sv)
+RTL_FILES = $(wildcard $(RTL_DIR)/*.v) $(wildcard $(RTL_DIR)/*.sv) 
+WRAPPER_FILES = $(wildcard $(CHIPATHON_WRAPPER)/*.sv)
 SIM_FILE  = $(SIM_DIR)/$(TB).sv
 
 OBJECT_FILES = $(wildcard *.o)
@@ -29,7 +31,8 @@ all: compile
 compile:
 	mkdir -p $(BUILD_DIR)
 	$(CC_VPI) $(CVPI_FILES)
-	$(CC) $(CFLAGS) -o $(OUT) $(RTL_FILES) $(SIM_FILE)
+	$(CC) $(CFLAGS) -o $(OUT) $(RTL_FILES) $(SIM_FILE) $(if $(filter chip_core_tb,$(TB)),$(CHIPATHON_WRAPPER)/chip_core.sv)
+
 
 clean:
 	rm -rf $(BUILD_DIR)
