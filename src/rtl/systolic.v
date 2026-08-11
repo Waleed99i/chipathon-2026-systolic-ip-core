@@ -73,6 +73,25 @@ module systolic(
     reg res_internal;
     reg final_transfer;
 
+    // Output transfer counter
+    // 128 transfers required: 0 ... 127
+    reg [6:0] output_transfer_count;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            output_transfer_count <= 7'd0;
+        else if (state == IDLE)
+            output_transfer_count <= 7'd0;
+        else if (state == LOAD_OUT)
+            output_transfer_count <= 7'd0;
+        else if (state == TRANSFER && tx_two_done) begin
+            if (output_transfer_count < 7'd127)
+                output_transfer_count <= output_transfer_count + 1'b1;
+            else
+                output_transfer_count <= 7'd0;
+        end
+    end
+
     // ------------------------------------------------------------------------
     // Output signals from systolic array
     // ------------------------------------------------------------------------
@@ -99,7 +118,9 @@ module systolic(
     always @(posedge clk or posedge reset) begin
         if (reset)
             done_matrix_mult <= 1'b0;
-        else if (state == TRANSFER && tx_two_done && sh_count_done)
+        else if (state == TRANSFER &&
+                tx_two_done &&
+                output_transfer_count == 7'd127)
             done_matrix_mult <= 1'b1;
         else if (state == IDLE)
             done_matrix_mult <= 1'b0;
