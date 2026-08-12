@@ -6,7 +6,7 @@
 module chip_core #(
     parameter NUM_INPUT_PADS  = 8,
     parameter NUM_BIDIR_PADS  = 4,
-    parameter NUM_ANALOG_PADS = 0
+    parameter NUM_ANALOG_PADS = 1
 )(
 `ifdef USE_POWER_PINS
     inout wire VDD,

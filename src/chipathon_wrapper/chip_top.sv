@@ -25,7 +25,7 @@ module chip_top #(
 
     parameter NUM_INPUT_PADS  = 8,
     parameter NUM_BIDIR_PADS  = 4,
-    parameter NUM_ANALOG_PADS = 0
+    parameter NUM_ANALOG_PADS = 1
 
     )(
     `ifdef USE_POWER_PINS
