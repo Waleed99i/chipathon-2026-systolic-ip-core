@@ -82,29 +82,31 @@ Current demonstrations are based on a **4×4 systolic array**, while the RTL is 
 ---
 
 ## Data Flow
+```mermaid
+flowchart TD
 
-```
-             Input Matrix A
-                    │
-                    ▼
-            Input Datapath
-                    │
-                    ▼
-             Data Feeders
-                    │
-                    ▼
-      ┌─────────────────────────┐
-      │ Parameterized NxN       │
-      │     Systolic Array      │
-      │                         │
-      │    Processing Elements  │
-      └─────────────────────────┘
-                    │
-                    ▼
-            Output Datapath
-                    │
-                    ▼
-              Output Results
+    A[Input Matrix A] --> B[Input Datapath]
+    B --> C[Data Feeders]
+
+    C --> D
+
+    subgraph D["Parameterized NxN Systolic Array"]
+        direction TB
+        E[Processing Elements]
+    end
+
+    D --> F[Output Datapath]
+    F --> G[Output Results]
+
+    style A fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#fff
+    style B fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#fff
+    style C fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#fff
+    style D fill:#0f172a,stroke:#38bdf8,stroke-width:3px,color:#fff
+    style E fill:#334155,stroke:#94a3b8,stroke-width:2px,color:#fff
+    style F fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#fff
+    style G fill:#064e3b,stroke:#34d399,stroke-width:3px,color:#fff
+
+    linkStyle default stroke:#64748b,stroke-width:2px
 ```
 
 and will do integration afterwards with riscv core or ML framework
@@ -166,32 +168,49 @@ In Our Example N=4 since 4x4 systolic
 
 The development follows a structured hardware design methodology beginning from architecture definition and RTL implementation, progressing through verification and FPGA validation, and culminating in an ASIC RTL-to-GDSII flow targeting GF180MCU.
 
-```
-Architecture Design
-        │
-        ▼
-RTL Development
-        │
-        ▼
-Module Verification
-        │
-        ▼
-System Integration
-        │
-        ▼
-FPGA Validation
-        │
-        ▼
-RTL Synthesis
-        │
-        ▼
-Physical Design
-        │
-        ▼
-Signoff Verification
-        │
-        ▼
-GDSII Generation
+```mermaid
+flowchart LR
+
+    A[Architecture Design]
+    B[RTL Development]
+    C[Module Verification]
+    D[System Integration]
+    E[FPGA Validation]
+    F[RTL Synthesis]
+    G[Physical Design]
+    H[Signoff Verification]
+    I[GDSII Generation]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+
+    A:::s1
+    B:::s2
+    C:::s3
+    D:::s4
+    E:::s5
+    F:::s6
+    G:::s7
+    H:::s8
+    I:::s9
+
+    classDef s1 fill:#172554,stroke:#3b82f6,stroke-width:2px,color:#fff;
+    classDef s2 fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#fff;
+    classDef s3 fill:#312e81,stroke:#818cf8,stroke-width:2px,color:#fff;
+    classDef s4 fill:#4c1d95,stroke:#a78bfa,stroke-width:2px,color:#fff;
+    classDef s5 fill:#581c87,stroke:#c084fc,stroke-width:2px,color:#fff;
+    classDef s6 fill:#701a75,stroke:#e879f9,stroke-width:2px,color:#fff;
+    classDef s7 fill:#831843,stroke:#f472b6,stroke-width:2px,color:#fff;
+    classDef s8 fill:#9f1239,stroke:#fb7185,stroke-width:2px,color:#fff;
+    classDef s9 fill:#064e3b,stroke:#34d399,stroke-width:3px,color:#fff;
+
+    linkStyle default stroke:#94a3b8,stroke-width:2px;
 ```
 
 ---
@@ -310,6 +329,8 @@ Estimated maximum operating frequency based on the 30ns run's timing margin: **~
 [Schematic Review Presentation Video Link](https://youtu.be/ZGd18GQEK7I?si=cJApcDfwtI_DK_bS)
 
 [Layout Review slide Link](https://docs.google.com/presentation/d/1ikT-gyHuk3Rm3eCD9rJ-7HMOGe7eNcvOWRMagcxCcSo/edit?usp=sharing)
+
+[Layout Review Presentation Video Link](https://drive.google.com/file/d/1sBQsk-xMmFBTl1YXC0w8MSAxI7oVKdcV/view?usp=drive_link)
 
 ---
 
