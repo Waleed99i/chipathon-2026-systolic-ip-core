@@ -306,7 +306,7 @@ Estimated maximum operating frequency based on the 30ns run's timing margin: **~
 
 [Schematic Review Presentation Video Link](https://youtu.be/ZGd18GQEK7I?si=cJApcDfwtI_DK_bS)
 
-Layout Review slide Link: TBA
+[Layout Review slide Link](https://docs.google.com/presentation/d/1ikT-gyHuk3Rm3eCD9rJ-7HMOGe7eNcvOWRMagcxCcSo/edit?usp=sharing)
 
 ---
 
