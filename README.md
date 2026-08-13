@@ -36,7 +36,7 @@ The current design uses **FP16 inputs**, performs approximate floating-point mul
 | Input Precision | FP16 (IEEE-754 Half Precision) |
 | Multiplier Output | FP16 (Approximate Logarithmic Multiplier) |
 | Accumulator Precision | Q16.16 (32-bit Fixed Point) |
-| Interface | Ready-Valid Protocol + SPI |
+| Interface | Ready-Valid Protocol |
 | FPGA Platform | Xilinx Nexys A7 |
 | ASIC Block | Block B |
 | Estimated Area | 1117 μm × 558 μm |
@@ -156,9 +156,9 @@ In Our Example N=4 since 4x4 systolic
 
 ---
 
-# Integration Scenario
+# Interfacing
 
-![integration](docs/Implementation/Integration.png)
+![integration](docs/Implementation/interfacing.png)
 
 ---
 
@@ -217,7 +217,10 @@ A detailed project tracker is available here:
 
 [Progress Tracker](https://docs.google.com/spreadsheets/d/1-T_ZC2E8IlozA7BDgOPqUjp5dZac3WXzmJ67Tr54c2c/edit?usp=sharing)
 
+---
+# Chip_core - Overall RTL Breakdown
 
+![chip_core](docs/chip_core.png)
 
 ---
 
