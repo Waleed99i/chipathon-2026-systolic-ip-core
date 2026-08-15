@@ -325,38 +325,56 @@ module systolic(
             state <= next_state;
 
     end
-
+    
     // ========================================================================
-    // BALANCED PIPELINED DONE REDUCTION
+    // BALANCED COMBINATIONAL DONE REDUCTION
     // ========================================================================
     //
-    // PE done signals
-    //       |
-    //       +---- 4-input AND ----> done_group_0 --+
-    //       |
-    //       +---- 4-input AND ----> done_group_1 --+
-    //       |
-    //       +---- 4-input AND ----> done_group_2 --+--> 4-input AND --> done_flag
-    //       |                                      |
-    //       +---- 4-input AND ----> done_group_3 --+
-    //                                              |
-    //                                           REGISTER
+    //          PE DONE SIGNALS
+    //
+    //   [0][0] [0][1] [0][2] [0][3]
+    //       \     |     |     /
+    //          AND-4
+    //             |
+    //        done_group_0
+    //
+    //   [1][0] [1][1] [1][2] [1][3]
+    //       \     |     |     /
+    //          AND-4
+    //             |
+    //        done_group_1
+    //
+    //   [2][0] [2][1] [2][2] [2][3]
+    //       \     |     |     /
+    //          AND-4
+    //             |
+    //        done_group_2
+    //
+    //   [3][0] [3][1] [3][2] [3][3]
+    //       \     |     |     /
+    //          AND-4
+    //             |
+    //        done_group_3
+    //
+    //             |
+    //             v
+    //          AND-4
+    //             |
+    //             v
+    //         done_flag
     //
     // IMPORTANT:
+    // No registers are used in this reduction tree.
     //
-    // done_group_* are COMBINATIONAL.
-    // Only done_flag is registered.
+    // Therefore the entire reduction happens combinationally,
+    // but the logic depth is only:
     //
-    // Therefore:
+    //       4-input AND -> 4-input AND
     //
-    // Cycle N:
-    //     done_group_0..3 = 1
+    // instead of:
     //
-    // Cycle N+1:
-    //     done_flag = 1
+    //       16-input AND
     //
-    // This avoids the extra registered stage that was making
-    // PROCESSING take 4 cycles.
     // ========================================================================
 
     wire done_group_0;
@@ -364,11 +382,11 @@ module systolic(
     wire done_group_2;
     wire done_group_3;
 
-    reg done_flag;
+    wire done_flag;
 
 
     // ------------------------------------------------------------------------
-    // Stage 1: combinational 4-way reductions
+    // Level 1: Four 4-input reductions
     // ------------------------------------------------------------------------
 
     assign done_group_0 =
@@ -397,28 +415,14 @@ module systolic(
 
 
     // ------------------------------------------------------------------------
-    // Stage 2: registered final reduction
+    // Level 2: Final reduction
     // ------------------------------------------------------------------------
 
-    always @(posedge clk or posedge reset) begin
-
-        if (reset) begin
-
-            done_flag <= 1'b0;
-
-        end
-
-        else begin
-
-            done_flag <=
-                done_group_0 &&
-                done_group_1 &&
-                done_group_2 &&
-                done_group_3;
-
-        end
-
-    end
+    assign done_flag =
+            done_group_0 &&
+            done_group_1 &&
+            done_group_2 &&
+            done_group_3;
 
     // ------------------------------------------------------------------------
     // Combinational next-state logic
