@@ -327,103 +327,88 @@ module systolic(
     end
 
     // ========================================================================
-    // PIPELINED DONE REDUCTION
+    // BALANCED PIPELINED DONE REDUCTION
     // ========================================================================
     //
-    // Original:
+    // PE done signals
+    //       |
+    //       +---- 4-input AND ----> done_group_0 --+
+    //       |
+    //       +---- 4-input AND ----> done_group_1 --+
+    //       |
+    //       +---- 4-input AND ----> done_group_2 --+--> 4-input AND --> done_flag
+    //       |                                      |
+    //       +---- 4-input AND ----> done_group_3 --+
+    //                                              |
+    //                                           REGISTER
     //
-    //     done[0][0] & done[0][1] & ... & done[3][3]
+    // IMPORTANT:
     //
-    // This creates a large 16-input reduction path.
+    // done_group_* are COMBINATIONAL.
+    // Only done_flag is registered.
     //
-    // New structure:
+    // Therefore:
     //
-    //                 4-input AND
-    //       PE done -----------------> done_group_0
+    // Cycle N:
+    //     done_group_0..3 = 1
     //
-    //                 4-input AND
-    //       PE done -----------------> done_group_1
+    // Cycle N+1:
+    //     done_flag = 1
     //
-    //                 4-input AND
-    //       PE done -----------------> done_group_2
-    //
-    //                 4-input AND
-    //       PE done -----------------> done_group_3
-    //
-    //                         |
-    //                         v
-    //                  4-input AND
-    //                         |
-    //                         v
-    //                    done_flag
-    //
-    // Two register stages are used to break the timing path.
-    //
-    // Stage 1:
-    //     16 PE done signals
-    //          -> 4 groups
-    //          -> registers
-    //
-    // Stage 2:
-    //     4 registered groups
-    //          -> final AND
-    //          -> register
-    //
+    // This avoids the extra registered stage that was making
+    // PROCESSING take 4 cycles.
     // ========================================================================
 
-    reg done_group_0;
-    reg done_group_1;
-    reg done_group_2;
-    reg done_group_3;
+    wire done_group_0;
+    wire done_group_1;
+    wire done_group_2;
+    wire done_group_3;
 
     reg done_flag;
+
+
+    // ------------------------------------------------------------------------
+    // Stage 1: combinational 4-way reductions
+    // ------------------------------------------------------------------------
+
+    assign done_group_0 =
+            done[0][0] &&
+            done[0][1] &&
+            done[0][2] &&
+            done[0][3];
+
+    assign done_group_1 =
+            done[1][0] &&
+            done[1][1] &&
+            done[1][2] &&
+            done[1][3];
+
+    assign done_group_2 =
+            done[2][0] &&
+            done[2][1] &&
+            done[2][2] &&
+            done[2][3];
+
+    assign done_group_3 =
+            done[3][0] &&
+            done[3][1] &&
+            done[3][2] &&
+            done[3][3];
+
+
+    // ------------------------------------------------------------------------
+    // Stage 2: registered final reduction
+    // ------------------------------------------------------------------------
 
     always @(posedge clk or posedge reset) begin
 
         if (reset) begin
-
-            done_group_0 <= 1'b0;
-            done_group_1 <= 1'b0;
-            done_group_2 <= 1'b0;
-            done_group_3 <= 1'b0;
 
             done_flag <= 1'b0;
 
         end
 
         else begin
-
-            // ------------------------------------------------------------
-            // Stage 1
-            // ------------------------------------------------------------
-
-            done_group_0 <=
-                done[0][0] &&
-                done[0][1] &&
-                done[0][2] &&
-                done[0][3];
-
-            done_group_1 <=
-                done[1][0] &&
-                done[1][1] &&
-                done[1][2] &&
-                done[1][3];
-
-            done_group_2 <=
-                done[2][0] &&
-                done[2][1] &&
-                done[2][2] &&
-                done[2][3];
-
-            done_group_3 <=
-                done[3][0] &&
-                done[3][1] &&
-                done[3][2] &&
-                done[3][3];
-
-            // ------------------------------------------------------------
-            // Stage 2
-            // ------------------------------------------------------------
 
             done_flag <=
                 done_group_0 &&
