@@ -85,7 +85,7 @@ Current demonstrations are based on a **4×4 systolic array**, while the RTL is 
 ```mermaid
 flowchart TD
 
-    A[Input Matrix A] --> B[Input Datapath]
+    A[Input Matrices A and B] --> B[Input Datapath]
     B --> C[Data Feeders]
 
     C --> D
@@ -96,7 +96,7 @@ flowchart TD
     end
 
     D --> F[Output Datapath]
-    F --> G[Output Results]
+    F --> G[Output Matrix]
 
     style A fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#fff
     style B fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#fff
