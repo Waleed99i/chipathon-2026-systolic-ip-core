@@ -219,12 +219,12 @@ flowchart LR
 
 The project follows a structured four-phase implementation strategy, progressing from RTL development to ASIC implementation.
 
-| Phase | Objectives |  | Status |
-|--------|------------|------|--------|
-| **Phase 1** | Approximate MAC, Processing Element (PE), Parameterized Systolic Array RTL, Functional Verification | | In Progress |
-| **Phase 2** | Input/Output Datapaths, Data Feeders, Ready-Valid Interface, System Integration | | In Progress |
-| **Phase 3** | FPGA Synthesis & Validation, Performance Optimization | | Pending |
-| **Phase 4** | RTL Synthesis, Physical Design, Signoff Verification, RTL-to-GDSII | | Pending |
+| Phase | Objectives |   Status |
+|--------|------------|--------------|
+| **Phase 1** | Approximate MAC, Processing Element (PE), Parameterized Systolic Array RTL, Functional Verification | Completed |
+| **Phase 2** | Input/Output Datapaths, Data Feeders, Ready-Valid Interface, System Integration | Completed |
+| **Phase 3** | FPGA Synthesis & Validation, Performance Optimization | In Progress |
+| **Phase 4** | RTL Synthesis, Physical Design, Signoff Verification, RTL-to-GDSII | In Progress |
 
 ---
 
