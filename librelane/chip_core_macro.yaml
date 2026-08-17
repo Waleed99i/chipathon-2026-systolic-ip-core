@@ -1,0 +1,47 @@
+# Standalone hardening config for the chip_core block (systolic accelerator + I/O logic).
+# Runs the LibreLane Classic flow — no padring, no top-level chip integration.
+# Follows the same pattern as the official chipathon example (counter_macro.yaml / alu_macro.yaml).
+meta:
+  version: 3
+  flow: Classic
+DESIGN_NAME: chip_core
+VERILOG_FILES:
+- dir::../src/chipathon_wrapper/chip_core.sv
+- dir::../src/rtl/reg_def.v
+- dir::../src/rtl/counter.v
+- dir::../src/rtl/controlled_counter.v
+- dir::../src/rtl/fp16_multiplier_exception.v
+- dir::../src/rtl/fp16_multiplier_exponent.v
+- dir::../src/rtl/fp16_approximate_multiplier.v
+- dir::../src/rtl/fp16_to_fp32.v
+- dir::../src/rtl/fp32_to_fp16.v
+- dir::../src/rtl/fp16_to_q8_8.v
+- dir::../src/rtl/fp16_to_q16_16_approximate_mac.v
+- dir::../src/rtl/q16_16_to_fp16.v
+- dir::../src/rtl/q16_16_to_fp32.v
+- dir::../src/rtl/pe.v
+- dir::../src/rtl/data_feeder.v
+- dir::../src/rtl/input_datapath.v
+- dir::../src/rtl/output_datapath.v
+- dir::../src/rtl/rv_protocol.v
+- dir::../src/rtl/systolic.v
+CLOCK_PORT: clk
+CLOCK_NET: clk
+CLOCK_PERIOD: 45   # ns — FINAL selected config
+CTS_SINK_CLUSTERING_ENABLE: true
+CTS_SINK_CLUSTERING_SIZE: 8
+CTS_DISTANCE_BETWEEN_BUFFERS: 225
+PNR_SDC_FILE: dir::chip_core.sdc
+SIGNOFF_SDC_FILE: dir::chip_core.sdc
+DESIGN_REPAIR_MAX_SLEW_PCT: 30
+DESIGN_REPAIR_MAX_CAP_PCT: 30
+DRT_ANTENNA_REPAIR_ITERS: 10
+DRT_ANTENNA_REPAIR_MARGIN: 10   # %
+RUN_POST_GRT_RESIZER_TIMING: true
+RUN_POST_GRT_DESIGN_REPAIR: true
+GRT_DESIGN_REPAIR_MAX_SLEW_PCT: 30
+GRT_DESIGN_REPAIR_MAX_CAP_PCT: 30
+FP_SIZING: relative
+FP_CORE_UTIL: 30
+PL_TARGET_DENSITY_PCT: 55
+GRT_ALLOW_CONGESTION: true
