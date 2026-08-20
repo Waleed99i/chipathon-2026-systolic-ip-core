@@ -292,18 +292,40 @@ The planned backend flow includes:
 
 Full RTL-to-GDSII flow completed using OpenLane 2 / LibreLane on the **GF180MCU** 180nm process.
 
-## Frequency Sweep
+## Final Signoff: chip_core
+
+| Metric | Result |
+|---|---|
+| Clock period | 45ns (22.22 MHz) |
+| Setup timing |  0 violations, all 9 PVT corners — worst-corner margin **+0.23ns** |
+| Hold timing |  0 violations, all corners — minimum margin +0.07ns |
+| DRC |  Pass (0 errors — Magic + KLayout) |
+| LVS |  Pass (0 device/net/pin mismatches) |
+| Antenna |  Pass (0 violations) |
+| Max slew violations | 28 (reduced from 389, 93% reduction) |
+| Max fanout violations | 0 (reduced from 223, fully eliminated) |
+| Max capacitance violations | 1 (single cell, 0.208pF vs 0.200pF limit; reduced from 5) |
+| Standard-cell instance area | 1.96 mm² |
+| Estimated power* | 122.5 mW |
+| Utilization | 41.0% |
+
+*OpenLane estimate; dependent on assumed switching activity.
+
+Every remaining electrical item was root-caused before being addressed. No RTL changes were required beyond the pipelined completion-logic architecture (`pipelined-done-v1`)
+
+## Early Flow Validation (Workshop/Padring Baseline)
+
+Before integrating the real accelerator, the LibreLane/GF180MCU toolchain was validated end-to-end on a placeholder design:
 
 | Clock Period | Frequency | DRC | LVS | Setup Slack (worst corner) |
 |---|---|---|---|---|
-| 40ns | 25 MHz | ✅ Pass | ✅ Pass | — |
-| 30ns | 33 MHz | ✅ Pass | ✅ Pass | +13.99ns |
+| 40ns | 25 MHz |  Pass |  Pass | — |
+| 30ns | 33 MHz |  Pass |  Pass | +13.99ns |
 
-Estimated maximum operating frequency based on the 30ns run's timing margin: **~62 MHz**.
+These results validate the tool/PDK flow only; they are not timing results for the integrated accelerator (see Final Signoff above).
 
-## Dry-Run Submission
-
-`info.yaml` and `lvs_config.json` have been added to the repo root per the chipathon dry-run submission requirements. GDS output (30ns, DRC/LVS clean) is included at `gds/chip_top.gds`.
+## Submission
+`info.yaml` and `lvs_config.json` reference the final `chip_core` design. GDS output (45ns, fully timing-closed, DRC/LVS/Antenna clean) is included at `gds/chip_core.gds`.
 
 ---
 
