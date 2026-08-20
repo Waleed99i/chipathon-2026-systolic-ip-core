@@ -6,6 +6,9 @@ project:
   lvs_config: "lvs_config.json"
 
 pins:
+  - name: VSS
+    io_type: ground
+
   - name: VDD
     io_type: power
 
