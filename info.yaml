@@ -4,3 +4,49 @@ project:
   discord: ""
   description: "16-bit fixed-point systolic array accelerator on GF180MCU 180nm"
   lvs_config: "lvs_config.json"
+
+pins:
+  - name: VDD
+    io_type: power
+
+  - name: rst_n
+    io_type: input_schmitt
+
+  - name: clk
+    io_type: input_cmos
+
+  - name: input_in_0
+    io_type: input_cmos
+
+  - name: input_in_1
+    io_type: input_cmos
+
+  - name: input_in_2
+    io_type: input_cmos
+
+  - name: input_in_3
+    io_type: input_cmos
+
+  - name: input_in_4
+    io_type: input_cmos
+
+  - name: input_in_5
+    io_type: input_cmos
+
+  - name: input_in_6
+    io_type: input_cmos
+
+  - name: input_in_7
+    io_type: input_cmos
+
+  - name: output_out_0
+    io_type: bidirectional
+
+  - name: output_out_1
+    io_type: bidirectional
+
+  - name: output_out_2
+    io_type: bidirectional
+
+  - name: output_out_3
+    io_type: bidirectional

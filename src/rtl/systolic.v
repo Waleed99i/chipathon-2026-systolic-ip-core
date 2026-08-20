@@ -5,13 +5,11 @@ module systolic(
     input reset,
 
     input valid_in,
-    input [127:0] data_in,       // Input datapath: 128-bit A/B packet
+    input [127:0] data_in,
 
     input src_valid,
     input src_ready,
 
-    // Output datapath:
-    // 512-bit systolic result is transferred as 128 x 4-bit chunks
     output [3:0] final_data_out,
 
     output reg done_matrix_mult,
@@ -73,30 +71,38 @@ module systolic(
     reg res_internal;
     reg final_transfer;
 
+    // ------------------------------------------------------------------------
     // Output transfer counter
-    // 128 transfers required: 0 ... 127
+    // ------------------------------------------------------------------------
+
     reg [6:0] output_transfer_count;
 
     always @(posedge clk or posedge reset) begin
+
         if (reset)
             output_transfer_count <= 7'd0;
+
         else if (state == IDLE)
             output_transfer_count <= 7'd0;
+
         else if (state == LOAD_OUT)
             output_transfer_count <= 7'd0;
+
         else if (state == TRANSFER && tx_two_done) begin
+
             if (output_transfer_count < 7'd127)
                 output_transfer_count <= output_transfer_count + 1'b1;
             else
                 output_transfer_count <= 7'd0;
+
         end
+
     end
 
     // ------------------------------------------------------------------------
     // Output signals from systolic array
     // ------------------------------------------------------------------------
 
-    // 16 PEs × 32-bit result = 512 bits
     wire signed [31:0] y_o [0:3][0:3];
     wire [511:0] y;
 
@@ -105,34 +111,55 @@ module systolic(
     // ------------------------------------------------------------------------
 
     always @(posedge clk or posedge reset) begin
+
         if (reset)
             final_transfer <= 1'b0;
+
         else begin
-            if (state == TRANSFER && tx_two_done && sh_count_done)
+
+            if (state == TRANSFER &&
+                tx_two_done &&
+                sh_count_done)
+
                 final_transfer <= 1'b1;
+
             else if (state == IDLE)
                 final_transfer <= 1'b0;
+
         end
+
     end
 
     always @(posedge clk or posedge reset) begin
+
         if (reset)
             done_matrix_mult <= 1'b0;
+
         else if (state == TRANSFER &&
-                tx_two_done &&
-                output_transfer_count == 7'd127)
+                 tx_two_done &&
+                 output_transfer_count == 7'd127)
+
             done_matrix_mult <= 1'b1;
+
         else if (state == IDLE)
             done_matrix_mult <= 1'b0;
+
     end
 
     always @(posedge clk or posedge reset) begin
+
         if (reset)
             res_internal <= 1'b0;
-        else if (state == TRANSFER && tx_two_done && sh_count_done)
+
+        else if (state == TRANSFER &&
+                 tx_two_done &&
+                 sh_count_done)
+
             res_internal <= 1'b1;
+
         else
             res_internal <= 1'b0;
+
     end
 
     // ------------------------------------------------------------------------
@@ -253,8 +280,6 @@ module systolic(
 
     // ------------------------------------------------------------------------
     // Collect 16 PE outputs
-    //
-    // 16 × 32 bits = 512 bits
     // ------------------------------------------------------------------------
 
     assign y = {
@@ -266,14 +291,6 @@ module systolic(
 
     // ------------------------------------------------------------------------
     // Output datapath
-    //
-    // 512-bit result
-    //       ↓
-    // 128 × 4-bit transfers
-    //       ↓
-    // final_data_out[3:0]
-    //
-    // MSB-first serialization is handled by output_datapath/data_feeder.
     // ------------------------------------------------------------------------
 
     output_datapath output_dp(
@@ -301,10 +318,120 @@ module systolic(
 
     always @(posedge clk or posedge reset) begin
 
-        if(reset)
+        if (reset)
             state <= IDLE;
+
         else
             state <= next_state;
+
+    end
+
+    // ========================================================================
+    // PIPELINED DONE REDUCTION
+    // ========================================================================
+    //
+    // Original:
+    //
+    //     done[0][0] & done[0][1] & ... & done[3][3]
+    //
+    // This creates a large 16-input reduction path.
+    //
+    // New structure:
+    //
+    //                 4-input AND
+    //       PE done -----------------> done_group_0
+    //
+    //                 4-input AND
+    //       PE done -----------------> done_group_1
+    //
+    //                 4-input AND
+    //       PE done -----------------> done_group_2
+    //
+    //                 4-input AND
+    //       PE done -----------------> done_group_3
+    //
+    //                         |
+    //                         v
+    //                  4-input AND
+    //                         |
+    //                         v
+    //                    done_flag
+    //
+    // Two register stages are used to break the timing path.
+    //
+    // Stage 1:
+    //     16 PE done signals
+    //          -> 4 groups
+    //          -> registers
+    //
+    // Stage 2:
+    //     4 registered groups
+    //          -> final AND
+    //          -> register
+    //
+    // ========================================================================
+
+    reg done_group_0;
+    reg done_group_1;
+    reg done_group_2;
+    reg done_group_3;
+
+    reg done_flag;
+
+    always @(posedge clk or posedge reset) begin
+
+        if (reset) begin
+
+            done_group_0 <= 1'b0;
+            done_group_1 <= 1'b0;
+            done_group_2 <= 1'b0;
+            done_group_3 <= 1'b0;
+
+            done_flag <= 1'b0;
+
+        end
+
+        else begin
+
+            // ------------------------------------------------------------
+            // Stage 1
+            // ------------------------------------------------------------
+
+            done_group_0 <=
+                done[0][0] &&
+                done[0][1] &&
+                done[0][2] &&
+                done[0][3];
+
+            done_group_1 <=
+                done[1][0] &&
+                done[1][1] &&
+                done[1][2] &&
+                done[1][3];
+
+            done_group_2 <=
+                done[2][0] &&
+                done[2][1] &&
+                done[2][2] &&
+                done[2][3];
+
+            done_group_3 <=
+                done[3][0] &&
+                done[3][1] &&
+                done[3][2] &&
+                done[3][3];
+
+            // ------------------------------------------------------------
+            // Stage 2
+            // ------------------------------------------------------------
+
+            done_flag <=
+                done_group_0 &&
+                done_group_1 &&
+                done_group_2 &&
+                done_group_3;
+
+        end
 
     end
 
@@ -313,7 +440,6 @@ module systolic(
     // ------------------------------------------------------------------------
 
     reg valid_out_flag;
-    reg done_flag;
 
     integer x;
     integer z;
@@ -358,20 +484,6 @@ module systolic(
                 valid_out[3][2] && valid_out[3][3];
 
         // --------------------------------------------------------------------
-        // Check whether all PEs are done
-        // --------------------------------------------------------------------
-
-        done_flag =
-                done[0][0] && done[0][1] &&
-                done[0][2] && done[0][3] &&
-                done[1][0] && done[1][1] &&
-                done[1][2] && done[1][3] &&
-                done[2][0] && done[2][1] &&
-                done[2][2] && done[2][3] &&
-                done[3][0] && done[3][1] &&
-                done[3][2] && done[3][3];
-
-        // --------------------------------------------------------------------
         // FSM
         // --------------------------------------------------------------------
 
@@ -385,6 +497,7 @@ module systolic(
                     dest_ready = 1'b1;
 
                 end
+
                 else begin
 
                     next_state = IDLE;
@@ -400,11 +513,13 @@ module systolic(
                     next_state = LOAD_FEED;
 
                 end
+
                 else if(tx_one_done) begin
 
                     next_state = IN_COUNT;
 
                 end
+
                 else begin
 
                     dest_ready = 1'b1;
@@ -418,6 +533,7 @@ module systolic(
 
                 if(load_in_done)
                     next_state = LOAD_FEED;
+
                 else
                     next_state = LOAD_IN;
 
@@ -451,6 +567,7 @@ module systolic(
                     next_state = DONE;
 
                 end
+
                 else begin
 
                     for(x = 0; x < 4; x = x + 1)
@@ -463,24 +580,23 @@ module systolic(
 
             end
 
-            PROCESSING: begin
+          PROCESSING: begin
 
-                if((~valid_out_flag) && done_flag) begin
+                if (valid_out_flag) begin
+                    next_state = DONE;
+                end
+                else if (done_flag) begin
 
                     for(x = 0; x < 4; x = x + 1) begin
-
                         sh_fr[x] = 1'b1;
                         sh_fc[x] = 1'b1;
-
                     end
 
                     next_state = FEED;
 
                 end
                 else begin
-
                     next_state = PROCESSING;
-
                 end
 
             end
@@ -508,21 +624,21 @@ module systolic(
 
                     if(sh_count_done) begin
 
-                        // All 128 × 4-bit chunks transferred.
                         next_col   = 1'b1;
                         next_row   = 1'b1;
                         next_state = IDLE;
 
                     end
+
                     else begin
 
-                        // Move to the next 4-bit chunk.
                         shift      = 1'b1;
                         next_state = TRANSFER;
 
                     end
 
                 end
+
                 else begin
 
                     next_state = TRANSFER;
