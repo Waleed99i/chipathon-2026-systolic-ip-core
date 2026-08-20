@@ -297,9 +297,9 @@ Full RTL-to-GDSII flow completed using OpenLane 2 / LibreLane on the **GF180MCU*
 | Metric | Result |
 |---|---|
 | Clock period | 45ns (22.22 MHz) |
-| Setup timing |  0 violations, all 9 PVT corners — worst-corner margin **+0.23ns** |
-| Hold timing |  0 violations, all corners — minimum margin +0.07ns |
-| DRC |  Pass (0 errors — Magic + KLayout) |
+| Setup timing |  0 violations, all 9 PVT corners; worst-corner margin **+0.23ns** |
+| Hold timing |  0 violations, all corners; minimum margin +0.07ns |
+| DRC |  Pass (0 errors, Magic + KLayout) |
 | LVS |  Pass (0 device/net/pin mismatches) |
 | Antenna |  Pass (0 violations) |
 | Max slew violations | 28 (reduced from 389, 93% reduction) |
