@@ -1,0 +1,235 @@
+VERSION 5.8 ;
+DIVIDERCHAR "/" ;
+BUSBITCHARS "[]" ;
+DESIGN A34_ACE ;
+UNITS DISTANCE MICRONS 2000 ;
+DIEAREA ( 0 0 ) ( 3350000 3350000 ) ;
+PINS 72 ;
+- VSS + NET VSS + DIRECTION INOUT + USE GROUND
+  + LAYER Metal2 ( 0 268280 ) ( 2000 287280 )
+  + LAYER Metal2 ( 0 241980 ) ( 2000 262480 )
+  + LAYER Metal2 ( 0 218280 ) ( 2000 238780 )
+  + LAYER Metal2 ( 0 191220 ) ( 2000 211720 )
+  + LAYER Metal2 ( 0 167520 ) ( 2000 188020 )
+  + LAYER Metal2 ( 0 142720 ) ( 2000 161720 )
+  + FIXED ( 0 0 ) N ;
+- VDD + NET VDD + DIRECTION INOUT + USE POWER
+  + LAYER Metal2 ( 0 468280 ) ( 2000 487280 )
+  + LAYER Metal2 ( 0 441980 ) ( 2000 462480 )
+  + LAYER Metal2 ( 0 418280 ) ( 2000 438780 )
+  + LAYER Metal2 ( 0 391220 ) ( 2000 411720 )
+  + LAYER Metal2 ( 0 367520 ) ( 2000 388020 )
+  + LAYER Metal2 ( 0 342720 ) ( 2000 361720 )
+  + FIXED ( 0 0 ) N ;
+- rst_n_PU + NET rst_n_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 677310 ) ( 2000 678070 )
+  + FIXED ( 0 0 ) N ;
+- rst_n_PD + NET rst_n_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 668580 ) ( 2000 669340 )
+  + FIXED ( 0 0 ) N ;
+- rst_n + NET rst_n + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 547520 ) ( 2000 548280 )
+  + FIXED ( 0 0 ) N ;
+- clk_PU + NET clk_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 877310 ) ( 2000 878070 )
+  + FIXED ( 0 0 ) N ;
+- clk_PD + NET clk_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 868580 ) ( 2000 869340 )
+  + FIXED ( 0 0 ) N ;
+- clk + NET clk + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 747520 ) ( 2000 748280 )
+  + FIXED ( 0 0 ) N ;
+- input_in_0_PU + NET input_in_0_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1077310 ) ( 2000 1078070 )
+  + FIXED ( 0 0 ) N ;
+- input_in_0_PD + NET input_in_0_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1068580 ) ( 2000 1069340 )
+  + FIXED ( 0 0 ) N ;
+- input_in_0 + NET input_in_0 + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 947520 ) ( 2000 948280 )
+  + FIXED ( 0 0 ) N ;
+- input_in_1_PU + NET input_in_1_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1277310 ) ( 2000 1278070 )
+  + FIXED ( 0 0 ) N ;
+- input_in_1_PD + NET input_in_1_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1268580 ) ( 2000 1269340 )
+  + FIXED ( 0 0 ) N ;
+- input_in_1 + NET input_in_1 + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1147520 ) ( 2000 1148280 )
+  + FIXED ( 0 0 ) N ;
+- input_in_2_PU + NET input_in_2_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1477310 ) ( 2000 1478070 )
+  + FIXED ( 0 0 ) N ;
+- input_in_2_PD + NET input_in_2_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1468580 ) ( 2000 1469340 )
+  + FIXED ( 0 0 ) N ;
+- input_in_2 + NET input_in_2 + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1347520 ) ( 2000 1348280 )
+  + FIXED ( 0 0 ) N ;
+- input_in_3_PU + NET input_in_3_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1677310 ) ( 2000 1678070 )
+  + FIXED ( 0 0 ) N ;
+- input_in_3_PD + NET input_in_3_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1668580 ) ( 2000 1669340 )
+  + FIXED ( 0 0 ) N ;
+- input_in_3 + NET input_in_3 + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1547520 ) ( 2000 1548280 )
+  + FIXED ( 0 0 ) N ;
+- input_in_4_PU + NET input_in_4_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1877310 ) ( 2000 1878070 )
+  + FIXED ( 0 0 ) N ;
+- input_in_4_PD + NET input_in_4_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1868580 ) ( 2000 1869340 )
+  + FIXED ( 0 0 ) N ;
+- input_in_4 + NET input_in_4 + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1747520 ) ( 2000 1748280 )
+  + FIXED ( 0 0 ) N ;
+- input_in_5_PU + NET input_in_5_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2077310 ) ( 2000 2078070 )
+  + FIXED ( 0 0 ) N ;
+- input_in_5_PD + NET input_in_5_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2068580 ) ( 2000 2069340 )
+  + FIXED ( 0 0 ) N ;
+- input_in_5 + NET input_in_5 + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 1947520 ) ( 2000 1948280 )
+  + FIXED ( 0 0 ) N ;
+- input_in_6_PU + NET input_in_6_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2277310 ) ( 2000 2278070 )
+  + FIXED ( 0 0 ) N ;
+- input_in_6_PD + NET input_in_6_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2268580 ) ( 2000 2269340 )
+  + FIXED ( 0 0 ) N ;
+- input_in_6 + NET input_in_6 + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2147520 ) ( 2000 2148280 )
+  + FIXED ( 0 0 ) N ;
+- input_in_7_PU + NET input_in_7_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2477310 ) ( 2000 2478070 )
+  + FIXED ( 0 0 ) N ;
+- input_in_7_PD + NET input_in_7_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2468580 ) ( 2000 2469340 )
+  + FIXED ( 0 0 ) N ;
+- input_in_7 + NET input_in_7 + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2347520 ) ( 2000 2348280 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_CS + NET output_out_0_CS + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2682520 ) ( 2000 2683280 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_SL + NET output_out_0_SL + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2551900 ) ( 2000 2552660 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_IE + NET output_out_0_IE + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2666470 ) ( 2000 2667230 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_OE + NET output_out_0_OE + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2548980 ) ( 2000 2549740 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_PU + NET output_out_0_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2677310 ) ( 2000 2678070 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_PD + NET output_out_0_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2668580 ) ( 2000 2669340 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_OUT + NET output_out_0_OUT + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2550440 ) ( 2000 2551200 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_PDRV0 + NET output_out_0_PDRV0 + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2675020 ) ( 2000 2675780 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_PDRV1 + NET output_out_0_PDRV1 + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2673600 ) ( 2000 2674360 )
+  + FIXED ( 0 0 ) N ;
+- output_out_0_IN + NET output_out_0_IN + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2547520 ) ( 2000 2548280 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_CS + NET output_out_1_CS + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2882520 ) ( 2000 2883280 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_SL + NET output_out_1_SL + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2751900 ) ( 2000 2752660 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_IE + NET output_out_1_IE + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2866470 ) ( 2000 2867230 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_OE + NET output_out_1_OE + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2748980 ) ( 2000 2749740 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_PU + NET output_out_1_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2877310 ) ( 2000 2878070 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_PD + NET output_out_1_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2868580 ) ( 2000 2869340 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_OUT + NET output_out_1_OUT + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2750440 ) ( 2000 2751200 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_PDRV0 + NET output_out_1_PDRV0 + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2875020 ) ( 2000 2875780 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_PDRV1 + NET output_out_1_PDRV1 + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2873600 ) ( 2000 2874360 )
+  + FIXED ( 0 0 ) N ;
+- output_out_1_IN + NET output_out_1_IN + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2747520 ) ( 2000 2748280 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_CS + NET output_out_2_CS + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3082520 ) ( 2000 3083280 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_SL + NET output_out_2_SL + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2951900 ) ( 2000 2952660 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_IE + NET output_out_2_IE + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3066470 ) ( 2000 3067230 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_OE + NET output_out_2_OE + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2948980 ) ( 2000 2949740 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_PU + NET output_out_2_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3077310 ) ( 2000 3078070 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_PD + NET output_out_2_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3068580 ) ( 2000 3069340 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_OUT + NET output_out_2_OUT + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2950440 ) ( 2000 2951200 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_PDRV0 + NET output_out_2_PDRV0 + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3075020 ) ( 2000 3075780 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_PDRV1 + NET output_out_2_PDRV1 + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3073600 ) ( 2000 3074360 )
+  + FIXED ( 0 0 ) N ;
+- output_out_2_IN + NET output_out_2_IN + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 2947520 ) ( 2000 2948280 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_CS + NET output_out_3_CS + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3282520 ) ( 2000 3283280 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_SL + NET output_out_3_SL + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3151900 ) ( 2000 3152660 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_IE + NET output_out_3_IE + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3266470 ) ( 2000 3267230 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_OE + NET output_out_3_OE + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3148980 ) ( 2000 3149740 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_PU + NET output_out_3_PU + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3277310 ) ( 2000 3278070 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_PD + NET output_out_3_PD + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3268580 ) ( 2000 3269340 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_OUT + NET output_out_3_OUT + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3150440 ) ( 2000 3151200 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_PDRV0 + NET output_out_3_PDRV0 + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3275020 ) ( 2000 3275780 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_PDRV1 + NET output_out_3_PDRV1 + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3273600 ) ( 2000 3274360 )
+  + FIXED ( 0 0 ) N ;
+- output_out_3_IN + NET output_out_3_IN + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( 0 3147520 ) ( 2000 3148280 )
+  + FIXED ( 0 0 ) N ;
+END PINS
+END DESIGN

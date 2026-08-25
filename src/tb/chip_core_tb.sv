@@ -24,58 +24,42 @@ module chip_core_tb;
 
     reg [NUM_INPUT_PADS-1:0] input_in;
 
-    wire [NUM_INPUT_PADS-1:0] input_pu;
-    wire [NUM_INPUT_PADS-1:0] input_pd;
-
     // ============================================================
     // BIDIR PADS
     // ============================================================
 
     wire [NUM_BIDIR_PADS-1:0] bidir_in;
-
     wire [NUM_BIDIR_PADS-1:0] bidir_out;
-    wire [NUM_BIDIR_PADS-1:0] bidir_oe;
-    wire [NUM_BIDIR_PADS-1:0] bidir_cs;
-    wire [NUM_BIDIR_PADS-1:0] bidir_sl;
-    wire [NUM_BIDIR_PADS-1:0] bidir_ie;
-    wire [NUM_BIDIR_PADS-1:0] bidir_pu;
-    wire [NUM_BIDIR_PADS-1:0] bidir_pd;
-
-    // ============================================================
-    // ANALOG
-    // ============================================================
-
-    wire [NUM_ANALOG_PADS-1:0] analog;
 
     // ============================================================
     // DUT
     // ============================================================
 
-    chip_core #(
-        .NUM_INPUT_PADS  (NUM_INPUT_PADS),
-        .NUM_BIDIR_PADS  (NUM_BIDIR_PADS),
-        .NUM_ANALOG_PADS (NUM_ANALOG_PADS)
-    ) dut (
+    // Pad-control terminals (CS/SL/IE/OE/PU/PD/PDRV0/PDRV1,
+    // rst_n_PU/PD, clk_PU/PD) are intentionally left unconnected —
+    // not read or checked anywhere in this testbench.
+    chip_core dut (
 
         .clk   (clk),
         .rst_n (rst_n),
 
-        .input_in (input_in),
+        .input_in_0 (input_in[0]),
+        .input_in_1 (input_in[1]),
+        .input_in_2 (input_in[2]),
+        .input_in_3 (input_in[3]),
+        .input_in_4 (input_in[4]),
+        .input_in_5 (input_in[5]),
+        .input_in_6 (input_in[6]),
+        .input_in_7 (input_in[7]),
 
-        .input_pu (input_pu),
-        .input_pd (input_pd),
-
-        .bidir_in (bidir_in),
-
-        .bidir_out (bidir_out),
-        .bidir_oe  (bidir_oe),
-        .bidir_cs  (bidir_cs),
-        .bidir_sl  (bidir_sl),
-        .bidir_ie  (bidir_ie),
-        .bidir_pu  (bidir_pu),
-        .bidir_pd  (bidir_pd),
-
-        .analog (analog)
+        .output_out_0_IN  (bidir_in[0]),
+        .output_out_0_OUT (bidir_out[0]),
+        .output_out_1_IN  (bidir_in[1]),
+        .output_out_1_OUT (bidir_out[1]),
+        .output_out_2_IN  (bidir_in[2]),
+        .output_out_2_OUT (bidir_out[2]),
+        .output_out_3_IN  (bidir_in[3]),
+        .output_out_3_OUT (bidir_out[3])
     );
 
     assign bidir_in = 4'b0000;
@@ -357,7 +341,7 @@ module chip_core_tb;
             // Wait until packet is accepted
             // --------------------------------------------------------
 
-            wait (dut.systolic_tx_one_done);
+            wait (dut.chip_core_internal_i.systolic_tx_one_done);
 
             @(posedge clk);
 
@@ -382,7 +366,7 @@ module chip_core_tb;
         // Capture only the first 128 output transfers.
         // --------------------------------------------------------
 
-        if (dut.systolic_tx_two_done &&
+        if (dut.chip_core_internal_i.systolic_tx_two_done &&
             output_count < 128) begin
 
             output_chunks[output_count] = bidir_out;
@@ -402,7 +386,7 @@ module chip_core_tb;
         // Systolic done
         // --------------------------------------------------------
 
-        if (dut.systolic_done) begin
+        if (dut.chip_core_internal_i.systolic_done) begin
 
             $display(
                 "%0t : SYSTOLIC_DONE",
@@ -554,7 +538,7 @@ module chip_core_tb;
         // Wait for matrix multiplication
         // --------------------------------------------------------
 
-        wait (dut.systolic_done);
+        wait (dut.chip_core_internal_i.systolic_done);
 
         $display("");
         $display("==============================================");
