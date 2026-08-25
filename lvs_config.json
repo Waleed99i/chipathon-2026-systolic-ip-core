@@ -9,6 +9,6 @@
   "LVS_NOFLATTEN": [""],
   "LVS_IGNORE": [""],
   "LVS_SPICE_FILES": [""],
-  "LVS_VERILOG_FILES": [""],
+  "LVS_VERILOG_FILES": ["$UPRJ_ROOT/verilog/gl/chip_core.pnl.v"],
   "LAYOUT_FILE": "$UPRJ_ROOT/gds/chip_core.gds"
 }
