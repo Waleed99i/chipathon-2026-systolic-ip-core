@@ -5,6 +5,8 @@ meta:
   version: 3
   flow: Classic
 DESIGN_NAME: chip_core
+VERILOG_DEFINES:
+- USE_POWER_PINS
 VERILOG_FILES:
 - dir::../src/chipathon_wrapper/chip_core.sv
 - dir::../src/rtl/reg_def.v
@@ -47,3 +49,12 @@ FP_SIZING: absolute
 FP_CORE_UTIL: 30
 PL_TARGET_DENSITY_PCT: 55
 GRT_ALLOW_CONGESTION: true
+
+# A34 boundary-power connectivity
+# Fixed VDD/VSS terminals are on Metal2; the internal PDN is Metal4/Metal5.
+VDD_NETS:
+- VDD
+GND_NETS:
+- VSS
+PDN_CFG: dir::pdn_cfg_a34.tcl
+

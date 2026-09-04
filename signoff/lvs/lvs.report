@@ -2483,8 +2483,8 @@ Cell chip_core (1) disconnected node: output_out_0_IN
 Cell chip_core (1) disconnected node: output_out_1_IN
 Cell chip_core (1) disconnected node: output_out_2_IN
 Cell chip_core (1) disconnected node: output_out_3_IN
-Class chip_core (0):  Merged 38733 parallel devices.
-Class chip_core (1):  Merged 38733 parallel devices.
+Class chip_core (0):  Merged 38726 parallel devices.
+Class chip_core (1):  Merged 38726 parallel devices.
 Cell chip_core (0) disconnected node: output_out_0_IN
 Cell chip_core (0) disconnected node: output_out_1_IN
 Cell chip_core (0) disconnected node: output_out_2_IN
@@ -2497,13 +2497,13 @@ Subcircuit summary:
 Circuit 1: chip_core                       |Circuit 2: chip_core                       
 -------------------------------------------|-------------------------------------------
 gf180mcu_fd_sc_mcu7t5v0__nor2_1 (2390)     |gf180mcu_fd_sc_mcu7t5v0__nor2_1 (2390)     
-gf180mcu_fd_sc_mcu7t5v0__fillcap_8 (6263-> |gf180mcu_fd_sc_mcu7t5v0__fillcap_8 (6263-> 
-gf180mcu_fd_sc_mcu7t5v0__fillcap_4 (17716- |gf180mcu_fd_sc_mcu7t5v0__fillcap_4 (17716- 
+gf180mcu_fd_sc_mcu7t5v0__fillcap_8 (6262-> |gf180mcu_fd_sc_mcu7t5v0__fillcap_8 (6262-> 
+gf180mcu_fd_sc_mcu7t5v0__fillcap_4 (17714- |gf180mcu_fd_sc_mcu7t5v0__fillcap_4 (17714- 
 gf180mcu_fd_sc_mcu7t5v0__fillcap_64 (9170- |gf180mcu_fd_sc_mcu7t5v0__fillcap_64 (9170- 
 gf180mcu_fd_sc_mcu7t5v0__dffq_1 (2216)     |gf180mcu_fd_sc_mcu7t5v0__dffq_1 (2216)     
 gf180mcu_fd_sc_mcu7t5v0__aoi21_1 (1525)    |gf180mcu_fd_sc_mcu7t5v0__aoi21_1 (1525)    
 gf180mcu_fd_sc_mcu7t5v0__nand4_1 (124)     |gf180mcu_fd_sc_mcu7t5v0__nand4_1 (124)     
-gf180mcu_fd_sc_mcu7t5v0__fillcap_16 (3957- |gf180mcu_fd_sc_mcu7t5v0__fillcap_16 (3957- 
+gf180mcu_fd_sc_mcu7t5v0__fillcap_16 (3960- |gf180mcu_fd_sc_mcu7t5v0__fillcap_16 (3960- 
 gf180mcu_fd_sc_mcu7t5v0__clkinv_1 (1598)   |gf180mcu_fd_sc_mcu7t5v0__clkinv_1 (1598)   
 gf180mcu_fd_sc_mcu7t5v0__nand2_1 (3320)    |gf180mcu_fd_sc_mcu7t5v0__nand2_1 (3320)    
 gf180mcu_fd_sc_mcu7t5v0__oai21_1 (1464)    |gf180mcu_fd_sc_mcu7t5v0__oai21_1 (1464)    
@@ -2550,7 +2550,7 @@ gf180mcu_fd_sc_mcu7t5v0__oai22_2 (5)       |gf180mcu_fd_sc_mcu7t5v0__oai22_2 (5)
 gf180mcu_fd_sc_mcu7t5v0__xor2_2 (32)       |gf180mcu_fd_sc_mcu7t5v0__xor2_2 (32)       
 gf180mcu_fd_sc_mcu7t5v0__and3_1 (92)       |gf180mcu_fd_sc_mcu7t5v0__and3_1 (92)       
 gf180mcu_fd_sc_mcu7t5v0__oai31_2 (24)      |gf180mcu_fd_sc_mcu7t5v0__oai31_2 (24)      
-gf180mcu_fd_sc_mcu7t5v0__antenna (35->25)  |gf180mcu_fd_sc_mcu7t5v0__antenna (35->25)  
+gf180mcu_fd_sc_mcu7t5v0__antenna (28->25)  |gf180mcu_fd_sc_mcu7t5v0__antenna (28->25)  
 gf180mcu_fd_sc_mcu7t5v0__nor2_2 (15)       |gf180mcu_fd_sc_mcu7t5v0__nor2_2 (15)       
 gf180mcu_fd_sc_mcu7t5v0__or3_1 (100)       |gf180mcu_fd_sc_mcu7t5v0__or3_1 (100)       
 gf180mcu_fd_sc_mcu7t5v0__oai221_2 (7)      |gf180mcu_fd_sc_mcu7t5v0__oai221_2 (7)      
