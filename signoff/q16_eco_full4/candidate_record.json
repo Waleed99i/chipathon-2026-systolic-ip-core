@@ -1,0 +1,16 @@
+{
+  "branch": "a34-rtl-fix-pd",
+  "base_commit": "e632192eab6061a91752ef0798ed6a546c1ba39b",
+  "run": "A34_Q16_ECO_FULL4_20261015_160735",
+  "backup": "/home/rumali/openlane_project/a34_candidate_backups/A34_Q16_ECO_FULL4_20261015_160735_candidate_20261015_173227.tar.gz",
+  "final_sha256": {
+    "def/chip_core.def": "731cdb6dddb5b3ad2f84d9cf2c4f753ee0b1c9ce6ae2cb184f4fa8dded9007e9",
+    "gds/chip_core.gds": "76091ccb1052a45195f3b30766380e44a60ad4da4ac7ed8a1dac7dec226a87e3",
+    "odb/chip_core.odb": "de97f7be6582627982561d2d7b60db82b9c3bbcf1bd2d892a1d530a1e62ced4f",
+    "pnl/chip_core.pnl.v": "42821194c1447902f4022622f8daba5143bb3bd526fd32fb5e811a8fcb7a5410"
+  },
+  "clock_period_ns": 45,
+  "worst_setup_slack_ns": 0.5498535116188729,
+  "worst_hold_slack_ns": 0.09115441992566169,
+  "scope": "Reviewed local ECO signoff. No integrated-chip approval or pad-aware IR/EM claim."
+}

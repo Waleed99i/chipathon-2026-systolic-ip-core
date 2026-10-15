@@ -1,0 +1,39 @@
+design__max_slew_violation__count: 0
+design__max_cap_violation__count: 0
+design__max_fanout_violation__count: 0
+timing__setup_vio__count: 0
+timing__hold_vio__count: 0
+timing__setup__wns: 0
+timing__hold__wns: 0
+timing__setup__tns: 0
+timing__hold__tns: 0
+route__drc_errors: 0
+magic__drc_error__count: 0
+klayout__drc_error__count: 0
+antenna__violating__nets: 0
+antenna__violating__pins: 0
+route__antenna_violation__count: 0
+design__lvs_error__count: 0
+design__lvs_device_difference__count: 0
+design__lvs_net_difference__count: 0
+design__lvs_property_fail__count: 0
+design__lvs_unmatched_device__count: 0
+design__lvs_unmatched_net__count: 0
+design__lvs_unmatched_pin__count: 0
+nom_tt_025C_5v00: setup_ws=18.819042856719385 ns; hold_ws=0.2871001295741329 ns
+nom_ss_125C_4v50: setup_ws=1.2720314051016304 ns; hold_ws=0.7057741257853857 ns
+nom_ff_n40C_5v50: setup_ws=25.393261545570383 ns; hold_ws=0.09316636614778911 ns
+min_tt_025C_5v00: setup_ws=19.424050473404662 ns; hold_ws=0.28394132293513225 ns
+min_ss_125C_4v50: setup_ws=1.7366553131556215 ns; hold_ws=0.700570288277188 ns
+min_ff_n40C_5v50: setup_ws=25.799576538721972 ns; hold_ws=0.09115441992566169 ns
+max_tt_025C_5v00: setup_ws=18.10364709384127 ns; hold_ws=0.2908171563657026 ns
+max_ss_125C_4v50: setup_ws=0.5498535116188729 ns; hold_ws=0.711956291850552 ns
+max_ff_n40C_5v50: setup_ws=24.91069110386037 ns; hold_ws=0.09556089523502256 ns
+All boundary terminals preserved; all seven ECO cells present.
+VDD/VSS connectivity passed; six Metal2 terminals and four ring sides per net; no power shapes outside die.
+GDS: top=chip_core, DBU=0.001 um, boundary=[0.0, 0.0, 1675.0, 1675.0] um
+Protected source files, PDK libraries and original run files unchanged.
+LOCAL ECO CHECKS PASS
+Integrated-chip DRC/LVS and pad-aware IR/EM assessment are outside this check.
+No files copied to submission paths; no Git staging, commits or pushes performed.
+Run: /home/rumali/openlane_project/a34-rtl-fix-pd/librelane/runs/A34_Q16_ECO_FULL4_20261015_160735

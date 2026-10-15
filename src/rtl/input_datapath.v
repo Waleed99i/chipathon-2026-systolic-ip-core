@@ -115,7 +115,7 @@ module input_datapath #(
             ) A_reg (
 
                 .x(row_data),
-                .enable(row_count==i),
+                .enable((row_count == i) && next_row),
 
                 .clk(clk),
                 .clear(reset),
@@ -133,7 +133,7 @@ module input_datapath #(
             ) B_reg (
 
                 .x(col_data),
-                .enable(col_count==i),
+                .enable((col_count == i) && next_col),
 
                 .clk(clk),
                 .clear(reset),

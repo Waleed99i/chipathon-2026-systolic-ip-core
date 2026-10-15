@@ -1,0 +1,11 @@
+{
+  "json_h": "/home/rumali/openlane_project/a34-rtl-fix-pd/librelane/runs/A34_Q16_FIX_FULL2/05-yosys-jsonheader/chip_core.h.json",
+  "nl": null,
+  "sdf": null,
+  "odb": "/home/rumali/openlane_project/a34-rtl-fix-pd/verification_results/physical-eco-yoy1al0x/chip_core.eco_unlegalized.odb",
+  "def": null,
+  "sdc": null,
+  "pnl": null,
+  "vh": "/home/rumali/openlane_project/a34-rtl-fix-pd/librelane/runs/A34_Q16_FIX_FULL2/29-odb-writeverilogheader/chip_core.vh",
+  "metrics": {}
+}

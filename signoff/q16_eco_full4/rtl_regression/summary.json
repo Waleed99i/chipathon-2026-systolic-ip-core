@@ -1,0 +1,97 @@
+{
+  "base_commit": "e632192eab6061a91752ef0798ed6a546c1ba39b",
+  "rtl_source_commit": "ffe21c28367d943b4d3984dd707e34d0add2551d",
+  "repo": "/home/rumali/openlane_project/a34-rtl-fix-pd",
+  "files_sha256": {
+    "librelane/A34_ACE_scaled.def": "085d2148544ecebdd89381f53715bcbe4352b9978daf905ab46d3fcc86495972",
+    "librelane/chip_core.sdc": "4b75471dd00d5db7fe6a694220f719d6de5578534f8730508c37c4e0f76253b5",
+    "librelane/chip_core_macro.yaml": "9979af5c43d55af7979e1da556ad971ee90e06be1534346ab15969c0b93377ca",
+    "librelane/pdn_cfg_a34.tcl": "c8f53bef9100449cc60310db9ed7899ea7749dc88c1b15e832a691d3e7d265ca",
+    "src/chipathon_wrapper/chip_core.sv": "0f0a56363ac9183676f937412dafb8ddee4fd07f53e265a09335916f96801c22",
+    "src/rtl/controlled_counter.v": "b7b3bb8f1b1852c2f4d24b6d0e24ea2444cb461d2c7ff005cecec0cdd0feba29",
+    "src/rtl/counter.v": "71d0f475cfc1a45b6fb050de1ef85269351df491e320419c6f452945a987d7ab",
+    "src/rtl/data_feeder.v": "1fd14325815e9b798e454cb62c2191a5b61a77b81c3d4b43e8d725dd0dd7d362",
+    "src/rtl/fp16_approximate_multiplier.v": "d2677c740a7ff7534c2f7105d5b1060ef40c1b7de950cf96dad6c92b3df437b6",
+    "src/rtl/fp16_multiplier_exception.v": "a36a962fdb36e5e365534432512226ae149c496ac90e9f39ac55a878bd6c629c",
+    "src/rtl/fp16_multiplier_exponent.v": "433bab9f2e8c68b1effc7dc4709b5aec7c33831ecdda86c2dfce63d5589cd51c",
+    "src/rtl/fp16_to_fp32.v": "abeb531813f87ac390aec7d1b2c9914a6a5f06f2163cb77ff17941faea921bfb",
+    "src/rtl/fp16_to_q16_16.v": "3cdbd7eb955dc5deac2b7773359113ae3eb82abc94d713f3360b083c6c659357",
+    "src/rtl/fp16_to_q16_16_approximate_mac.v": "bc6acdaa7cc10ea4c7faf31916336111d0b3b8f1dc8392423c4789a65bd8ce06",
+    "src/rtl/fp16_to_q8_8.v": "f2d30149003a9c1522a94cdc5f319ede82719f77e7a67bbbcbc783971871060c",
+    "src/rtl/fp32_to_fp16.v": "9093a621f0b53f8f58a28c5ff845d6f46eac813db8646710f277e79fd3ffdcea",
+    "src/rtl/input_datapath.v": "740bab48d8887c72950bff3636f13d9fc55f604b1e018970e1b18ea474be3b2a",
+    "src/rtl/input_serializer.sv": "96fba49d65b689538807e67d63c474e536248a32d81a26691d1ef6dc4d8a918b",
+    "src/rtl/output_datapath.v": "b492c92284dab64ddf3e925b66af667768ec02c2b8eb376fad62c10a2a61dccc",
+    "src/rtl/pe.v": "bc11faca2d013fde4f3eca4cd92b8542897678e82fd2756d8c7e4c6f7bae7296",
+    "src/rtl/q16_16_to_fp16.v": "f87830cf35aaaa01d2a2044ad19e6f917226385b71f8b5608a97f4f4794caaaa",
+    "src/rtl/q16_16_to_fp32.v": "2bb1271562d026ea2dbf6e1847a803a9c5fdd44d33348b1fed795ed06212f8b6",
+    "src/rtl/reg_def.v": "b4a7953bdf6168d1a0561c8c71d1f1c6ee558c925a7479a69fbdda6d3d0f9fea",
+    "src/rtl/rv_protocol.v": "b56b55fb939fc6f72fa3e90f7160bcf8de6c6e3c6c3d1fefea239ecc42d4394e",
+    "src/rtl/systolic.v": "344246aadef5671a7b1676b6f761010bce44dcedb1bcc778d7515b15ae946c24"
+  },
+  "script_sha256": "636013fa153f6c6c924e5c9b624efa93cc94b24ec3d6f4e9870231aecab062c1",
+  "scope": "A34 pre-PD Q16.16 regression (2026-10-15).\n\nRun inside ~/openlane_project/a34-rtl-fix-pd using the project nix-shell:\n    python3 /path/to/a34_q16_regression.py\n\nPinned candidate: submitted e632192 baseline + exactly four RTL files from\nffe21c28367d943b4d3984dd707e34d0add2551d + converter added to LibreLane YAML.\nThis script reads RTL/configuration and writes only a NEW verification_results\ndirectory. It does not edit RTL, config, GDS, netlists, or Git; does not run PD;\ndoes not fetch dependencies; and does not push anything.\n\nScope: exhaustive standalone converter check over all 65,536 FP16 encodings;\n20 exact-result matrix transactions, including reset recovery; and 2 fractional\nmatrix transactions checked bit-for-bit against a model of the implemented\napproximate arithmetic. Approximation quality is reported separately from\nfunctional agreement. Reset is used before EVERY matrix. Handshake/capture use\ninternal signals: this is not validation of an external host timing protocol.\n\nNot full functional signoff. Accumulation overflow, approximate multiplier\nexponent extremes, physical timing, DRC/LVS, and silicon operation are not\ncertified. The converter saturates at Q16.16 limits; the accumulator wraps on\noverflow. Continuing internal transfers after the output window are observed.\n",
+  "commands": [
+    [
+      "iverilog",
+      "-g2012",
+      "-DUSE_POWER_PINS",
+      "-s",
+      "converter_tb",
+      "-o",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/verification_results/q16-regression-un410tfo/converter.vvp",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp16_to_q16_16.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/verification_results/q16-regression-un410tfo/converter_tb.sv"
+    ],
+    [
+      "vvp",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/verification_results/q16-regression-un410tfo/converter.vvp"
+    ],
+    [
+      "iverilog",
+      "-g2012",
+      "-DUSE_POWER_PINS",
+      "-s",
+      "chip_core_tb",
+      "-o",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/verification_results/q16-regression-un410tfo/wrapper.vvp",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/chipathon_wrapper/chip_core.sv",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/controlled_counter.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/counter.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/data_feeder.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp16_approximate_multiplier.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp16_multiplier_exception.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp16_multiplier_exponent.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp16_to_fp32.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp16_to_q16_16_approximate_mac.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp16_to_q8_8.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp32_to_fp16.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/input_datapath.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/input_serializer.sv",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/output_datapath.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/pe.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/q16_16_to_fp16.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/q16_16_to_fp32.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/reg_def.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/rv_protocol.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/systolic.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/fp16_to_q16_16.v",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/verification_results/q16-regression-un410tfo/wrapper_tb.sv"
+    ],
+    [
+      "vvp",
+      "/home/rumali/openlane_project/a34-rtl-fix-pd/verification_results/q16-regression-un410tfo/wrapper.vvp"
+    ]
+  ],
+  "passed": true,
+  "approximation_examples": [
+    {
+      "name": "fractional_model_positive",
+      "max_error_percent_this_matrix": 3.435114503816794
+    },
+    {
+      "name": "fractional_model_negative",
+      "max_error_percent_this_matrix": 3.435114503816794
+    }
+  ]
+}
