@@ -2,9 +2,25 @@
 
 module systolic_top_tb;
 
-    // ------------------------------------------------------------------------
+    // ========================================================================
+    // Configuration
+    // ========================================================================
+
+    // Approximate MAC:
+    // Result is allowed to differ from exact mathematical A x B.
+    //
+    // A result FAILS only if its relative error exceeds this limit.
+    //
+    // 15.0 = 15 percent maximum relative error.
+    localparam real MAX_ERROR_PERCENT = 15.0;
+
+    // Global simulation timeout.
+    localparam integer TIMEOUT_NS = 100000;
+
+
+    // ========================================================================
     // DUT signals
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     reg clk;
     reg reset;
@@ -22,9 +38,9 @@ module systolic_top_tb;
     wire tx_two_done;
 
 
-    // ------------------------------------------------------------------------
+    // ========================================================================
     // DUT
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     systolic dut (
         .clk(clk),
@@ -44,57 +60,94 @@ module systolic_top_tb;
     );
 
 
-    // ------------------------------------------------------------------------
+    // ========================================================================
     // Clock
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     always #5 clk = ~clk;
 
 
-    // ------------------------------------------------------------------------
+    // ========================================================================
+    // Simulation timeout
+    // ========================================================================
+
+    initial begin
+
+        #(TIMEOUT_NS);
+
+        $display("");
+        $display("==============================================================");
+        $display(" FATAL: SIMULATION TIMEOUT");
+        $display(" Simulation exceeded %0d ns.", TIMEOUT_NS);
+        $display("==============================================================");
+
+        $fatal(1, "Simulation timeout");
+
+    end
+
+
+    // ========================================================================
     // FP16 constants
     //
-    // All values are exactly representable in IEEE FP16.
-    // ------------------------------------------------------------------------
+    // All values below are exactly representable as IEEE-754 FP16 inputs.
+    // Any output difference therefore comes from the approximate multiplier
+    // and subsequent arithmetic, not input representation error.
+    // ========================================================================
 
     localparam [15:0] FP_1_50  = 16'h3E00;
     localparam [15:0] FP_2_25  = 16'h4080;
     localparam [15:0] FP_2_50  = 16'h4100;
     localparam [15:0] FP_3_25  = 16'h4280;
     localparam [15:0] FP_3_50  = 16'h4300;
+
     localparam [15:0] FP_4_25  = 16'h4440;
     localparam [15:0] FP_4_50  = 16'h4480;
     localparam [15:0] FP_4_75  = 16'h44C0;
+
     localparam [15:0] FP_5_25  = 16'h4540;
     localparam [15:0] FP_5_50  = 16'h4580;
+
     localparam [15:0] FP_6_25  = 16'h4640;
     localparam [15:0] FP_6_50  = 16'h4680;
     localparam [15:0] FP_6_75  = 16'h46C0;
+
     localparam [15:0] FP_7_25  = 16'h4740;
     localparam [15:0] FP_7_50  = 16'h4780;
+
     localparam [15:0] FP_8_25  = 16'h4820;
     localparam [15:0] FP_8_50  = 16'h4840;
     localparam [15:0] FP_8_75  = 16'h4860;
+
     localparam [15:0] FP_9_25  = 16'h48A0;
     localparam [15:0] FP_9_50  = 16'h48C0;
+
     localparam [15:0] FP_10_50 = 16'h4940;
     localparam [15:0] FP_10_75 = 16'h4960;
+
     localparam [15:0] FP_11_25 = 16'h49A0;
 
 
-    // ------------------------------------------------------------------------
+    // ========================================================================
     // Output storage
     //
-    // 128 transfers x 4 bits = 512 bits
-    // 8 transfers = one 32-bit Q16.16 matrix element
-    // ------------------------------------------------------------------------
+    // 128 transfers × 4 bits = 512 bits
+    //
+    // 8 transfers × 4 bits = one 32-bit Q16.16 element
+    // ========================================================================
 
     reg [3:0] output_chunks [0:127];
 
 
-    // ------------------------------------------------------------------------
-    // Reconstruct one 32-bit Q16.16 element
-    // ------------------------------------------------------------------------
+    // ========================================================================
+    // Error tracking
+    // ========================================================================
+
+    integer error_count;
+
+
+    // ========================================================================
+    // Reconstruct one 32-bit Q16.16 matrix element
+    // ========================================================================
 
     function automatic [31:0] get_output_element;
 
@@ -122,9 +175,9 @@ module systolic_top_tb;
     endfunction
 
 
-    // ------------------------------------------------------------------------
+    // ========================================================================
     // Convert signed Q16.16 to real
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     function automatic real q16_16_to_real;
 
@@ -144,9 +197,9 @@ module systolic_top_tb;
     endfunction
 
 
-    // ------------------------------------------------------------------------
-    // Print one Q16.16 value
-    // ------------------------------------------------------------------------
+    // ========================================================================
+    // Print Q16.16
+    // ========================================================================
 
     task print_q16_16;
 
@@ -166,9 +219,9 @@ module systolic_top_tb;
     endtask
 
 
-    // ------------------------------------------------------------------------
-    // Print complete output matrix
-    // ------------------------------------------------------------------------
+    // ========================================================================
+    // Print complete matrix
+    // ========================================================================
 
     task print_output_matrix;
 
@@ -181,10 +234,10 @@ module systolic_top_tb;
         begin
 
             $display("");
-            $display("==============================================");
+            $display("==============================================================");
             $display(" APPROXIMATE SYSTOLIC OUTPUT MATRIX");
             $display(" Format: Q16.16");
-            $display("==============================================");
+            $display("==============================================================");
             $display("");
 
             for (row = 0; row < 4; row = row + 1) begin
@@ -216,9 +269,9 @@ module systolic_top_tb;
     endtask
 
 
-    // ------------------------------------------------------------------------
-    // Send one 128-bit packet
-    // ------------------------------------------------------------------------
+    // ========================================================================
+    // Send one 128-bit input packet
+    // ========================================================================
 
     task send_input_packet;
 
@@ -241,9 +294,9 @@ module systolic_top_tb;
     endtask
 
 
-    // ------------------------------------------------------------------------
+    // ========================================================================
     // Receive one 4-bit output transfer
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     task receive_output;
 
@@ -270,14 +323,26 @@ module systolic_top_tb;
     endtask
 
 
-    // ------------------------------------------------------------------------
-    // Print comparison for one element
+    // ========================================================================
+    // Self-check one approximate matrix result
     //
-    // This is informational only.
-    // No PASS/FAIL is generated because the MAC is approximate.
-    // ------------------------------------------------------------------------
+    // IMPORTANT:
+    //
+    // exact_value:
+    //     Exact mathematical matrix multiplication result.
+    //
+    // actual_value:
+    //     Result produced by the approximate MAC.
+    //
+    // The test does NOT require actual == exact.
+    //
+    // It requires:
+    //
+    // relative error <= MAX_ERROR_PERCENT
+    //
+    // ========================================================================
 
-    task compare_element;
+    task check_approx_element;
 
         input integer row;
         input integer col;
@@ -288,13 +353,15 @@ module systolic_top_tb;
         reg [31:0] actual_bits;
 
         real actual_value;
-        real error;
+
+        real signed_error;
         real abs_error;
         real percent_error;
 
         begin
 
-            index = row * 4 + col;
+            index =
+                row * 4 + col;
 
             actual_bits =
                 get_output_element(index);
@@ -302,99 +369,221 @@ module systolic_top_tb;
             actual_value =
                 q16_16_to_real(actual_bits);
 
-            error =
+
+            // ---------------------------------------------------------------
+            // Calculate approximation error
+            // ---------------------------------------------------------------
+
+            signed_error =
                 actual_value - exact_value;
 
-            if (error < 0.0)
-                abs_error = -error;
+
+            if (signed_error < 0.0)
+
+                abs_error =
+                    -signed_error;
+
             else
-                abs_error = error;
+
+                abs_error =
+                    signed_error;
+
 
             if (exact_value != 0.0)
+
                 percent_error =
                     (abs_error / exact_value) * 100.0;
-            else
-                percent_error = 0.0;
+
+            else begin
+
+                if (abs_error == 0.0)
+                    percent_error = 0.0;
+                else
+                    percent_error = 100.0;
+
+            end
+
+
+            // ---------------------------------------------------------------
+            // Display result
+            // ---------------------------------------------------------------
 
             $display(
-                "C[%0d][%0d]  exact=%8.4f   approx=%8.4f   error=%8.4f   abs_error=%8.4f   error%%=%6.3f",
+                "C[%0d][%0d] exact=%8.4f  approx=%8.4f  error=%8.4f  error%%=%6.3f",
                 row,
                 col,
                 exact_value,
                 actual_value,
-                error,
-                abs_error,
+                signed_error,
                 percent_error
             );
 
+
+            // ---------------------------------------------------------------
+            // Self-check
+            // ---------------------------------------------------------------
+
+            if (percent_error > MAX_ERROR_PERCENT) begin
+
+                $display(
+                    "  ERROR: approximation exceeds allowed %0.2f%% limit",
+                    MAX_ERROR_PERCENT
+                );
+
+                error_count =
+                    error_count + 1;
+
+            end
+
         end
 
     endtask
 
 
-    // ------------------------------------------------------------------------
-    // Compare full matrix against exact mathematical result
-    //
-    // IMPORTANT:
-    // Differences are expected because fp16_approximate_multiplier_wrapper
-    // is intentionally approximate.
-    // ------------------------------------------------------------------------
+    // ========================================================================
+    // Check all 16 matrix elements
+    // ========================================================================
 
-    task compare_output_matrix;
+    task check_output_matrix;
 
         begin
 
+            error_count = 0;
+
             $display("");
             $display("==============================================================");
-            $display(" EXACT REFERENCE vs APPROXIMATE HARDWARE RESULT");
-            $display(" Differences here are expected for an approximate MAC.");
+            $display(" APPROXIMATE MAC SELF-CHECK");
+            $display(" Allowed relative error = %0.2f%%", MAX_ERROR_PERCENT);
             $display("==============================================================");
             $display("");
 
 
+            // ----------------------------------------------------------------
             // Row 0
-            compare_element(0, 0,  81.1250);
-            compare_element(0, 1, 117.1250);
-            compare_element(0, 2, 153.1250);
-            compare_element(0, 3, 189.1250);
+            // ----------------------------------------------------------------
+
+            check_approx_element(
+                0, 0, 81.1250
+            );
+
+            check_approx_element(
+                0, 1, 117.1250
+            );
+
+            check_approx_element(
+                0, 2, 153.1250
+            );
+
+            check_approx_element(
+                0, 3, 189.1250
+            );
 
 
+            // ----------------------------------------------------------------
             // Row 1
-            compare_element(1, 0,  96.8750);
-            compare_element(1, 1, 140.8750);
-            compare_element(1, 2, 184.8750);
-            compare_element(1, 3, 228.8750);
+            // ----------------------------------------------------------------
+
+            check_approx_element(
+                1, 0, 96.8750
+            );
+
+            check_approx_element(
+                1, 1, 140.8750
+            );
+
+            check_approx_element(
+                1, 2, 184.8750
+            );
+
+            check_approx_element(
+                1, 3, 228.8750
+            );
 
 
+            // ----------------------------------------------------------------
             // Row 2
-            compare_element(2, 0, 108.6875);
-            compare_element(2, 1, 158.6875);
-            compare_element(2, 2, 208.6875);
-            compare_element(2, 3, 258.6875);
+            // ----------------------------------------------------------------
+
+            check_approx_element(
+                2, 0, 108.6875
+            );
+
+            check_approx_element(
+                2, 1, 158.6875
+            );
+
+            check_approx_element(
+                2, 2, 208.6875
+            );
+
+            check_approx_element(
+                2, 3, 258.6875
+            );
 
 
+            // ----------------------------------------------------------------
             // Row 3
-            compare_element(3, 0, 131.0000);
-            compare_element(3, 1, 192.5000);
-            compare_element(3, 2, 254.0000);
-            compare_element(3, 3, 315.5000);
+            // ----------------------------------------------------------------
+
+            check_approx_element(
+                3, 0, 131.0000
+            );
+
+            check_approx_element(
+                3, 1, 192.5000
+            );
+
+            check_approx_element(
+                3, 2, 254.0000
+            );
+
+            check_approx_element(
+                3, 3, 315.5000
+            );
 
 
+            // ----------------------------------------------------------------
+            // Final numerical verification
+            // ----------------------------------------------------------------
+
             $display("");
-            $display("NOTE:");
-            $display("Exact equality is NOT required in this test.");
-            $display("The purpose is to observe approximation error after");
-            $display("removing the previous Q8.8 range bottleneck.");
-            $display("");
+            $display("==============================================================");
+
+
+            if (error_count != 0) begin
+
+                $display(
+                    " FAIL: %0d OUTPUT(S) EXCEEDED APPROXIMATION LIMIT",
+                    error_count
+                );
+
+                $display("==============================================================");
+
+                $fatal(
+                    1,
+                    "Approximate MAC numerical regression failed"
+                );
+
+            end
+
+            else begin
+
+                $display(
+                    " PASS: ALL 16 OUTPUTS ARE WITHIN EXPECTED APPROXIMATION RANGE"
+                );
+
+                $display("==============================================================");
+
+            end
 
         end
 
     endtask
 
 
-    // ------------------------------------------------------------------------
+    // ========================================================================
     // Main simulation
-    // ------------------------------------------------------------------------
+    // ========================================================================
 
     integer i;
 
@@ -405,8 +594,14 @@ module systolic_top_tb;
         // Waveform
         // --------------------------------------------------------------------
 
-        $dumpfile("build/systolic_top_tb.vcd");
-        $dumpvars(0, systolic_top_tb);
+        $dumpfile(
+            "build/systolic_top_tb.vcd"
+        );
+
+        $dumpvars(
+            0,
+            systolic_top_tb
+        );
 
 
         // --------------------------------------------------------------------
@@ -421,6 +616,8 @@ module systolic_top_tb;
 
         src_valid = 1'b0;
         src_ready = 1'b0;
+
+        error_count = 0;
 
 
         // --------------------------------------------------------------------
@@ -446,38 +643,85 @@ module systolic_top_tb;
         $display("");
 
         $display("Matrix A:");
-        $display("[ 1.50  3.50  5.50   7.50]");
-        $display("[ 2.50  4.50  6.50   8.50]");
-        $display("[ 3.25  5.25  7.25   9.25]");
-        $display("[ 4.75  6.75  8.75  10.50]");
+
+        $display(
+            "[ 1.50  3.50  5.50   7.50]"
+        );
+
+        $display(
+            "[ 2.50  4.50  6.50   8.50]"
+        );
+
+        $display(
+            "[ 3.25  5.25  7.25   9.25]"
+        );
+
+        $display(
+            "[ 4.75  6.75  8.75  10.50]"
+        );
+
 
         $display("");
 
         $display("Matrix B:");
-        $display("[ 2.25  4.25  6.25   8.25]");
-        $display("[ 3.50  5.50  7.50   9.50]");
-        $display("[ 4.75  6.75  8.75  10.75]");
-        $display("[ 5.25  7.25  9.25  11.25]");
+
+        $display(
+            "[ 2.25  4.25  6.25   8.25]"
+        );
+
+        $display(
+            "[ 3.50  5.50  7.50   9.50]"
+        );
+
+        $display(
+            "[ 4.75  6.75  8.75  10.75]"
+        );
+
+        $display(
+            "[ 5.25  7.25  9.25  11.25]"
+        );
+
 
         $display("");
 
-        $display("Exact mathematical A x B reference:");
-        $display("[ 81.1250  117.1250  153.1250  189.1250]");
-        $display("[ 96.8750  140.8750  184.8750  228.8750]");
-        $display("[108.6875  158.6875  208.6875  258.6875]");
-        $display("[131.0000  192.5000  254.0000  315.5000]");
+        $display(
+            "Exact mathematical A x B reference:"
+        );
+
+        $display(
+            "[ 81.1250  117.1250  153.1250  189.1250]"
+        );
+
+        $display(
+            "[ 96.8750  140.8750  184.8750  228.8750]"
+        );
+
+        $display(
+            "[108.6875  158.6875  208.6875  258.6875]"
+        );
+
+        $display(
+            "[131.0000  192.5000  254.0000  315.5000]"
+        );
+
 
         $display("");
 
-        $display("NOTE: The hardware MAC is approximate.");
-        $display("Small differences from the exact reference are expected.");
+        $display(
+            "Approximate MAC tolerance: %0.2f%%",
+            MAX_ERROR_PERCENT
+        );
+
+        $display(
+            "Individual products remain below the previous Q8.8 saturation limit."
+        );
 
         $display("==============================================================");
         $display("");
 
 
         // --------------------------------------------------------------------
-        // Start matrix multiplication
+        // Start transaction
         // --------------------------------------------------------------------
 
         valid_in = 1'b1;
@@ -487,17 +731,21 @@ module systolic_top_tb;
         valid_in = 1'b0;
 
 
-        // --------------------------------------------------------------------
+        // ====================================================================
         // Packet 0
         //
         // A row 0:
+        //
         // [1.50 3.50 5.50 7.50]
         //
         // B column 0:
+        //
         // [2.25 3.50 4.75 5.25]
-        // --------------------------------------------------------------------
+        // ====================================================================
 
-        $display("Sending input packet 0");
+        $display(
+            "Sending input packet 0"
+        );
 
         send_input_packet(
             {
@@ -513,22 +761,28 @@ module systolic_top_tb;
             }
         );
 
-        $display("Input packet 0 accepted.");
+        $display(
+            "Input packet 0 accepted."
+        );
 
         @(negedge clk);
 
 
-        // --------------------------------------------------------------------
+        // ====================================================================
         // Packet 1
         //
         // A row 1:
+        //
         // [2.50 4.50 6.50 8.50]
         //
         // B column 1:
+        //
         // [4.25 5.50 6.75 7.25]
-        // --------------------------------------------------------------------
+        // ====================================================================
 
-        $display("Sending input packet 1");
+        $display(
+            "Sending input packet 1"
+        );
 
         send_input_packet(
             {
@@ -544,22 +798,28 @@ module systolic_top_tb;
             }
         );
 
-        $display("Input packet 1 accepted.");
+        $display(
+            "Input packet 1 accepted."
+        );
 
         @(negedge clk);
 
 
-        // --------------------------------------------------------------------
+        // ====================================================================
         // Packet 2
         //
         // A row 2:
+        //
         // [3.25 5.25 7.25 9.25]
         //
         // B column 2:
+        //
         // [6.25 7.50 8.75 9.25]
-        // --------------------------------------------------------------------
+        // ====================================================================
 
-        $display("Sending input packet 2");
+        $display(
+            "Sending input packet 2"
+        );
 
         send_input_packet(
             {
@@ -575,22 +835,28 @@ module systolic_top_tb;
             }
         );
 
-        $display("Input packet 2 accepted.");
+        $display(
+            "Input packet 2 accepted."
+        );
 
         @(negedge clk);
 
 
-        // --------------------------------------------------------------------
+        // ====================================================================
         // Packet 3
         //
         // A row 3:
+        //
         // [4.75 6.75 8.75 10.50]
         //
         // B column 3:
+        //
         // [8.25 9.50 10.75 11.25]
-        // --------------------------------------------------------------------
+        // ====================================================================
 
-        $display("Sending input packet 3");
+        $display(
+            "Sending input packet 3"
+        );
 
         send_input_packet(
             {
@@ -606,41 +872,69 @@ module systolic_top_tb;
             }
         );
 
-        $display("Input packet 3 accepted.");
+        $display(
+            "Input packet 3 accepted."
+        );
 
         @(negedge clk);
 
 
         // --------------------------------------------------------------------
-        // All packets accepted
+        // Inputs complete
         // --------------------------------------------------------------------
 
         $display("");
-        $display("==============================================================");
-        $display("All 4 input packets accepted.");
-        $display("Waiting for systolic computation...");
-        $display("==============================================================");
+
+        $display(
+            "=============================================================="
+        );
+
+        $display(
+            "All 4 input packets accepted."
+        );
+
+        $display(
+            "Waiting for systolic computation..."
+        );
+
+        $display(
+            "=============================================================="
+        );
+
         $display("");
 
 
         // --------------------------------------------------------------------
-        // Wait until output stage
+        // Wait for computation
         // --------------------------------------------------------------------
 
-        wait (dut.state == dut.LOAD_OUT);
+        wait (
+            dut.state == dut.LOAD_OUT
+        );
 
 
         $display("");
-        $display("Systolic computation complete.");
-        $display("Starting output transfers...");
+
+        $display(
+            "Systolic computation complete."
+        );
+
+        $display(
+            "Starting output transfers..."
+        );
+
         $display("");
 
 
         // --------------------------------------------------------------------
-        // Receive all 128 transfers
+        // Receive complete output matrix
         // --------------------------------------------------------------------
 
-        for (i = 0; i < 128; i = i + 1) begin
+        for (
+            i = 0;
+            i < 128;
+            i = i + 1
+        ) begin
 
             receive_output(i);
 
@@ -648,51 +942,79 @@ module systolic_top_tb;
 
 
         // --------------------------------------------------------------------
-        // Print actual approximate result
+        // Display actual approximate output
         // --------------------------------------------------------------------
 
         print_output_matrix;
 
 
         // --------------------------------------------------------------------
-        // Compare against exact mathematical result
-        //
-        // Informational only -- NO FAIL on numerical mismatch.
+        // Self-check approximate numerical behavior
         // --------------------------------------------------------------------
 
-        compare_output_matrix;
+        check_output_matrix;
 
 
         // --------------------------------------------------------------------
-        // Protocol/completion status
+        // Verify completion signal
         // --------------------------------------------------------------------
-
-        $display("==============================================================");
-        $display(" ALL 128 OUTPUT TRANSFERS RECEIVED");
-        $display("==============================================================");
 
         $display("");
+
+        $display(
+            "=============================================================="
+        );
+
+        $display(
+            " ALL 128 OUTPUT TRANSFERS RECEIVED"
+        );
+
+        $display(
+            "=============================================================="
+        );
+
+        $display("");
+
 
         @(posedge clk);
         @(posedge clk);
 
 
-        if (done_matrix_mult === 1'b1)
+        if (
+            done_matrix_mult !== 1'b1
+        ) begin
 
-            $display(
-                "done_matrix_mult asserted successfully."
+            $fatal(
+                1,
+                "done_matrix_mult was not asserted"
             );
 
-        else
+        end
 
-            $display(
-                "WARNING: done_matrix_mult not observed at final check."
-            );
+
+        $display(
+            "PASS: done_matrix_mult asserted."
+        );
 
 
         $display("");
-        $display("SYSTOLIC APPROXIMATE MAC TEST COMPLETED.");
-        $display("Numerical differences from exact A x B are expected.");
+
+        $display(
+            "=============================================================="
+        );
+
+        $display(
+            " TEST PASSED"
+        );
+
+        $display(
+            " All 16 approximate results are within the allowed error range."
+        );
+
+        $display(
+            "=============================================================="
+        );
+
         $display("");
 
 
