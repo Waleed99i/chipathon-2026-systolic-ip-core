@@ -1,0 +1,45 @@
+{
+  "git_head": "c98ec31ebb989d6eafee9f8927985622fc515526",
+  "git_status": " M src/tb/chip_core_tb.sv\n M src/tb/counter_tb.sv\n?? librelane/chip_core_macro.yaml.before_q16_repair\n?? signoff/q16_eco_full4/gl_regression/\n?? verification_results/\n",
+  "implementation_sha256": {
+    "verilog/gl/chip_core.pnl.v": "42821194c1447902f4022622f8daba5143bb3bd526fd32fb5e811a8fcb7a5410",
+    "gds/chip_core.gds": "76091ccb1052a45195f3b30766380e44a60ad4da4ac7ed8a1dac7dec226a87e3",
+    "src/rtl/controlled_counter.v": "b7b3bb8f1b1852c2f4d24b6d0e24ea2444cb461d2c7ff005cecec0cdd0feba29",
+    "src/rtl/counter.v": "71d0f475cfc1a45b6fb050de1ef85269351df491e320419c6f452945a987d7ab",
+    "src/rtl/data_feeder.v": "1fd14325815e9b798e454cb62c2191a5b61a77b81c3d4b43e8d725dd0dd7d362",
+    "src/rtl/fp16_approximate_multiplier.v": "d2677c740a7ff7534c2f7105d5b1060ef40c1b7de950cf96dad6c92b3df437b6",
+    "src/rtl/fp16_multiplier_exception.v": "a36a962fdb36e5e365534432512226ae149c496ac90e9f39ac55a878bd6c629c",
+    "src/rtl/fp16_multiplier_exponent.v": "433bab9f2e8c68b1effc7dc4709b5aec7c33831ecdda86c2dfce63d5589cd51c",
+    "src/rtl/fp16_to_fp32.v": "abeb531813f87ac390aec7d1b2c9914a6a5f06f2163cb77ff17941faea921bfb",
+    "src/rtl/fp16_to_q16_16.v": "3cdbd7eb955dc5deac2b7773359113ae3eb82abc94d713f3360b083c6c659357",
+    "src/rtl/fp16_to_q16_16_approximate_mac.v": "bc6acdaa7cc10ea4c7faf31916336111d0b3b8f1dc8392423c4789a65bd8ce06",
+    "src/rtl/fp16_to_q8_8.v": "f2d30149003a9c1522a94cdc5f319ede82719f77e7a67bbbcbc783971871060c",
+    "src/rtl/fp32_to_fp16.v": "9093a621f0b53f8f58a28c5ff845d6f46eac813db8646710f277e79fd3ffdcea",
+    "src/rtl/input_datapath.v": "740bab48d8887c72950bff3636f13d9fc55f604b1e018970e1b18ea474be3b2a",
+    "src/rtl/output_datapath.v": "b492c92284dab64ddf3e925b66af667768ec02c2b8eb376fad62c10a2a61dccc",
+    "src/rtl/pe.v": "bc11faca2d013fde4f3eca4cd92b8542897678e82fd2756d8c7e4c6f7bae7296",
+    "src/rtl/q16_16_to_fp16.v": "f87830cf35aaaa01d2a2044ad19e6f917226385b71f8b5608a97f4f4794caaaa",
+    "src/rtl/q16_16_to_fp32.v": "2bb1271562d026ea2dbf6e1847a803a9c5fdd44d33348b1fed795ed06212f8b6",
+    "src/rtl/reg_def.v": "b4a7953bdf6168d1a0561c8c71d1f1c6ee558c925a7479a69fbdda6d3d0f9fea",
+    "src/rtl/rv_protocol.v": "b56b55fb939fc6f72fa3e90f7160bcf8de6c6e3c6c3d1fefea239ecc42d4394e",
+    "src/rtl/systolic.v": "344246aadef5671a7b1676b6f761010bce44dcedb1bcc778d7515b15ae946c24",
+    "src/chipathon_wrapper/chip_core.sv": "0f0a56363ac9183676f937412dafb8ddee4fd07f53e265a09335916f96801c22",
+    "src/chipathon_wrapper/chip_top.sv": "90d97b00e1ca9e05f26e5f028aa588de3ec546e600da5c209a1eafa5ea62da3d",
+    "src/rtl/input_serializer.sv": "96fba49d65b689538807e67d63c474e536248a32d81a26691d1ef6dc4d8a918b"
+  },
+  "model_sha256": {
+    "/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/verilog/primitives.v": "ccc0f447f71ce35c635e08d49eb0ed77aa2ec91cf31d8e3e45a246114d3cae92",
+    "/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/verilog/gf180mcu_fd_sc_mcu7t5v0.v": "9a21c5f98200acfe77d8ba52067164e0802284dc1c1e117f0e64fb6ac42eb64b"
+  },
+  "test_sha256": {
+    "README.md": "e984030788a642e4b94da2c4fd04f9fc6f5eecd00ada4c7d6bc1cd89c731cf2a",
+    "check.py": "7b1a626f63d56874de7f8225fe6656232e6111b8c39383413ae53892a117cdd2",
+    "collect_run_history.py": "ba5af12f806d88c3569940ab20e329a5a087a7c8cdb3fe16a55e98b8251d52ba",
+    "gen_cases.py": "a6f99e718829c16b62a52a5eec2469f0af3ff96a5fd57bffdd8c961f254e12a9",
+    "mtb.sv": "9ea31d6daaf7b4a089c72511ed6b4cc70229ee5ed3f03f04bf6b1598eb321a37",
+    "run_gl_regression.sh": "2e91bdca222a0c6e425547b5c20e546f4e50cb39687483ad8e529af3ac30dbff"
+  },
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [GCC 15.3.0]",
+  "numpy": "2.5.1",
+  "scope": "Zero-delay FUNCTIONAL models, no SDF, internal-handshake-assisted packets; reset per matrix."
+}

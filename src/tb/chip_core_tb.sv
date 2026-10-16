@@ -436,9 +436,11 @@ module chip_core_tb;
 
         #30;
 
-        rst_n = 1'b1;
-
+        // The wrapper samples one byte on every rising edge after reset
+        // (there is no byte-valid pin). Release reset just after a rising
+        // edge so that byte 0 of packet 0 is sampled on the next edge.
         @(posedge clk);
+        #1 rst_n = 1'b1;
 
         // ========================================================
         // TEST

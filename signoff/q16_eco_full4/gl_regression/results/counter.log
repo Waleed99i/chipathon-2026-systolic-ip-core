@@ -1,0 +1,2 @@
+COUNTER PASS: two 10-step bursts, wrap event, idle and reset checks
+/home/rumali/openlane_project/a34-rtl-fix-pd/src/tb/counter_tb.sv:35: $finish called at 456000 (1ps)
