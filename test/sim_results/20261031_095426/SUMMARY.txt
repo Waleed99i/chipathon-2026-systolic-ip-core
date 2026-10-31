@@ -1,0 +1,24 @@
+A34 pin-level test run, 2026-10-31T13:54:26Z
+repository commit: 13bd4666e90bb8cdd9e31e14ab9a7eeec6b66aeb
+uncommitted changes: 1 file(s) in src/ test/ verilog/
+simulator: Icarus Verilog version 13.0 (devel) ()
+python: Python 3.13.9
+gate-level netlist sha256: 42821194c1447902f4022622f8daba5143bb3bd526fd32fb5e811a8fcb7a5410
+Model vs recorded RTL simulation: 528 of 528 result words match.
+9a02c4a776f644b5d7a9ca7855cc01ca7f6710072cd9a59e6822ead76618e067  ./cases.vec
+901172306fc1177a711e82da85b44f04c4f89dc0bcdb8704d784004ad0b27f24  ./fault.vec
+0df186620750901266635d5c7908f0a06813c97d0eadb9e2017d7854534eb8bf  ./identity.vec
+58557643a018123b224bd356574f5754e7aae3a12436fbdd7bbe6bc12e26dfa4  ./random.vec
+edd24be354150f917070dd4f5f1b4eb2654c42f714f7fb640bc4d6f62454d72e  ./suite.vec
+rtl identity: PIN TEST: 1 matrices, 389 output samples checked, 0 mismatches  PASS
+rtl suite: PIN TEST: 9 matrices, 3501 output samples checked, 0 mismatches  PASS
+rtl cases: PIN TEST: 33 matrices, 12837 output samples checked, 0 mismatches  PASS
+rtl random: PIN TEST: 50 matrices, 19450 output samples checked, 0 mismatches  PASS
+rtl deliberate fault: detected (MISMATCH matrix 1, check 136: got 1 expected 2)
+cell models: ccc0f447f71ce35c 9a21c5f98200acfe 
+gl identity: PIN TEST: 1 matrices, 389 output samples checked, 0 mismatches  PASS
+gl suite: PIN TEST: 9 matrices, 3501 output samples checked, 0 mismatches  PASS
+gl cases: PIN TEST: 33 matrices, 12837 output samples checked, 0 mismatches  PASS
+gl random: PIN TEST: 50 matrices, 19450 output samples checked, 0 mismatches  PASS
+gl deliberate fault: detected (MISMATCH matrix 1, check 136: got 1 expected 2)
+PIN REGRESSION PASS: RTL AND GATE LEVEL

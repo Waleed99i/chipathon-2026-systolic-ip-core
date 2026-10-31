@@ -1,0 +1,5 @@
+MISMATCH matrix 1, check 136: got 1 expected 2
+PIN TEST: 1 matrices, 389 output samples checked, 1 mismatches
+PIN TEST FAIL
+FATAL: /home/rumali/openlane_project/a34-rtl-fix-pd/test/pin_tb.sv:89: pin test failed
+       Time: 3910000  Scope: pin_tb

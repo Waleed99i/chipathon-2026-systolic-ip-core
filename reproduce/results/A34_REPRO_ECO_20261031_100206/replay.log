@@ -1,0 +1,60 @@
+== 1. Inputs, configuration and PDK files against recorded hashes
+RECORDED INPUT CHECK PASS (repository/tools/key PDK inputs)
+full3_04_resizertimingpostgrt.odb.gz: OK
+chip_core.h.json: OK
+chip_core.vh: OK
+OK  librelane/chip_core_macro.yaml
+OK  librelane/chip_core.sdc
+OK  /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib
+OK  /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib
+OK  /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib
+OK  /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.tech/librelane/gf180mcu_fd_sc_mcu7t5v0/pnr_exclude.cells
+OK  gds/chip_core.gds
+OK  verilog/gl/chip_core.pnl.v
+OK  /home/rumali/openlane_project/a34-replay-check-TOb8Gv/project/reproduce/work/A34_REPRO_ECO_20261031_100206/full3_04.odb
+librelane: Included tools and utilities may be distributed under stricter licenses.
+openroad: dcf36133a369abc8f3c5e5738cd4d82e4903c0e0 
+== 2. Apply the seven-cell ECO
+A34_LIBERTY_PRECHECK_PASS 7
+A34_APPLIED _29775_ gf180mcu_fd_sc_mcu7t5v0__oai32_1 gf180mcu_fd_sc_mcu7t5v0__oai32_2
+A34_APPLIED _34089_ gf180mcu_fd_sc_mcu7t5v0__oai33_1 gf180mcu_fd_sc_mcu7t5v0__oai33_4
+A34_APPLIED _29733_ gf180mcu_fd_sc_mcu7t5v0__nor3_1 gf180mcu_fd_sc_mcu7t5v0__nor3_2
+A34_APPLIED clkbuf_leaf_259_clk gf180mcu_fd_sc_mcu7t5v0__clkbuf_8 gf180mcu_fd_sc_mcu7t5v0__clkbuf_4
+A34_APPLIED clkbuf_leaf_257_clk gf180mcu_fd_sc_mcu7t5v0__clkbuf_8 gf180mcu_fd_sc_mcu7t5v0__clkbuf_4
+A34_APPLIED clkbuf_leaf_541_clk gf180mcu_fd_sc_mcu7t5v0__clkbuf_8 gf180mcu_fd_sc_mcu7t5v0__clkbuf_4
+A34_APPLIED clkbuf_leaf_519_clk gf180mcu_fd_sc_mcu7t5v0__clkbuf_8 gf180mcu_fd_sc_mcu7t5v0__clkbuf_4
+A34_ECO_COPY_WRITTEN
+ECO database sha256: b0d8a04e47359d9219171f4ca97cd4b673c3995adeb60143189487f88ad885ee
+OK  ECO database identical to the one made on 15 Oct 2026
+== 3. Starting state for LibreLane
+== 4. LibreLane from detailed placement to signoff (run tag A34_REPRO_ECO_20261031_100206)
+                    for 'VSRC_LOC_FILES'.                                                                                                                   
+[10:53:56] WARNING  [Odb.CheckDesignAntennaProperties] [ODB-0186] macro gf180mcu_ef_io__bi_t references unknown site GF_IO_Site (and 16 similar  flow.py:701
+                    warnings)                                                                                                                               
+[10:53:56] WARNING  [Odb.CheckDesignAntennaProperties] Cell 'chip_core' has (4) input pin(s) without antenna gate information. They might not be flow.py:701
+                    connected to a gate. (and 1 similar warnings)                                                                                           
+== 5. Recorded final-layout checks (ECO cells, boundary, power rings, power grid)
+A34_FINAL_CELL _29775_ gf180mcu_fd_sc_mcu7t5v0__oai32_2
+A34_FINAL_CELL _34089_ gf180mcu_fd_sc_mcu7t5v0__oai33_4
+A34_FINAL_CELL _29733_ gf180mcu_fd_sc_mcu7t5v0__nor3_2
+A34_FINAL_CELL clkbuf_leaf_259_clk gf180mcu_fd_sc_mcu7t5v0__clkbuf_4
+A34_FINAL_CELL clkbuf_leaf_257_clk gf180mcu_fd_sc_mcu7t5v0__clkbuf_4
+A34_FINAL_CELL clkbuf_leaf_541_clk gf180mcu_fd_sc_mcu7t5v0__clkbuf_4
+A34_FINAL_CELL clkbuf_leaf_519_clk gf180mcu_fd_sc_mcu7t5v0__clkbuf_4
+A34_POWER VDD M2=6 vertical_ring=2 horizontal_ring=2 outside=0
+[INFO PSM-0040] All shapes on net VDD are connected.
+A34_POWER VSS M2=6 vertical_ring=2 horizontal_ring=2 outside=0
+[INFO PSM-0040] All shapes on net VSS are connected.
+A34_FINAL_ODB_CHECK_COMPLETE
+OK  boundary pins identical to the recorded final check
+== 6. Compare with the committed layout
+OK   committed reference GDS and netlist have the recorded hashes
+OK   23 signoff counts zero; setup/hold/slew/cap/fanout zero and worst slack non-negative in all 9 corners
+     worst setup slack 0.5498535116188729 ns, worst hold slack 0.09115441992566169 ns (recorded run: 0.5499 / 0.0912)
+OK   powered netlist byte-identical to verilog/gl/chip_core.pnl.v
+OK   GDS top cell chip_core, DBU 0.001 um, boundary 1675 x 1675 um
+     GDS bytes differ; comparing every polygon and label...
+OK   GDS geometry and labels identical on all 27 layers (0 polygon and 0 label differences); file bytes differ
+REPRODUCED: matches the committed layout
+Logs: /home/rumali/openlane_project/a34-replay-check-TOb8Gv/project/reproduce/work/A34_REPRO_ECO_20261031_100206
+Results to commit: reproduce/results/A34_REPRO_ECO_20261031_100206

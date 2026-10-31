@@ -1,0 +1,8 @@
+OK   committed reference GDS and netlist have the recorded hashes
+OK   23 signoff counts zero; setup/hold/slew/cap/fanout zero and worst slack non-negative in all 9 corners
+     worst setup slack 0.5498535116188729 ns, worst hold slack 0.09115441992566169 ns (recorded run: 0.5499 / 0.0912)
+OK   powered netlist byte-identical to verilog/gl/chip_core.pnl.v
+OK   GDS top cell chip_core, DBU 0.001 um, boundary 1675 x 1675 um
+     GDS bytes differ; comparing every polygon and label...
+OK   GDS geometry and labels identical on all 27 layers (0 polygon and 0 label differences); file bytes differ
+REPRODUCED: matches the committed layout

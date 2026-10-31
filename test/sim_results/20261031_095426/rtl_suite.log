@@ -1,0 +1,3 @@
+PIN TEST: 9 matrices, 3501 output samples checked, 0 mismatches
+PIN TEST PASS
+/home/rumali/openlane_project/a34-rtl-fix-pd/test/pin_tb.sv:86: $finish called at 35110000 (1ps)
