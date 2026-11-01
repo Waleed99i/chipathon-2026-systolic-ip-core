@@ -1,0 +1,1067 @@
+[17:45:01] INFO     Starting a new run of the 'Classic' flow with the tag 'A34_REBUILD_20261101_172831_STAGE2'.                                  flow.py:654
+[17:45:01] INFO     Starting…                                                                                                              sequential.py:339
+[17:45:01] INFO     Skipping step 'Verilator Lint'…                                                                                        sequential.py:370
+[17:45:01] INFO     Skipping step 'Lint Timing Error Checker'…                                                                             sequential.py:370
+[17:45:01] INFO     Skipping step 'Lint Errors Checker'…                                                                                   sequential.py:370
+[17:45:01] INFO     Skipping step 'Lint Warnings Checker'…                                                                                 sequential.py:370
+[17:45:01] INFO     Skipping step 'Generate JSON Header'…                                                                                  sequential.py:370
+[17:45:01] INFO     Skipping step 'Synthesis'…                                                                                             sequential.py:370
+[17:45:01] INFO     Skipping step 'Unmapped Cells Checker'…                                                                                sequential.py:370
+[17:45:01] INFO     Skipping step 'Yosys Synth Checks'…                                                                                    sequential.py:370
+[17:45:01] INFO     Skipping step 'Netlist Assign Statement Checker'…                                                                      sequential.py:370
+[17:45:01] INFO     Skipping step 'Check SDC Files'…                                                                                       sequential.py:370
+[17:45:01] INFO     Skipping step 'Check Macro Instances'…                                                                                 sequential.py:370
+[17:45:01] INFO     Skipping step 'STA (Pre-PnR)'…                                                                                         sequential.py:370
+[17:45:01] INFO     Skipping step 'Floorplan Init'…                                                                                        sequential.py:370
+[17:45:01] INFO     Skipping step 'Dump RC Values'…                                                                                        sequential.py:370
+[17:45:01] INFO     Skipping step 'Check Antenna Properties of Macros Pins in Their LEF Views'…                                            sequential.py:370
+[17:45:01] INFO     Skipping step 'Set Power Connections'…                                                                                 sequential.py:370
+[17:45:01] INFO     Skipping step 'Manual Macro Placement'…                                                                                sequential.py:370
+[17:45:01] INFO     Skipping step 'Cut Rows'…                                                                                              sequential.py:370
+[17:45:01] INFO     Skipping step 'Tap/Decap Insertion'…                                                                                   sequential.py:370
+[17:45:01] INFO     Skipping step 'Add PDN obstructions'…                                                                                  sequential.py:370
+[17:45:01] INFO     Skipping step 'Generate PDN'…                                                                                          sequential.py:370
+[17:45:01] INFO     Skipping step 'Remove PDN obstructions'…                                                                               sequential.py:370
+[17:45:01] INFO     Skipping step 'Add Obstructions'…                                                                                      sequential.py:370
+[17:45:01] INFO     Skipping step 'Global Placement Skip IO'…                                                                              sequential.py:370
+[17:45:01] INFO     Skipping step 'I/O Placement'…                                                                                         sequential.py:370
+[17:45:01] INFO     Skipping step 'Custom I/O Placement'…                                                                                  sequential.py:370
+[17:45:01] INFO     Skipping step 'Apply DEF Template'…                                                                                    sequential.py:370
+[17:45:01] INFO     Skipping step 'Global Placement'…                                                                                      sequential.py:370
+[17:45:01] INFO     Skipping step 'Write Verilog Header'…                                                                                  sequential.py:370
+[17:45:01] INFO     Skipping step 'Power Grid Violation Checker'…                                                                          sequential.py:370
+[17:45:01] INFO     Skipping step 'STA (Mid-PnR)'…                                                                                         sequential.py:370
+[17:45:01] INFO     Skipping step 'Repair Design (Post-Global Placement)'…                                                                 sequential.py:370
+[17:45:01] INFO     Skipping step 'Manual Global Placement'…                                                                               sequential.py:370
+[17:45:01] INFO     Skipping step 'Detailed Placement'…                                                                                    sequential.py:370
+[17:45:01] INFO     Skipping step 'Clock Tree Synthesis'…                                                                                  sequential.py:370
+[17:45:01] INFO     Skipping step 'STA (Mid-PnR)'…                                                                                         sequential.py:370
+[17:45:01] INFO     Skipping step 'Resizer Timing Optimizations (Post-Clock Tree Synthesis)'…                                              sequential.py:370
+[17:45:01] INFO     Skipping step 'STA (Mid-PnR)'…                                                                                         sequential.py:370
+[17:45:01] INFO     Skipping step 'Global Routing'…                                                                                        sequential.py:370
+[17:45:01] INFO     Skipping step 'Check Antennas'…                                                                                        sequential.py:370
+─────────────────────────────────────────────────────────── Repair Design (Post-Global Routing) ────────────────────────────────────────────────────────────
+[17:45:01] VERBOSE  Running 'OpenROAD.RepairDesignPostGRT' at                                                                                   step.py:1138
+                    'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/01-openroad-repairdesignpostgrt'…                                                    
+[17:45:01] VERBOSE  Logging subprocess to                                                                                                       step.py:1338
+                    'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/01-openroad-repairdesignpostgrt/openroad-repairdesignpostgrt.log'…                   
+Reading timing models for corner max_ff_n40C_5v50…                                                                                                          
+Reading timing library for the 'max_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_
+n40C_5v50.lib'…                                                                                                                                             
+Reading timing library for the 'max_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ff_n40C_5v50.lib'…   
+Reading timing library for the 'max_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ff_n40C_5v50.lib'…   
+Reading timing models for corner max_tt_025C_5v00…                                                                                                          
+Reading timing library for the 'max_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_
+025C_5v00.lib'…                                                                                                                                             
+Reading timing library for the 'max_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__tt_025C_5v00.lib'…   
+Reading timing library for the 'max_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__tt_025C_5v00.lib'…   
+Reading timing models for corner nom_ff_n40C_5v50…                                                                                                          
+Reading timing library for the 'nom_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_
+n40C_5v50.lib'…                                                                                                                                             
+[17:45:02] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.                 
+Reading timing library for the 'nom_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ff_n40C_5v50.lib'…   
+[17:45:03] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__ff_n40C_5v50.lib line 17, library gf180mcu_ws_io__ff_n40C_5v50 already exists.                                            
+Reading timing library for the 'nom_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ff_n40C_5v50.lib'…   
+[17:45:03] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__ff_n40C_5v50.lib line 17, library gf180mcu_fd_io__ff_n40C_5v50 already exists.                                            
+Reading timing models for corner nom_tt_025C_5v00…                                                                                                          
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_
+025C_5v00.lib'…                                                                                                                                             
+[17:45:03] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.                 
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__tt_025C_5v00.lib'…   
+[17:45:03] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__tt_025C_5v00.lib line 17, library gf180mcu_ws_io__tt_025C_5v00 already exists.                                            
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__tt_025C_5v00.lib'…   
+[17:45:03] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__tt_025C_5v00.lib line 17, library gf180mcu_fd_io__tt_025C_5v00 already exists.                                            
+Reading timing models for corner min_ss_125C_4v50…                                                                                                          
+Reading timing library for the 'min_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_
+125C_4v50.lib'…                                                                                                                                             
+Reading timing library for the 'min_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ss_125C_4v50.lib'…   
+Reading timing library for the 'min_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ss_125C_4v50.lib'…   
+Reading timing models for corner min_ff_n40C_5v50…                                                                                                          
+Reading timing library for the 'min_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_
+n40C_5v50.lib'…                                                                                                                                             
+[17:45:04] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.                 
+Reading timing library for the 'min_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ff_n40C_5v50.lib'…   
+[17:45:04] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__ff_n40C_5v50.lib line 17, library gf180mcu_ws_io__ff_n40C_5v50 already exists.                                            
+Reading timing library for the 'min_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ff_n40C_5v50.lib'…   
+[17:45:04] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__ff_n40C_5v50.lib line 17, library gf180mcu_fd_io__ff_n40C_5v50 already exists.                                            
+Reading timing models for corner min_tt_025C_5v00…                                                                                                          
+Reading timing library for the 'min_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_
+025C_5v00.lib'…                                                                                                                                             
+[17:45:04] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.                 
+Reading timing library for the 'min_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__tt_025C_5v00.lib'…   
+[17:45:05] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__tt_025C_5v00.lib line 17, library gf180mcu_ws_io__tt_025C_5v00 already exists.                                            
+Reading timing library for the 'min_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__tt_025C_5v00.lib'…   
+[17:45:05] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__tt_025C_5v00.lib line 17, library gf180mcu_fd_io__tt_025C_5v00 already exists.                                            
+Reading timing models for corner max_ss_125C_4v50…                                                                                                          
+Reading timing library for the 'max_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_
+125C_4v50.lib'…                                                                                                                                             
+[17:45:05] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.                 
+Reading timing library for the 'max_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ss_125C_4v50.lib'…   
+[17:45:05] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__ss_125C_4v50.lib line 17, library gf180mcu_fd_io__ss_125C_4v50 already exists.                                            
+Reading timing library for the 'max_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ss_125C_4v50.lib'…   
+[17:45:05] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__ss_125C_4v50.lib line 17, library gf180mcu_ws_io__ss_125C_4v50 already exists.                                            
+Reading timing models for corner nom_ss_125C_4v50…                                                                                                          
+Reading timing library for the 'nom_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_
+125C_4v50.lib'…                                                                                                                                             
+[17:45:05] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.                 
+Reading timing library for the 'nom_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ss_125C_4v50.lib'…   
+[17:45:06] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__ss_125C_4v50.lib line 17, library gf180mcu_fd_io__ss_125C_4v50 already exists.                                            
+Reading timing library for the 'nom_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ss_125C_4v50.lib'…   
+[17:45:06] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__ss_125C_4v50.lib line 17, library gf180mcu_ws_io__ss_125C_4v50 already exists.                                            
+Reading OpenROAD database at                                                                                                                                
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE1/39-openroad-globalrouting/chip_core.odb'…                
+[17:45:06] WARNING  [ORD-2001] LEF macro gf180mcu_ef_io__bi_t pin ANA missing from liberty cell.                                             openroad.py:314
+Reading design constraints file at '/home/rumali/openlane_project/a34-rebuild-check/librelane/chip_core.sdc'…                                               
+[INFO] Setting signal min routing layer to: Metal2 and clock min routing layer to Metal2.                                                                   
+[INFO] Setting signal max routing layer to: Metal5 and clock max routing layer to Metal5.                                                                   
++ global_route -congestion_iterations 50 -verbose -allow_congestion                                                                                         
+[INFO GRT-0020] Min routing layer: Metal2                                                                                                                   
+[INFO GRT-0021] Max routing layer: Metal5                                                                                                                   
+[INFO GRT-0022] Global adjustment: 30%                                                                                                                      
+[INFO GRT-0023] Grid origin: (0, 0)                                                                                                                         
+[INFO GRT-0088] Layer Metal1  Track-Pitch = 0.5600  line-2-Via Pitch: 0.4750                                                                                
+[INFO GRT-0088] Layer Metal2  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal3  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal4  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal5  Track-Pitch = 0.9000  line-2-Via Pitch: 0.8200                                                                                
+[INFO GRT-0003] Macros: 0                                                                                                                                   
+[INFO GRT-0004] Blockages: 0                                                                                                                                
+[INFO GRT-0019] Found 654 clock nets.                                                                                                                       
+[INFO GRT-0001] Minimum degree: 2                                                                                                                           
+[INFO GRT-0002] Maximum degree: 11                                                                                                                          
+                                                                                                                                                            
+[INFO GRT-0053] Routing resources analysis:                                                                                                                 
+          Routing      Original      Derated      Resource                                                                                                  
+Layer     Direction    Resources     Resources    Reduction (%)                                                                                             
+---------------------------------------------------------------                                                                                             
+Metal1     Horizontal          0             0          0.00%                                                                                               
+Metal2     Vertical       578890        386192          33.29%                                                                                              
+Metal3     Horizontal     587160        391254          33.37%                                                                                              
+Metal4     Vertical       577049        384962          33.29%                                                                                              
+Metal5     Horizontal     357192        240768          32.59%                                                                                              
+---------------------------------------------------------------                                                                                             
+                                                                                                                                                            
+[INFO GRT-0197] Via related to pin nodes: 190633                                                                                                            
+[INFO GRT-0198] Via related Steiner nodes: 4074                                                                                                             
+[INFO GRT-0199] Via filling finished.                                                                                                                       
+[INFO GRT-0111] Final number of vias: 235133                                                                                                                
+[INFO GRT-0112] Final usage 3D: 875585                                                                                                                      
+                                                                                                                                                            
+[INFO GRT-0096] Final congestion report:                                                                                                                    
+Layer         Resource        Demand        Usage (%)    Max H / Max V / Total Overflow                                                                     
+---------------------------------------------------------------------------------------                                                                     
+Metal1               0             0            0.00%             0 /  0 /  0                                                                               
+Metal2          386192         86639           22.43%             0 /  0 /  0                                                                               
+Metal3          391254         78191           19.98%             0 /  0 /  0                                                                               
+Metal4          384962          3732            0.97%             0 /  0 /  0                                                                               
+Metal5          240768          1624            0.67%             0 /  0 /  0                                                                               
+---------------------------------------------------------------------------------------                                                                     
+Total          1403176        170186           12.13%             0 /  0 /  0                                                                               
+                                                                                                                                                            
+[INFO GRT-0018] Total wirelength: 2156674 um                                                                                                                
+[INFO GRT-0014] Routed nets: 32799                                                                                                                          
+[INFO GRT-0303] Global routing runtime = 00:00:02                                                                                                           
++ repair_design -verbose -max_wire_length 0 -slew_margin 30 -cap_margin 30                                                                                  
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining                                                                                       
+---------------------------------------------------------------------                                                                                       
+        0 |     +0.0% |       0 |       0 |             0 |     33294                                                                                       
+     1000 |     +0.0% |       0 |       2 |             2 |     32294                                                                                       
+     2000 |     +0.0% |       0 |       5 |             9 |     31294                                                                                       
+     3000 |     +0.0% |       0 |      14 |            21 |     30294                                                                                       
+     4000 |     +0.0% |       0 |      15 |            23 |     29294                                                                                       
+     5000 |     +0.0% |       0 |      17 |            30 |     28294                                                                                       
+     6000 |     +0.0% |       2 |      21 |            37 |     27294                                                                                       
+     7000 |     +0.1% |      20 |      51 |            73 |     26294                                                                                       
+     8000 |     +0.1% |      35 |      84 |           121 |     25294                                                                                       
+     9000 |     +0.2% |      56 |     121 |           171 |     24294                                                                                       
+    10000 |     +0.2% |      73 |     142 |           208 |     23294                                                                                       
+    11000 |     +0.2% |     100 |     174 |           247 |     22294                                                                                       
+    12000 |     +0.2% |     122 |     202 |           277 |     21294                                                                                       
+    13000 |     +0.3% |     148 |     231 |           309 |     20294                                                                                       
+    14000 |     +0.3% |     173 |     256 |           337 |     19294                                                                                       
+    15000 |     +0.3% |     197 |     279 |           363 |     18294                                                                                       
+    16000 |     +0.3% |     217 |     307 |           395 |     17294                                                                                       
+    17000 |     +0.3% |     257 |     350 |           441 |     16294                                                                                       
+    18000 |     +0.4% |     308 |     398 |           495 |     15294                                                                                       
+    19000 |     +0.4% |     361 |     448 |           552 |     14294                                                                                       
+    20000 |     +0.4% |     398 |     487 |           593 |     13294                                                                                       
+    21000 |     +0.4% |     476 |     558 |           680 |     12294                                                                                       
+    22000 |     +0.4% |     556 |     637 |           771 |     11294                                                                                       
+    23000 |     +0.4% |     645 |     710 |           862 |     10294                                                                                       
+    24000 |     +0.4% |     682 |     757 |           915 |      9294                                                                                       
+    25000 |     +0.4% |     711 |     791 |           952 |      8294                                                                                       
+    26000 |     +0.4% |     711 |     791 |           953 |      7294                                                                                       
+    27000 |     +0.4% |     713 |     793 |           955 |      6294                                                                                       
+    28000 |     +0.5% |     720 |     800 |           962 |      5294                                                                                       
+    29000 |     +0.5% |     720 |     803 |           967 |      4294                                                                                       
+    30000 |     +0.5% |     720 |     810 |           976 |      3294                                                                                       
+    31000 |     +0.5% |     720 |     811 |           977 |      2294                                                                                       
+    32000 |     +0.5% |     720 |     811 |           977 |      1294                                                                                       
+    33000 |     +0.5% |     745 |     824 |          1000 |       294                                                                                       
+    final |     +0.4% |     784 |     849 |          1042 |         0                                                                                       
+---------------------------------------------------------------------                                                                                       
+[INFO RSZ-0034] Found 1051 slew violations.                                                                                                                 
+[INFO RSZ-0036] Found 7 capacitance violations.                                                                                                             
+[INFO RSZ-0039] Resized 784 instances.                                                                                                                      
+[INFO RSZ-0038] Inserted 849 buffers in 1042 nets.                                                                                                          
++ detailed_placement -max_displacement  500 100                                                                                                             
+Placement Analysis                                                                                                                                          
+---------------------------------                                                                                                                           
+total displacement       7737.5 u                                                                                                                           
+average displacement        0.1 u                                                                                                                           
+max displacement           17.4 u                                                                                                                           
+original HPWL         1309416.2 u                                                                                                                           
+legalized HPWL        1342256.0 u                                                                                                                           
+delta HPWL                    3 %                                                                                                                           
+                                                                                                                                                            
+[INFO DPL-0020] Mirrored 12032 instances                                                                                                                    
+[INFO DPL-0021] HPWL before          1342256.0 u                                                                                                            
+[INFO DPL-0022] HPWL after           1313835.2 u                                                                                                            
+[INFO DPL-0023] HPWL delta               -2.1 %                                                                                                             
++ global_route -congestion_iterations 50 -verbose -allow_congestion                                                                                         
+[INFO GRT-0020] Min routing layer: Metal2                                                                                                                   
+[INFO GRT-0021] Max routing layer: Metal5                                                                                                                   
+[INFO GRT-0022] Global adjustment: 30%                                                                                                                      
+[INFO GRT-0023] Grid origin: (0, 0)                                                                                                                         
+[INFO GRT-0088] Layer Metal1  Track-Pitch = 0.5600  line-2-Via Pitch: 0.4750                                                                                
+[INFO GRT-0088] Layer Metal2  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal3  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal4  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal5  Track-Pitch = 0.9000  line-2-Via Pitch: 0.8200                                                                                
+[INFO GRT-0003] Macros: 0                                                                                                                                   
+[INFO GRT-0004] Blockages: 0                                                                                                                                
+[INFO GRT-0019] Found 654 clock nets.                                                                                                                       
+[INFO GRT-0001] Minimum degree: 2                                                                                                                           
+[INFO GRT-0002] Maximum degree: 11                                                                                                                          
+                                                                                                                                                            
+[INFO GRT-0053] Routing resources analysis:                                                                                                                 
+          Routing      Original      Derated      Resource                                                                                                  
+Layer     Direction    Resources     Resources    Reduction (%)                                                                                             
+---------------------------------------------------------------                                                                                             
+Metal1     Horizontal          0             0          0.00%                                                                                               
+Metal2     Vertical       578890        386192          33.29%                                                                                              
+Metal3     Horizontal     587160        391254          33.37%                                                                                              
+Metal4     Vertical       577049        384962          33.29%                                                                                              
+Metal5     Horizontal     357192        240768          32.59%                                                                                              
+---------------------------------------------------------------                                                                                             
+                                                                                                                                                            
+[INFO GRT-0197] Via related to pin nodes: 193668                                                                                                            
+[INFO GRT-0198] Via related Steiner nodes: 4042                                                                                                             
+[INFO GRT-0199] Via filling finished.                                                                                                                       
+[INFO GRT-0111] Final number of vias: 238801                                                                                                                
+[INFO GRT-0112] Final usage 3D: 887494                                                                                                                      
+                                                                                                                                                            
+[INFO GRT-0096] Final congestion report:                                                                                                                    
+Layer         Resource        Demand        Usage (%)    Max H / Max V / Total Overflow                                                                     
+---------------------------------------------------------------------------------------                                                                     
+Metal1               0             0            0.00%             0 /  0 /  0                                                                               
+Metal2          386192         87068           22.55%             0 /  0 /  0                                                                               
+Metal3          391254         78756           20.13%             0 /  0 /  0                                                                               
+Metal4          384962          3769            0.98%             0 /  0 /  0                                                                               
+Metal5          240768          1498            0.62%             0 /  0 /  0                                                                               
+---------------------------------------------------------------------------------------                                                                     
+Total          1403176        171091           12.19%             0 /  0 /  0                                                                               
+                                                                                                                                                            
+[INFO GRT-0018] Total wirelength: 2171635 um                                                                                                                
+[INFO GRT-0014] Routed nets: 33648                                                                                                                          
+[INFO GRT-0303] Global routing runtime = 00:00:02                                                                                                           
+Setting global connections for newly added cells…                                                                                                           
+[INFO] Setting global connections...                                                                                                                        
+[INFO ODB-0403] 3396 connections made, 0 conflicts skipped.                                                                                                 
+Updating metrics…                                                                                                                                           
+Cell type report:                       Count       Area                                                                                                    
+  Endcap cell                             838    3679.16                                                                                                    
+  Tap cell                              17688   77657.40                                                                                                    
+  Tie cell                                 52     456.60                                                                                                    
+  Clock buffer                           1060   48882.71                                                                                                    
+  Timing Repair Buffer                   4917  133310.11                                                                                                    
+  Inverter                               2170   19102.63                                                                                                    
+  Clock inverter                           84    1356.63                                                                                                    
+  Sequential cell                        4096  288548.06                                                                                                    
+  Multi-Input combinational cell        21750  410634.11                                                                                                    
+  Total                                 52655  983627.41                                                                                                    
+Writing OpenROAD database to                                                                                                                                
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/01-openroad-repairdesignpostgrt/chip_core.odb'…          
+Writing netlist to                                                                                                                                          
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/01-openroad-repairdesignpostgrt/chip_core.nl.v'…         
+Writing powered netlist to                                                                                                                                  
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/01-openroad-repairdesignpostgrt/chip_core.pnl.v'…        
+Writing layout to                                                                                                                                           
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/01-openroad-repairdesignpostgrt/chip_core.def'…          
+Writing timing constraints to                                                                                                                               
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/01-openroad-repairdesignpostgrt/chip_core.sdc'…          
+──────────────────────────────────────────────────────────── Diodes on Ports Protection Routine ────────────────────────────────────────────────────────────
+[17:46:18] VERBOSE  Running 'Odb.DiodesOnPorts' at 'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/02-odb-diodesonports'…                    step.py:1138
+[17:46:18] INFO     'DIODE_ON_PORTS' is set to 'none': skipping 'Odb.DiodesOnPorts'…                                                              odb.py:820
+[17:46:18] INFO     Gating variable for step 'Odb.HeuristicDiodeInsertion' set to 'False'- the step will be skipped.                       sequential.py:362
+[17:46:18] INFO     Skipping step 'Heuristic Diode Insertion'…                                                                             sequential.py:370
+────────────────────────────────────────────────────────────────────── Antenna Repair ──────────────────────────────────────────────────────────────────────
+[17:46:18] VERBOSE  Running 'OpenROAD.RepairAntennas' at 'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas'…        step.py:1138
+───────────────────────────────────────────────────────────────────── Diode Insertion ──────────────────────────────────────────────────────────────────────
+[17:46:18] VERBOSE  Running 'OpenROAD.DiodeInsertion' at                                                                                        step.py:1138
+                    'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas/1-openroad-diodeinsertion'…                               
+[17:46:18] VERBOSE  Logging subprocess to                                                                                                       step.py:1338
+                    'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas/1-openroad-diodeinsertion/openroad-diodeinser             
+                    tion.log'…                                                                                                                              
+Reading timing models for corner nom_tt_025C_5v00…                                                                                                          
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_
+025C_5v00.lib'…                                                                                                                                             
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__tt_025C_5v00.lib'…   
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__tt_025C_5v00.lib'…   
+Reading OpenROAD database at                                                                                                                                
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/01-openroad-repairdesignpostgrt/chip_core.odb'…          
+[17:46:19] WARNING  [ORD-2001] LEF macro gf180mcu_ef_io__bi_t pin ANA missing from liberty cell.                                             openroad.py:314
+Reading design constraints file at '/home/rumali/openlane_project/a34-rebuild-check/librelane/chip_core.sdc'…                                               
++ repair_antennas gf180mcu_fd_sc_mcu7t5v0__antenna -iterations 3 -ratio_margin 10 -allow_congestion                                                         
+[INFO GRT-0012] Found 35 antenna violations.                                                                                                                
+[INFO GRT-0302] Inserted 38 jumpers for 34 nets.                                                                                                            
+[INFO GRT-0012] Found 1 antenna violations.                                                                                                                 
+[INFO GRT-0015] Inserted 2 diodes.                                                                                                                          
+[INFO GRT-0012] Found 8 antenna violations.                                                                                                                 
+[INFO GRT-0302] Inserted 13 jumpers for 8 nets.                                                                                                             
+[INFO GRT-0012] Found 0 antenna violations.                                                                                                                 
+Setting global connections for newly added cells…                                                                                                           
+[INFO] Setting global connections...                                                                                                                        
+[INFO ODB-0403] 8 connections made, 0 conflicts skipped.                                                                                                    
+Updating metrics…                                                                                                                                           
+Cell type report:                       Count       Area                                                                                                    
+  Endcap cell                             838    3679.16                                                                                                    
+  Tap cell                              17688   77657.40                                                                                                    
+  Antenna cell                              2       8.78                                                                                                    
+  Tie cell                                 52     456.60                                                                                                    
+  Clock buffer                           1060   48882.71                                                                                                    
+  Timing Repair Buffer                   4917  133310.11                                                                                                    
+  Inverter                               2170   19102.63                                                                                                    
+  Clock inverter                           84    1356.63                                                                                                    
+  Sequential cell                        4096  288548.06                                                                                                    
+  Multi-Input combinational cell        21750  410634.11                                                                                                    
+  Total                                 52657  983636.19                                                                                                    
+Writing OpenROAD database to                                                                                                                                
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas/1-openroad-diodeinsertion/chip
+_core.odb'…                                                                                                                                                 
+Writing layout to                                                                                                                                           
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas/1-openroad-diodeinsertion/chip
+_core.def'…                                                                                                                                                 
+────────────────────────────────────────────────────────────────────── Check Antennas ──────────────────────────────────────────────────────────────────────
+[17:47:42] VERBOSE  Running 'OpenROAD.CheckAntennas' at                                                                                         step.py:1138
+                    'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas/2-openroad-checkantennas'…                                
+[17:47:42] VERBOSE  Logging subprocess to                                                                                                       step.py:1338
+                    'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas/2-openroad-checkantennas/openroad-checkantenn             
+                    as.log'…                                                                                                                                
+Reading timing models for corner nom_tt_025C_5v00…                                                                                                          
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_
+025C_5v00.lib'…                                                                                                                                             
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__tt_025C_5v00.lib'…   
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__tt_025C_5v00.lib'…   
+Reading OpenROAD database at                                                                                                                                
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas/1-openroad-diodeinsertion/chip
+_core.odb'…                                                                                                                                                 
+[17:47:43] WARNING  [ORD-2001] LEF macro gf180mcu_ef_io__bi_t pin ANA missing from liberty cell.                                             openroad.py:314
+Reading design constraints file at '/home/rumali/openlane_project/a34-rebuild-check/librelane/chip_core.sdc'…                                               
+──────────────────────────────────────────────────── Resizer Timing Optimizations (Post-Global Routing) ────────────────────────────────────────────────────
+[17:48:05] VERBOSE  Running 'OpenROAD.ResizerTimingPostGRT' at                                                                                  step.py:1138
+                    'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/04-openroad-resizertimingpostgrt'…                                                   
+[17:48:05] VERBOSE  Logging subprocess to                                                                                                       step.py:1338
+                    'librelane/runs/A34_REBUILD_20261101_172831_STAGE2/04-openroad-resizertimingpostgrt/openroad-resizertimingpostgrt.log'…                 
+Reading timing models for corner max_ff_n40C_5v50…                                                                                                          
+Reading timing library for the 'max_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_
+n40C_5v50.lib'…                                                                                                                                             
+Reading timing library for the 'max_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ff_n40C_5v50.lib'…   
+Reading timing library for the 'max_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ff_n40C_5v50.lib'…   
+Reading timing models for corner max_tt_025C_5v00…                                                                                                          
+Reading timing library for the 'max_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_
+025C_5v00.lib'…                                                                                                                                             
+Reading timing library for the 'max_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__tt_025C_5v00.lib'…   
+Reading timing library for the 'max_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__tt_025C_5v00.lib'…   
+Reading timing models for corner nom_ff_n40C_5v50…                                                                                                          
+Reading timing library for the 'nom_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_
+n40C_5v50.lib'…                                                                                                                                             
+[17:48:06] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.                 
+Reading timing library for the 'nom_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ff_n40C_5v50.lib'…   
+[17:48:07] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__ff_n40C_5v50.lib line 17, library gf180mcu_ws_io__ff_n40C_5v50 already exists.                                            
+Reading timing library for the 'nom_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ff_n40C_5v50.lib'…   
+[17:48:07] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__ff_n40C_5v50.lib line 17, library gf180mcu_fd_io__ff_n40C_5v50 already exists.                                            
+Reading timing models for corner nom_tt_025C_5v00…                                                                                                          
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_
+025C_5v00.lib'…                                                                                                                                             
+[17:48:07] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.                 
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__tt_025C_5v00.lib'…   
+[17:48:07] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__tt_025C_5v00.lib line 17, library gf180mcu_ws_io__tt_025C_5v00 already exists.                                            
+Reading timing library for the 'nom_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__tt_025C_5v00.lib'…   
+[17:48:07] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__tt_025C_5v00.lib line 17, library gf180mcu_fd_io__tt_025C_5v00 already exists.                                            
+Reading timing models for corner min_ss_125C_4v50…                                                                                                          
+Reading timing library for the 'min_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_
+125C_4v50.lib'…                                                                                                                                             
+Reading timing library for the 'min_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ss_125C_4v50.lib'…   
+Reading timing library for the 'min_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ss_125C_4v50.lib'…   
+Reading timing models for corner min_ff_n40C_5v50…                                                                                                          
+Reading timing library for the 'min_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_
+n40C_5v50.lib'…                                                                                                                                             
+[17:48:08] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.                 
+Reading timing library for the 'min_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ff_n40C_5v50.lib'…   
+[17:48:08] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__ff_n40C_5v50.lib line 17, library gf180mcu_ws_io__ff_n40C_5v50 already exists.                                            
+Reading timing library for the 'min_ff_n40C_5v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ff_n40C_5v50.lib'…   
+[17:48:08] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__ff_n40C_5v50.lib line 17, library gf180mcu_fd_io__ff_n40C_5v50 already exists.                                            
+Reading timing models for corner min_tt_025C_5v00…                                                                                                          
+Reading timing library for the 'min_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_
+025C_5v00.lib'…                                                                                                                                             
+[17:48:08] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.                 
+Reading timing library for the 'min_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__tt_025C_5v00.lib'…   
+[17:48:09] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__tt_025C_5v00.lib line 17, library gf180mcu_ws_io__tt_025C_5v00 already exists.                                            
+Reading timing library for the 'min_tt_025C_5v00' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__tt_025C_5v00.lib'…   
+[17:48:09] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__tt_025C_5v00.lib line 17, library gf180mcu_fd_io__tt_025C_5v00 already exists.                                            
+Reading timing models for corner max_ss_125C_4v50…                                                                                                          
+Reading timing library for the 'max_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_
+125C_4v50.lib'…                                                                                                                                             
+[17:48:09] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.                 
+Reading timing library for the 'max_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ss_125C_4v50.lib'…   
+[17:48:09] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__ss_125C_4v50.lib line 17, library gf180mcu_fd_io__ss_125C_4v50 already exists.                                            
+Reading timing library for the 'max_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ss_125C_4v50.lib'…   
+[17:48:09] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__ss_125C_4v50.lib line 17, library gf180mcu_ws_io__ss_125C_4v50 already exists.                                            
+Reading timing models for corner nom_ss_125C_4v50…                                                                                                          
+Reading timing library for the 'nom_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_
+125C_4v50.lib'…                                                                                                                                             
+[17:48:09] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5                
+                    v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.                 
+Reading timing library for the 'nom_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_fd_io__ss_125C_4v50.lib'…   
+[17:48:10] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_fd_io__ss_125C_4v50.lib line 17, library gf180mcu_fd_io__ss_125C_4v50 already exists.                                            
+Reading timing library for the 'nom_ss_125C_4v50' corner at                                                                                                 
+'/home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf180mcu_ws_io__ss_125C_4v50.lib'…   
+[17:48:10] WARNING  [STA-1140]                                                                                                               openroad.py:314
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_io/lib/gf                
+                    180mcu_ws_io__ss_125C_4v50.lib line 17, library gf180mcu_ws_io__ss_125C_4v50 already exists.                                            
+Reading OpenROAD database at                                                                                                                                
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/03-openroad-repairantennas/1-openroad-diodeinsertion/chip
+_core.odb'…                                                                                                                                                 
+[17:48:10] WARNING  [ORD-2001] LEF macro gf180mcu_ef_io__bi_t pin ANA missing from liberty cell.                                             openroad.py:314
+Reading design constraints file at '/home/rumali/openlane_project/a34-rebuild-check/librelane/chip_core.sdc'…                                               
+[INFO] Setting signal min routing layer to: Metal2 and clock min routing layer to Metal2.                                                                   
+[INFO] Setting signal max routing layer to: Metal5 and clock max routing layer to Metal5.                                                                   
++ global_route -congestion_iterations 50 -verbose -allow_congestion                                                                                         
+[INFO GRT-0020] Min routing layer: Metal2                                                                                                                   
+[INFO GRT-0021] Max routing layer: Metal5                                                                                                                   
+[INFO GRT-0022] Global adjustment: 30%                                                                                                                      
+[INFO GRT-0023] Grid origin: (0, 0)                                                                                                                         
+[INFO GRT-0088] Layer Metal1  Track-Pitch = 0.5600  line-2-Via Pitch: 0.4750                                                                                
+[INFO GRT-0088] Layer Metal2  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal3  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal4  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal5  Track-Pitch = 0.9000  line-2-Via Pitch: 0.8200                                                                                
+[INFO GRT-0003] Macros: 0                                                                                                                                   
+[INFO GRT-0004] Blockages: 0                                                                                                                                
+[INFO GRT-0019] Found 654 clock nets.                                                                                                                       
+[INFO GRT-0001] Minimum degree: 2                                                                                                                           
+[INFO GRT-0002] Maximum degree: 11                                                                                                                          
+                                                                                                                                                            
+[INFO GRT-0053] Routing resources analysis:                                                                                                                 
+          Routing      Original      Derated      Resource                                                                                                  
+Layer     Direction    Resources     Resources    Reduction (%)                                                                                             
+---------------------------------------------------------------                                                                                             
+Metal1     Horizontal          0             0          0.00%                                                                                               
+Metal2     Vertical       578890        386192          33.29%                                                                                              
+Metal3     Horizontal     587160        391254          33.37%                                                                                              
+Metal4     Vertical       577049        384962          33.29%                                                                                              
+Metal5     Horizontal     357192        240768          32.59%                                                                                              
+---------------------------------------------------------------                                                                                             
+                                                                                                                                                            
+[INFO GRT-0197] Via related to pin nodes: 197945                                                                                                            
+[INFO GRT-0198] Via related Steiner nodes: 4099                                                                                                             
+[INFO GRT-0199] Via filling finished.                                                                                                                       
+[INFO GRT-0111] Final number of vias: 245713                                                                                                                
+[INFO GRT-0112] Final usage 3D: 911827                                                                                                                      
+                                                                                                                                                            
+[INFO GRT-0096] Final congestion report:                                                                                                                    
+Layer         Resource        Demand        Usage (%)    Max H / Max V / Total Overflow                                                                     
+---------------------------------------------------------------------------------------                                                                     
+Metal1               0             0            0.00%             0 /  0 /  0                                                                               
+Metal2          386192         87079           22.55%             0 /  0 /  0                                                                               
+Metal3          391254         81713           20.88%             0 /  0 /  0                                                                               
+Metal4          384962          3992            1.04%             0 /  0 /  0                                                                               
+Metal5          240768          1904            0.79%             0 /  0 /  0                                                                               
+---------------------------------------------------------------------------------------                                                                     
+Total          1403176        174688           12.45%             0 /  0 /  0                                                                               
+                                                                                                                                                            
+[INFO GRT-0018] Total wirelength: 2221741 um                                                                                                                
+[INFO GRT-0014] Routed nets: 33648                                                                                                                          
+[INFO GRT-0303] Global routing runtime = 00:00:02                                                                                                           
++ repair_timing -verbose -setup -setup_margin 0.200 -max_buffer_percent 50                                                                                  
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove                                               
+[INFO RSZ-0094] Found 235 endpoints with setup violations.                                                                                                  
+[INFO RSZ-0099] Repairing 235 out of 235 (100.00%) violating endpoints...                                                                                   
+   Iter   | Removed | Resized | Inserted | Cloned |  Pin  |   Area   |    WNS   |   TNS      |  Viol  | Worst                                               
+          | Buffers |  Gates  | Buffers  |  Gates | Swaps |          |          |            | Endpts | Endpt                                               
+--------------------------------------------------------------------------------------------------------------                                              
+        0 |       0 |       0 |        0 |      0 |     0 |    +0.0% |   -6.447 |     -441.8 |    235 | _50646_/D                                           
+       10 |       0 |       2 |        1 |      0 |     6 |    +0.0% |   -6.197 |     -435.2 |    235 | _50646_/D                                           
+       20 |       1 |       9 |        1 |      0 |     8 |    +0.0% |   -5.199 |     -377.5 |    235 | _51248_/D                                           
+       30 |       1 |      17 |        1 |      0 |    10 |    +0.0% |   -5.036 |     -374.7 |    235 | _47999_/D                                           
+       40 |       2 |      25 |        1 |      0 |    11 |    +0.0% |   -4.508 |     -349.1 |    235 | _47999_/D                                           
+       50 |       3 |      34 |        1 |      0 |    11 |    +0.0% |   -4.200 |     -305.9 |    235 | _50852_/D                                           
+       60 |       4 |      42 |        1 |      0 |    12 |    +0.1% |   -3.992 |     -280.0 |    235 | _51537_/D                                           
+       70 |       4 |      52 |        1 |      0 |    12 |    +0.1% |   -3.422 |     -248.5 |    235 | _51351_/D                                           
+       80 |       6 |      60 |        1 |      0 |    12 |    +0.1% |   -3.246 |     -206.7 |    235 | _51541_/D                                           
+       90 |       6 |      69 |        1 |      0 |    13 |    +0.1% |   -3.075 |     -197.8 |    235 | _51351_/D                                           
+      100 |       7 |      78 |        1 |      0 |    13 |    +0.1% |   -2.782 |     -171.7 |    235 | _50955_/D                                           
+      110 |       7 |      87 |        1 |      0 |    14 |    +0.1% |   -2.680 |     -156.7 |    235 | _51145_/D                                           
+      120 |       9 |      94 |        1 |      0 |    15 |    +0.1% |   -2.474 |     -136.4 |    235 | _50749_/D                                           
+      130 |      10 |     102 |        1 |      0 |    16 |    +0.1% |   -2.391 |     -127.3 |    235 | _50646_/D                                           
+      140 |      13 |     108 |        2 |      0 |    16 |    +0.1% |   -2.306 |     -118.1 |    235 | _51438_/D                                           
+      150 |      13 |     118 |        2 |      0 |    16 |    +0.1% |   -2.210 |     -112.4 |    235 | _50955_/D                                           
+      160 |      15 |     125 |        2 |      0 |    17 |    +0.1% |   -2.141 |      -92.9 |    235 | _51537_/D                                           
+      170 |      16 |     134 |        2 |      0 |    17 |    +0.2% |   -2.012 |      -85.5 |    235 | _50852_/D                                           
+      180 |      17 |     138 |        3 |      0 |    21 |    +0.2% |   -1.935 |      -75.8 |    235 | _51351_/D                                           
+      190 |      17 |     148 |        3 |      0 |    21 |    +0.2% |   -1.817 |      -71.7 |    235 | _51747_/D                                           
+      200 |      19 |     156 |        3 |      0 |    21 |    +0.2% |   -1.771 |      -60.5 |    235 | _51438_/D                                           
+      210 |      20 |     165 |        3 |      0 |    21 |    +0.2% |   -1.712 |      -55.2 |    235 | _51834_/D                                           
+      220 |      20 |     174 |        3 |      0 |    22 |    +0.2% |   -1.656 |      -50.1 |    235 | _51145_/D                                           
+      230 |      21 |     182 |        3 |      0 |    23 |    +0.2% |   -1.550 |      -46.9 |    235 | _47912_/D                                           
+      240 |      21 |     191 |        3 |      0 |    24 |    +0.2% |   -1.453 |      -42.8 |    235 | _51834_/D                                           
+      250 |      21 |     200 |        3 |      0 |    25 |    +0.2% |   -1.403 |      -41.3 |    235 | _51042_/D                                           
+      260 |      22 |     208 |        3 |      0 |    26 |    +0.2% |   -1.339 |      -38.5 |    235 | _51834_/D                                           
+      270 |      22 |     217 |        3 |      0 |    27 |    +0.2% |   -1.423 |      -38.7 |    235 | _51834_/D                                           
+      280 |      25 |     222 |        3 |      0 |    29 |    +0.2% |   -1.299 |      -31.1 |    235 | _51644_/D                                           
+      290 |      25 |     231 |        3 |      0 |    30 |    +0.2% |   -1.172 |      -27.7 |    235 | _51541_/D                                           
+      300 |      26 |     239 |        3 |      0 |    31 |    +0.3% |   -1.127 |      -25.9 |    235 | _51747_/D                                           
+      310 |      26 |     246 |        3 |      0 |    34 |    +0.3% |   -1.019 |      -20.7 |    235 | _51747_/D                                           
+      320 |      26 |     256 |        3 |      0 |    34 |    +0.3% |   -0.880 |      -18.9 |    235 | _51921_/D                                           
+      330 |      27 |     264 |        3 |      0 |    35 |    +0.3% |   -0.841 |      -16.0 |    235 | _51145_/D                                           
+      340 |      29 |     272 |        3 |      0 |    35 |    +0.3% |   -0.761 |      -14.2 |    235 | _51644_/D                                           
+      350 |      31 |     280 |        3 |      0 |    35 |    +0.3% |   -0.689 |      -11.6 |    235 | _51145_/D                                           
+      360 |      34 |     287 |        3 |      0 |    35 |    +0.3% |   -0.584 |       -7.1 |    235 | _50852_/D                                           
+      370 |      36 |     295 |        3 |      0 |    35 |    +0.3% |   -0.467 |       -5.7 |    235 | _51042_/D                                           
+      372 |      36 |     297 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -5.1 |    233 | _51921_/D                                           
+      377 |      36 |     301 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.9 |    231 | _51921_/D                                           
+      378 |      36 |     301 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.9 |    230 | _51921_/D                                           
+      379 |      36 |     301 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.9 |    229 | _51921_/D                                           
+      380 |      36 |     301 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.9 |    229 | _51921_/D                                           
+      385 |      37 |     305 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.5 |    227 | _51921_/D                                           
+      386 |      37 |     305 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.5 |    226 | _51921_/D                                           
+      388 |      38 |     305 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.0 |    224 | _51921_/D                                           
+      389 |      38 |     305 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.0 |    223 | _51921_/D                                           
+      390 |      38 |     305 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.0 |    223 | _51921_/D                                           
+      390 |      38 |     305 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.0 |    222 | _51921_/D                                           
+      391 |      38 |     305 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.0 |    221 | _51921_/D                                           
+      392 |      38 |     305 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -4.0 |    220 | _51921_/D                                           
+      400 |      38 |     312 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -3.7 |    219 | _51921_/D                                           
+      400 |      38 |     312 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -3.7 |    218 | _51921_/D                                           
+      401 |      38 |     312 |        3 |      0 |    35 |    +0.3% |   -0.454 |       -3.7 |    217 | _51921_/D                                           
+      410 |      38 |     319 |        3 |      0 |    36 |    +0.3% |   -0.454 |       -3.5 |    217 | _51921_/D                                           
+      415 |      38 |     324 |        3 |      0 |    36 |    +0.3% |   -0.454 |       -3.4 |    215 | _51921_/D                                           
+      416 |      38 |     324 |        3 |      0 |    36 |    +0.3% |   -0.454 |       -3.4 |    214 | _51921_/D                                           
+      417 |      38 |     324 |        3 |      0 |    36 |    +0.3% |   -0.454 |       -3.4 |    213 | _51921_/D                                           
+      418 |      38 |     324 |        3 |      0 |    36 |    +0.3% |   -0.454 |       -3.4 |    212 | _51921_/D                                           
+      420 |      38 |     325 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.1 |    212 | _51921_/D                                           
+      424 |      38 |     329 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    210 | _51921_/D                                           
+      425 |      38 |     329 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    209 | _51921_/D                                           
+      426 |      38 |     329 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    208 | _51921_/D                                           
+      427 |      38 |     329 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    207 | _51921_/D                                           
+      428 |      38 |     329 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    206 | _51921_/D                                           
+      429 |      38 |     329 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    205 | _51921_/D                                           
+      430 |      38 |     329 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    205 | _51921_/D                                           
+      431 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    203 | _51921_/D                                           
+      432 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    202 | _51921_/D                                           
+      433 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    201 | _51921_/D                                           
+      434 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    200 | _51921_/D                                           
+      435 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    199 | _51921_/D                                           
+      436 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    198 | _51921_/D                                           
+      437 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    197 | _51921_/D                                           
+      438 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    196 | _51921_/D                                           
+      439 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    195 | _51921_/D                                           
+      440 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    195 | _51921_/D                                           
+      440 |      38 |     330 |        3 |      0 |    36 |    +0.4% |   -0.454 |       -3.0 |    194 | _51921_/D                                           
+      446 |      39 |     334 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    192 | _51644_/D                                           
+      448 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    190 | _51644_/D                                           
+      449 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    189 | _51644_/D                                           
+      450 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    189 | _51644_/D                                           
+      450 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    188 | _51644_/D                                           
+      451 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    187 | _51644_/D                                           
+      452 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    186 | _51644_/D                                           
+      453 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    185 | _51644_/D                                           
+      454 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    184 | _51644_/D                                           
+      455 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    183 | _51644_/D                                           
+      456 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    182 | _51644_/D                                           
+      457 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    181 | _51644_/D                                           
+      458 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    180 | _51644_/D                                           
+      459 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    179 | _51644_/D                                           
+      460 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    179 | _51644_/D                                           
+      460 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    178 | _51644_/D                                           
+      461 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    177 | _51644_/D                                           
+      462 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    176 | _51644_/D                                           
+      463 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    175 | _51644_/D                                           
+      464 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    174 | _51644_/D                                           
+      465 |      39 |     335 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.6 |    173 | _51644_/D                                           
+      468 |      39 |     337 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.5 |    171 | _51644_/D                                           
+      470 |      39 |     338 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    171 | _51644_/D                                           
+      473 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    169 | _51644_/D                                           
+      474 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    168 | _51644_/D                                           
+      475 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    167 | _51644_/D                                           
+      476 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    166 | _51644_/D                                           
+      477 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    165 | _51644_/D                                           
+      478 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    164 | _51644_/D                                           
+      479 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    163 | _51644_/D                                           
+      480 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    163 | _51644_/D                                           
+      480 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    162 | _51644_/D                                           
+      481 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    161 | _51644_/D                                           
+      482 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    160 | _51644_/D                                           
+      483 |      39 |     341 |        3 |      0 |    36 |    +0.4% |   -0.425 |       -2.1 |    159 | _51644_/D                                           
+      490 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    158 | _51644_/D                                           
+      490 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    157 | _51644_/D                                           
+      491 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    156 | _51644_/D                                           
+      492 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    155 | _51644_/D                                           
+      493 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    154 | _51644_/D                                           
+      494 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    153 | _51644_/D                                           
+      495 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    152 | _51644_/D                                           
+      496 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    151 | _51644_/D                                           
+      497 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    150 | _51644_/D                                           
+      498 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    149 | _51644_/D                                           
+      499 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    148 | _51644_/D                                           
+      500 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    148 | _51644_/D                                           
+      500 |      40 |     345 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    147 | _51644_/D                                           
+      503 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    145 | _51644_/D                                           
+      504 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    144 | _51644_/D                                           
+      505 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    143 | _51644_/D                                           
+      506 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    142 | _51644_/D                                           
+      507 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    141 | _51644_/D                                           
+      508 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    140 | _51644_/D                                           
+      509 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    139 | _51644_/D                                           
+      510 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    139 | _51644_/D                                           
+      510 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    138 | _51644_/D                                           
+      511 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    137 | _51644_/D                                           
+      512 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    136 | _51644_/D                                           
+      513 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    135 | _51644_/D                                           
+      514 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    134 | _51644_/D                                           
+      515 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    133 | _51644_/D                                           
+      516 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    132 | _51644_/D                                           
+      517 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    131 | _51644_/D                                           
+      518 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    130 | _51644_/D                                           
+      519 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    129 | _51644_/D                                           
+      520 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    129 | _51644_/D                                           
+      520 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    128 | _51644_/D                                           
+      521 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    127 | _51644_/D                                           
+      522 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    126 | _51644_/D                                           
+      523 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    125 | _51644_/D                                           
+      524 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    124 | _51644_/D                                           
+      525 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    123 | _51644_/D                                           
+      526 |      40 |     347 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    122 | _51644_/D                                           
+      528 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    120 | _51644_/D                                           
+      529 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    119 | _51644_/D                                           
+      530 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    119 | _51644_/D                                           
+      530 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    118 | _51644_/D                                           
+      531 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    117 | _51644_/D                                           
+      532 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    116 | _51644_/D                                           
+      533 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    115 | _51644_/D                                           
+      534 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    114 | _51644_/D                                           
+      535 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    113 | _51644_/D                                           
+      536 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    112 | _51644_/D                                           
+      537 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    111 | _51644_/D                                           
+      538 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    110 | _51644_/D                                           
+      539 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    109 | _51644_/D                                           
+      540 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    109 | _51644_/D                                           
+      540 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    108 | _51644_/D                                           
+      541 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    107 | _51644_/D                                           
+      542 |      40 |     348 |        3 |      0 |    37 |    +0.4% |   -0.425 |       -1.6 |    106 | _51644_/D                                           
+      548 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |    104 | _51042_/D                                           
+      549 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |    103 | _51042_/D                                           
+      550 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |    103 | _51042_/D                                           
+      550 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |    102 | _51042_/D                                           
+      551 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |    101 | _51042_/D                                           
+      552 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |    100 | _51042_/D                                           
+      553 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |     99 | _51042_/D                                           
+      554 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |     98 | _51042_/D                                           
+      555 |      41 |     352 |        3 |      0 |    37 |    +0.4% |   -0.369 |       -0.9 |     97 | _51042_/D                                           
+      560 |      41 |     356 |        3 |      0 |    37 |    +0.4% |   -0.362 |       -0.7 |     97 | _51042_/D                                           
+      564 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     95 | _50646_/D                                           
+      565 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     94 | _50646_/D                                           
+      566 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     93 | _50646_/D                                           
+      567 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     92 | _50646_/D                                           
+      568 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     91 | _50646_/D                                           
+      569 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     90 | _50646_/D                                           
+      570 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     90 | _50646_/D                                           
+      570 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     89 | _50646_/D                                           
+      571 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     88 | _50646_/D                                           
+      572 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     87 | _50646_/D                                           
+      573 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     86 | _50646_/D                                           
+      574 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     85 | _50646_/D                                           
+      575 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     84 | _50646_/D                                           
+      576 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     83 | _50646_/D                                           
+      577 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     82 | _50646_/D                                           
+      578 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     81 | _50646_/D                                           
+      579 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     80 | _50646_/D                                           
+      580 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     80 | _50646_/D                                           
+      580 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     79 | _50646_/D                                           
+      581 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     78 | _50646_/D                                           
+      582 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     77 | _50646_/D                                           
+      583 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     76 | _50646_/D                                           
+      584 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     75 | _50646_/D                                           
+      585 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     74 | _50646_/D                                           
+      586 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     73 | _50646_/D                                           
+      587 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     72 | _50646_/D                                           
+      588 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     71 | _50646_/D                                           
+      589 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     70 | _50646_/D                                           
+      590 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     70 | _50646_/D                                           
+      590 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     69 | _50646_/D                                           
+      591 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     68 | _50646_/D                                           
+      592 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     67 | _50646_/D                                           
+      593 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     66 | _50646_/D                                           
+      594 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     65 | _50646_/D                                           
+      595 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     64 | _50646_/D                                           
+      596 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     63 | _50646_/D                                           
+      597 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     62 | _50646_/D                                           
+      598 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     61 | _50646_/D                                           
+      599 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     60 | _50646_/D                                           
+      600 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     60 | _50646_/D                                           
+      600 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     59 | _50646_/D                                           
+      601 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     58 | _50646_/D                                           
+      602 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     57 | _50646_/D                                           
+      603 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     56 | _50646_/D                                           
+      604 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     55 | _50646_/D                                           
+      605 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     54 | _50646_/D                                           
+      606 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     53 | _50646_/D                                           
+      607 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     52 | _50646_/D                                           
+      608 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     51 | _50646_/D                                           
+      609 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     50 | _50646_/D                                           
+      610 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     50 | _50646_/D                                           
+      610 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     49 | _50646_/D                                           
+      611 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     48 | _50646_/D                                           
+      612 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     47 | _50646_/D                                           
+      613 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     46 | _50646_/D                                           
+      614 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     45 | _50646_/D                                           
+      615 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     44 | _50646_/D                                           
+      616 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     43 | _50646_/D                                           
+      617 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     42 | _50646_/D                                           
+      618 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     41 | _50646_/D                                           
+      619 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     40 | _50646_/D                                           
+      620 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     40 | _50646_/D                                           
+      620 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     39 | _50646_/D                                           
+      621 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     38 | _50646_/D                                           
+      622 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     37 | _50646_/D                                           
+      623 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     36 | _50646_/D                                           
+      624 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     35 | _50646_/D                                           
+      625 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     34 | _50646_/D                                           
+      626 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     33 | _50646_/D                                           
+      627 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     32 | _50646_/D                                           
+      628 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     31 | _50646_/D                                           
+      629 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     30 | _50646_/D                                           
+      630 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     30 | _50646_/D                                           
+      630 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     29 | _50646_/D                                           
+      631 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     28 | _50646_/D                                           
+      632 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     27 | _50646_/D                                           
+      633 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     26 | _50646_/D                                           
+      634 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     25 | _50646_/D                                           
+      635 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     24 | _50646_/D                                           
+      636 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     23 | _50646_/D                                           
+      637 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     22 | _50646_/D                                           
+      638 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     21 | _50646_/D                                           
+      639 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     20 | _50646_/D                                           
+      640 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     20 | _50646_/D                                           
+      640 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     19 | _50646_/D                                           
+      641 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     18 | _50646_/D                                           
+      642 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     17 | _50646_/D                                           
+      643 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     16 | _50646_/D                                           
+      644 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     15 | _50646_/D                                           
+      645 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     14 | _50646_/D                                           
+      646 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     13 | _50646_/D                                           
+      647 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     12 | _50646_/D                                           
+      648 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     11 | _50646_/D                                           
+      649 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     10 | _50646_/D                                           
+      650 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |     10 | _50646_/D                                           
+      650 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      9 | _50646_/D                                           
+      651 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      8 | _50646_/D                                           
+      652 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      7 | _50646_/D                                           
+      653 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      6 | _50646_/D                                           
+      654 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      5 | _50646_/D                                           
+      655 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      4 | _50646_/D                                           
+      656 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      3 | _50646_/D                                           
+      657 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      2 | _50646_/D                                           
+      658 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      1 | _50646_/D                                           
+      659 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      660 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      660 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      661 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      662 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      663 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      664 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      665 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      666 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      667 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      668 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      669 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      670 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      670 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      671 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      672 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      673 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      674 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      675 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+      676 |      42 |     357 |        3 |      0 |    39 |    +0.4% |   -0.291 |       -0.3 |      0 | _50646_/D                                           
+     679* |      42 |     359 |        3 |      0 |    39 |    +0.4% |    0.204 |        0.0 |      0 | _51747_/D                                           
+    final |      42 |     359 |        3 |      0 |    39 |    +0.4% |    0.204 |        0.0 |      0 | _51747_/D                                           
+--------------------------------------------------------------------------------------------------------------                                              
+[INFO RSZ-0059] Removed 42 buffers.                                                                                                                         
+[INFO RSZ-0040] Inserted 3 buffers.                                                                                                                         
+[INFO RSZ-0051] Resized 359 instances: 359 up, 0 up match, 0 down, 0 VT                                                                                     
+[INFO RSZ-0043] Swapped pins on 39 instances.                                                                                                               
++ repair_timing -verbose -hold -setup_margin 0.200 -hold_margin 0.05000000000000000277555756156289135105907917022705078125 -max_buffer_percent 50           
+[INFO RSZ-0033] No hold violations found.                                                                                                                   
++ detailed_placement -max_displacement  500 100                                                                                                             
+Placement Analysis                                                                                                                                          
+---------------------------------                                                                                                                           
+total displacement       2069.8 u                                                                                                                           
+average displacement        0.0 u                                                                                                                           
+max displacement           15.7 u                                                                                                                           
+original HPWL         1342529.8 u                                                                                                                           
+legalized HPWL        1344573.0 u                                                                                                                           
+delta HPWL                    0 %                                                                                                                           
+                                                                                                                                                            
+[INFO DPL-0020] Mirrored 12006 instances                                                                                                                    
+[INFO DPL-0021] HPWL before          1344573.0 u                                                                                                            
+[INFO DPL-0022] HPWL after           1316026.6 u                                                                                                            
+[INFO DPL-0023] HPWL delta               -2.1 %                                                                                                             
++ global_route -congestion_iterations 50 -verbose -allow_congestion                                                                                         
+[INFO GRT-0020] Min routing layer: Metal2                                                                                                                   
+[INFO GRT-0021] Max routing layer: Metal5                                                                                                                   
+[INFO GRT-0022] Global adjustment: 30%                                                                                                                      
+[INFO GRT-0023] Grid origin: (0, 0)                                                                                                                         
+[INFO GRT-0088] Layer Metal1  Track-Pitch = 0.5600  line-2-Via Pitch: 0.4750                                                                                
+[INFO GRT-0088] Layer Metal2  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal3  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal4  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600                                                                                
+[INFO GRT-0088] Layer Metal5  Track-Pitch = 0.9000  line-2-Via Pitch: 0.8200                                                                                
+[INFO GRT-0003] Macros: 0                                                                                                                                   
+[INFO GRT-0004] Blockages: 0                                                                                                                                
+[INFO GRT-0019] Found 654 clock nets.                                                                                                                       
+[INFO GRT-0001] Minimum degree: 2                                                                                                                           
+[INFO GRT-0002] Maximum degree: 11                                                                                                                          
+                                                                                                                                                            
+[INFO GRT-0053] Routing resources analysis:                                                                                                                 
+          Routing      Original      Derated      Resource                                                                                                  
+Layer     Direction    Resources     Resources    Reduction (%)                                                                                             
+---------------------------------------------------------------                                                                                             
+Metal1     Horizontal          0             0          0.00%                                                                                               
+Metal2     Vertical       578890        386192          33.29%                                                                                              
+Metal3     Horizontal     587160        391254          33.37%                                                                                              
+Metal4     Vertical       577049        384962          33.29%                                                                                              
+Metal5     Horizontal     357192        240768          32.59%                                                                                              
+---------------------------------------------------------------                                                                                             
+                                                                                                                                                            
+[INFO GRT-0197] Via related to pin nodes: 193856                                                                                                            
+[INFO GRT-0198] Via related Steiner nodes: 4023                                                                                                             
+[INFO GRT-0199] Via filling finished.                                                                                                                       
+[INFO GRT-0111] Final number of vias: 239151                                                                                                                
+[INFO GRT-0112] Final usage 3D: 888850                                                                                                                      
+                                                                                                                                                            
+[INFO GRT-0096] Final congestion report:                                                                                                                    
+Layer         Resource        Demand        Usage (%)    Max H / Max V / Total Overflow                                                                     
+---------------------------------------------------------------------------------------                                                                     
+Metal1               0             0            0.00%             0 /  0 /  0                                                                               
+Metal2          386192         87268           22.60%             0 /  0 /  0                                                                               
+Metal3          391254         78874           20.16%             0 /  0 /  0                                                                               
+Metal4          384962          3726            0.97%             0 /  0 /  0                                                                               
+Metal5          240768          1529            0.64%             0 /  0 /  0                                                                               
+---------------------------------------------------------------------------------------                                                                     
+Total          1403176        171397           12.21%             0 /  0 /  0                                                                               
+                                                                                                                                                            
+[INFO GRT-0018] Total wirelength: 2175986 um                                                                                                                
+[INFO GRT-0014] Routed nets: 33609                                                                                                                          
+[INFO GRT-0303] Global routing runtime = 00:00:02                                                                                                           
+Setting global connections for newly added cells…                                                                                                           
+[INFO] Setting global connections...                                                                                                                        
+[INFO ODB-0403] 12 connections made, 0 conflicts skipped.                                                                                                   
+Updating metrics…                                                                                                                                           
+Cell type report:                       Count       Area                                                                                                    
+  Endcap cell                             838    3679.16                                                                                                    
+  Tap cell                              17688   77657.40                                                                                                    
+  Antenna cell                              2       8.78                                                                                                    
+  Tie cell                                 52     456.60                                                                                                    
+  Clock buffer                           1060   48882.71                                                                                                    
+  Timing Repair Buffer                   4878  132370.56                                                                                                    
+  Inverter                               2170   19142.14                                                                                                    
+  Clock inverter                           84    1356.63                                                                                                    
+  Sequential cell                        4096  288600.75                                                                                                    
+  Multi-Input combinational cell        21750  414963.05                                                                                                    
+  Total                                 52618  987117.78                                                                                                    
+Writing OpenROAD database to                                                                                                                                
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/04-openroad-resizertimingpostgrt/chip_core.odb'…         
+Writing netlist to                                                                                                                                          
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/04-openroad-resizertimingpostgrt/chip_core.nl.v'…        
+Writing powered netlist to                                                                                                                                  
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/04-openroad-resizertimingpostgrt/chip_core.pnl.v'…       
+Writing layout to                                                                                                                                           
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/04-openroad-resizertimingpostgrt/chip_core.def'…         
+Writing timing constraints to                                                                                                                               
+'/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/04-openroad-resizertimingpostgrt/chip_core.sdc'…         
+[17:50:35] INFO     Skipping step 'STA (Mid-PnR)'…                                                                                         sequential.py:370
+[17:50:35] INFO     Skipping step 'Detailed Routing'…                                                                                      sequential.py:370
+[17:50:35] INFO     Skipping step 'Remove Obstructions'…                                                                                   sequential.py:370
+[17:50:35] INFO     Skipping step 'Check Antennas'…                                                                                        sequential.py:370
+[17:50:35] INFO     Skipping step 'Routing DRC Checker'…                                                                                   sequential.py:370
+[17:50:35] INFO     Skipping step 'Report Disconnected Pins'…                                                                              sequential.py:370
+[17:50:35] INFO     Skipping step 'Disconnected Pins Checker'…                                                                             sequential.py:370
+[17:50:35] INFO     Skipping step 'Report Wire Length'…                                                                                    sequential.py:370
+[17:50:35] INFO     Skipping step 'Wire Length Threshold Checker'…                                                                         sequential.py:370
+[17:50:35] INFO     Skipping step 'Fill Insertion'…                                                                                        sequential.py:370
+[17:50:35] INFO     Skipping step 'Generate Cell Frequency Tables'…                                                                        sequential.py:370
+[17:50:35] INFO     Skipping step 'Parasitics (RC) Extraction'…                                                                            sequential.py:370
+[17:50:35] INFO     Skipping step 'STA (Post-PnR)'…                                                                                        sequential.py:370
+[17:50:35] INFO     Skipping step 'IR Drop Report'…                                                                                        sequential.py:370
+[17:50:35] INFO     Skipping step 'GDSII Stream Out (Magic)'…                                                                              sequential.py:370
+[17:50:35] INFO     Skipping step 'GDSII Stream Out (KLayout)'…                                                                            sequential.py:370
+[17:50:35] INFO     Skipping step 'Render Image (w/ KLayout)'…                                                                             sequential.py:370
+[17:50:35] INFO     Skipping step 'Write LEF (Magic)'…                                                                                     sequential.py:370
+[17:50:35] INFO     Skipping step 'Check Antenna Properties of Pins in The Generated Design LEF view'…                                     sequential.py:370
+[17:50:35] INFO     Skipping step 'KLayout vs. Magic XOR'…                                                                                 sequential.py:370
+[17:50:35] INFO     Skipping step 'XOR Difference Checker'…                                                                                sequential.py:370
+[17:50:35] INFO     Skipping step 'DRC'…                                                                                                   sequential.py:370
+[17:50:35] INFO     Skipping step 'Design Rule Check (KLayout)'…                                                                           sequential.py:370
+[17:50:35] INFO     Skipping step 'Magic DRC Checker'…                                                                                     sequential.py:370
+[17:50:35] INFO     Skipping step 'KLayout DRC Checker'…                                                                                   sequential.py:370
+[17:50:35] INFO     Skipping step 'SPICE Extraction'…                                                                                      sequential.py:370
+[17:50:35] INFO     Skipping step 'Illegal Overlap Checker'…                                                                               sequential.py:370
+[17:50:35] INFO     Skipping step 'Netgen LVS'…                                                                                            sequential.py:370
+[17:50:35] INFO     Skipping step 'LVS Error Checker'…                                                                                     sequential.py:370
+[17:50:35] INFO     Gating variable for step 'Yosys.EQY' set to 'False'- the step will be skipped.                                         sequential.py:362
+[17:50:35] INFO     Skipping step 'Equivalence Check'…                                                                                     sequential.py:370
+[17:50:35] INFO     Skipping step 'Setup Timing Violations Checker'…                                                                       sequential.py:370
+[17:50:35] INFO     Skipping step 'Hold Timing Violations Checker'…                                                                        sequential.py:370
+[17:50:35] INFO     Skipping step 'Max Slew Violations Checker'…                                                                           sequential.py:370
+[17:50:35] INFO     Skipping step 'Max Cap Violations Checker'…                                                                            sequential.py:370
+[17:50:35] INFO     Skipping step 'Report Manufacturability'…                                                                              sequential.py:370
+[17:50:35] INFO     Saving views to '/home/rumali/openlane_project/a34-rebuild-check/librelane/runs/A34_REBUILD_20261101_172831_STAGE2/final'…  state.py:209
+[17:50:35] INFO     Flow complete.                                                                                                         sequential.py:413
+Classic - Stage 80 - Report Manufacturability ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 0:05:20
+
+[17:50:35] WARNING  The following warnings were generated by the flow:                                                                           flow.py:699
+[17:50:35] WARNING  [OpenROAD.RepairDesignPostGRT] [STA-1140]                                                                                    flow.py:701
+                    /home/rumali/openlane_project/chipathon-2026-systolic-ip-core-main-git/gf180mcu/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/l            
+                    ib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists. (and 35             
+                    similar warnings)                                                                                                                       
+[17:50:35] WARNING  [OpenROAD.RepairDesignPostGRT] [ORD-2001] LEF macro gf180mcu_ef_io__bi_t pin ANA missing from liberty cell. (and 3 similar   flow.py:701
+                    warnings)                                                                                                                               

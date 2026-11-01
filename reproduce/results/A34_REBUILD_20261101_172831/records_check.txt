@@ -1,0 +1,5 @@
+FULL2 steps 01-40: identical (40 run, 40 recorded)
+FULL2 settings: 411 compared, 0 differ
+FULL3 steps 01-04: identical (4 run, 4 recorded)
+FULL3 settings: 411 compared, 0 differ
+RECORDS MATCH

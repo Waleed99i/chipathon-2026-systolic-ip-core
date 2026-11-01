@@ -1,0 +1,19 @@
+== 1. Inputs, tools and key PDK files against recorded hashes
+RECORDED INPUT CHECK PASS (repository/tools/key PDK inputs)
+librelane: Included tools and utilities may be distributed under stricter licenses.
+openroad: dcf36133a369abc8f3c5e5738cd4d82e4903c0e0 
+commit: aba0ac923a5ac5606cc2aba81282067fb870a9c6
+== 2. Stage 1 (as FULL2): RTL to the antenna check after global routing
+== 3. Stage 2 (as FULL3): post-global-route repair to timing repair
+== 4. Steps and settings against the run records
+FULL2 steps 01-40: identical (40 run, 40 recorded)
+FULL2 settings: 411 compared, 0 differ
+FULL3 steps 01-04: identical (4 run, 4 recorded)
+FULL3 settings: 411 compared, 0 differ
+RECORDS MATCH
+== 5. Compare with checkpoint B
+rebuilt checkpoint: librelane/runs/A34_REBUILD_20261101_172831_STAGE2/04-openroad-resizertimingpostgrt/chip_core.odb
+sha256 3e54c7ed57676d81cf68fc299b20fe22d55d4976286367c27c80e44b2d1d7895
+REBUILT: identical to checkpoint B (reproduce/inputs/full3_04_resizertimingpostgrt.odb.gz)
+Together with replay_eco.sh this reproduces the complete RTL-to-GDS sequence.
+Results to commit: reproduce/results/A34_REBUILD_20261101_172831

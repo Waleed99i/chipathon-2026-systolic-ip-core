@@ -3,9 +3,9 @@
 IEEE SSCS PICO Chipathon 2026, Team A34 SiliconForge.
 **Verification status (31 October 2026): pin-only RTL and gate-level regression PASSED.**
 The cycle schedule below passed the tested vector sets on both implementations.
-Checkpoint-to-GDS replay also PASSED; see `reproduce/README.md` for results and scope.
+The layout reproduction also PASSED: rebuild from RTL to the post-global-route checkpoint (1 November 2026) and checkpoint-to-GDS replay (31 October 2026); see `reproduce/README.md` for results and scope.
 These are pre-silicon results, not silicon measurements or integrated-chip approval.
-This plan covers the corrected design on branch `a34-rtl-fix-pd` (final layout and powered netlist in `gds/` and `verilog/gl/`).
+This plan covers the corrected design on `main` (final layout and powered netlist in `gds/` and `verilog/gl/`).
 Items marked **PENDING** depend on the package, carrier board or padframe that the organizers have not yet finalized. They will be filled in when that information is available.
 
 ## 1. Goal
@@ -192,4 +192,4 @@ The reference model in `test/a34_vectors.py` reproduces all 528 result words of 
 | `test/pin_tb.sv` | Pin-only testbench that replays a vector file |
 | `test/run_pin_test.sh` | Runs the vectors on RTL and, with a PDK path, on the final gate-level netlist |
 | `test/sim_results/<date>/` | Logs and summary of a pin-level test run |
-| `reproduce/` | Checkpoint-to-GDS replay of the final layout (see `reproduce/README.md`) |
+| `reproduce/` | Reproduction of the final layout from the RTL: rebuild to the checkpoint, then checkpoint-to-GDS replay (see `reproduce/README.md`) |
