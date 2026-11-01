@@ -1,0 +1,2 @@
+CONVERTER PASS: all 65536 FP16 encodings
+/home/rumali/openlane_project/a34-rtl-fix-pd/verification_results/q16-regression-un410tfo/converter_tb.sv:16: $finish called at 65536000 (1ps)

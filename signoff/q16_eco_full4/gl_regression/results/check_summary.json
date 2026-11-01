@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "cases": 33,
+  "exact_rtl_pass": 23,
+  "gl_rtl_pass": 33,
+  "observations": [
+    {
+      "case": "general-0",
+      "max_abs_error_over_max_abs_reference": 0.044460390900452645
+    },
+    {
+      "case": "general-1",
+      "max_abs_error_over_max_abs_reference": 0.055918111434865074
+    },
+    {
+      "case": "general-2",
+      "max_abs_error_over_max_abs_reference": 0.03938507827499651
+    },
+    {
+      "case": "general-3",
+      "max_abs_error_over_max_abs_reference": 0.09950797273378359
+    },
+    {
+      "case": "general-4",
+      "max_abs_error_over_max_abs_reference": 0.0608158861121104
+    },
+    {
+      "case": "general-5",
+      "max_abs_error_over_max_abs_reference": 0.05149540947396793
+    },
+    {
+      "case": "general-6",
+      "max_abs_error_over_max_abs_reference": 0.030346849088584166
+    },
+    {
+      "case": "general-7",
+      "max_abs_error_over_max_abs_reference": 0.056917668834945326
+    },
+    {
+      "case": "general-8",
+      "max_abs_error_over_max_abs_reference": 0.03672786422246824
+    },
+    {
+      "case": "general-9",
+      "max_abs_error_over_max_abs_reference": 0.0519637876397354
+    }
+  ],
+  "scope": "Zero-delay, internal-handshake-assisted, one matrix per reset. Sampled comparison; no formal equivalence or universal accuracy bound."
+}

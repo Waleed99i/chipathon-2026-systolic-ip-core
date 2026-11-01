@@ -1,0 +1,4 @@
+/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/output_datapath.v:106: warning: Port 5 (data_in) of module rv_protocol expects 8 bit(s), given 4.
+/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/output_datapath.v:106:        : Padding 4 high bits of the port.
+/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/output_datapath.v:106: warning: Port 6 (data_out) of module rv_protocol expects 8 bit(s), given 4.
+/home/rumali/openlane_project/a34-rtl-fix-pd/src/rtl/output_datapath.v:106:        : Padding 4 high bits of the port.

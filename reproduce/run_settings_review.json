@@ -1,0 +1,42 @@
+{
+  "source_archive_sha256": "189edfc570d3465877fd84467fbe36f856b2904d45f2dfe483c1780921379a30",
+  "scope": "Saved resolved configurations, not proof of a fresh rerun or original shell command line",
+  "runs": {
+    "A34_Q16_FIX_FULL2": {
+      "resolved_sha256": "a8b6203db6d1c4e1eb35889d964fa5813545fbf27a3a7b8b2d9b6c267189a0d7",
+      "settings": {
+        "CLOCK_PERIOD": 45,
+        "CTS_DISTANCE_BETWEEN_BUFFERS": 180,
+        "GRT_DESIGN_REPAIR_MAX_SLEW_PCT": 40,
+        "GRT_DESIGN_REPAIR_MAX_CAP_PCT": 30,
+        "GRT_RESIZER_SETUP_SLACK_MARGIN": 0.2,
+        "PNR_CORNERS": null,
+        "RSZ_CORNERS": null,
+        "CTS_CORNERS": null,
+        "STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0"
+      },
+      "librelane_version": "3.0.0"
+    },
+    "A34_Q16_FIX_FULL3": {
+      "resolved_sha256": "20291f420b62b946626e1936fbff54bc0cdf5bda6ac920783ee53dfc2377c013",
+      "settings": {
+        "CLOCK_PERIOD": 45,
+        "CTS_DISTANCE_BETWEEN_BUFFERS": 180,
+        "GRT_DESIGN_REPAIR_MAX_SLEW_PCT": 30,
+        "GRT_DESIGN_REPAIR_MAX_CAP_PCT": 30,
+        "GRT_RESIZER_SETUP_SLACK_MARGIN": 0.2,
+        "PNR_CORNERS": null,
+        "RSZ_CORNERS": null,
+        "CTS_CORNERS": null,
+        "STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0"
+      },
+      "librelane_version": "3.0.0"
+    }
+  },
+  "all_resolved_differences": {
+    "GRT_DESIGN_REPAIR_MAX_SLEW_PCT": [
+      40,
+      30
+    ]
+  }
+}

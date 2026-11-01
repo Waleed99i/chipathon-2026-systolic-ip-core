@@ -1,0 +1,13 @@
+general-0   max |RTL - exact| / max|exact| = 0.044460
+general-1   max |RTL - exact| / max|exact| = 0.055918
+general-2   max |RTL - exact| / max|exact| = 0.039385
+general-3   max |RTL - exact| / max|exact| = 0.099508
+general-4   max |RTL - exact| / max|exact| = 0.060816
+general-5   max |RTL - exact| / max|exact| = 0.051495
+general-6   max |RTL - exact| / max|exact| = 0.030347
+general-7   max |RTL - exact| / max|exact| = 0.056918
+general-8   max |RTL - exact| / max|exact| = 0.036728
+general-9   max |RTL - exact| / max|exact| = 0.051964
+RTL: 23/23 exact-arithmetic cases match A@B bit-exactly in Q16.16
+GL vs RTL: 33/33 cases bit-identical (16 known words per case)
+REGRESSION PASS
