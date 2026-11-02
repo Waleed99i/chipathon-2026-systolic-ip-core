@@ -256,7 +256,7 @@ The project will be considered successful upon meeting the following objectives.
 |---------|--------|
 | Functional Correctness | Complete matrix multiplication verified through simulation and FPGA validation |
 | Frequency | Meet timing for the target GF180MCU implementation |
-| Area | Fit within the allocated **Block B (1117 μm × 558 μm)** |
+| Area | Current implemented boundary: **1675 μm × 1675 μm**; final shared-chip allocation subject to organizer confirmation |
 | Throughput | Sustain one MAC operation per Processing Element per clock after pipeline fill |
 | Scalability | Support parameterized NxN systolic arrays |
 | FPGA Validation | Successful implementation on Xilinx Nexys A7 |
@@ -295,28 +295,30 @@ The completed block-level backend flow includes:
 
 # Physical Design Results
 
-Full RTL-to-GDSII flow completed using OpenLane 2 / LibreLane on the **GF180MCU** 180nm process.
+The corrected 4×4 accelerator was implemented using **LibreLane 3.0.0** on the **GF180MCU 180 nm process (gf180mcuD)**. The implementation includes the counter and input-datapath corrections, direct FP16-to-Q16.16 product conversion, and a seven-cell physical engineering change order (ECO).
 
-## Final Signoff: chip_core
+## Current Block-Level Signoff: chip_core
 
 | Metric | Result |
 |---|---|
-| Clock period | 45ns (22.22 MHz) |
-| Setup timing |  0 violations, all 9 PVT corners; worst-corner margin **+0.23ns** |
-| Hold timing |  0 violations, all corners; minimum margin +0.07ns |
-| DRC |  Pass (0 errors, Magic + KLayout) |
-| LVS |  Pass (0 device/net/pin mismatches) |
-| Antenna |  Pass (0 violations) |
-| Max slew violations | 28 (reduced from 389, 93% reduction) |
-| Max fanout violations | 0 (reduced from 223, fully eliminated) |
-| Max capacitance violations | 1 (single cell, 0.208pF vs 0.200pF limit; reduced from 5) |
-| Standard-cell instance area | 1.96 mm² |
-| Estimated power* | 122.5 mW |
-| Utilization | 41.0% |
+| Clock period | 45 ns (approximately 22.22 MHz) |
+| Setup timing | 0 violations across all 9 analyzed corners; worst setup slack **+0.5499 ns** |
+| Hold timing | 0 violations across all 9 analyzed corners; worst hold slack **+0.0912 ns** |
+| DRC | Pass: 0 reported errors in Magic and KLayout |
+| LVS | Pass: layout and powered netlist match |
+| Antenna | Pass: 0 reported violations |
+| Max slew violations | 0 across all 9 analyzed corners |
+| Max fanout violations | 0 across all 9 analyzed corners |
+| Max capacitance violations | 0 across all 9 analyzed corners |
+| Block boundary | 1675 μm × 1675 μm |
+| Standard-cell instance area | Approximately 0.987 mm² |
+| Standard-cell utilization | Approximately 36.17% |
 
-*OpenLane estimate; dependent on assumed switching activity.
+The seven-cell ECO cleared the remaining slew and capacitance violations. Placement legalization, routing, parasitic extraction and block-level signoff checks were rerun after the cell changes.
 
-Every remaining electrical item was root-caused before being addressed. No RTL changes were required beyond the pipelined completion-logic architecture (`pipelined-done-v1`)
+Reproducibility was verified in two stages: an RTL-to-checkpoint rebuild produced a byte-identical checkpoint, and a checkpoint-to-GDS replay reproduced the powered netlist byte-for-byte and the GDS polygon geometry and labels across all 27 layers. GDS file bytes differed.
+
+These are pre-silicon, block-level results under the recorded constraints and tool/PDK environment. They do not establish integrated-chip signoff, pad-aware IR/EM signoff, measured silicon performance or organizer acceptance. A new organizer-supplied DEF or padframe may require further physical-design work.
 
 ## Early Flow Validation (Workshop/Padring Baseline)
 
@@ -327,7 +329,7 @@ Before integrating the real accelerator, the LibreLane/GF180MCU toolchain was va
 | 40ns | 25 MHz |  Pass |  Pass | — |
 | 30ns | 33 MHz |  Pass |  Pass | +13.99ns |
 
-These results validate the tool/PDK flow only; they are not timing results for the integrated accelerator (see Final Signoff above).
+These results validate the tool/PDK flow only; they are not timing results for the integrated accelerator (see Current Block-Level Signoff above).
 
 ## Test Plan and Reproducibility
 
