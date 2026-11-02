@@ -38,9 +38,12 @@ The chip computes C = A·B for two 4×4 matrices of FP16 numbers, using an appro
 | Package type and pin numbering | **PENDING** (organizers' packaging decision) |
 | Carrier/test board and connector pinout | **PENDING** |
 | Chip I/O voltage and logic thresholds | **PENDING** (padframe). The core standard cells are characterized for 4.5–5.5 V. |
-| Clock input | Driven from the pattern generator, at the chip I/O voltage |
-| Reset input | `rst_n` (Schmitt input) driven from the pattern generator |
-| Unused bidirectional-pad inputs | Not used by the design; the pads are always driven as outputs |
+| Clock input | `clk`, driven from the pattern generator at the confirmed chip I/O voltage |
+| Reset input | `rst_n`, active-low reset, driven from the pattern generator |
+| Data inputs | `input_in[7:0]`; drive all eight inputs to defined logic levels |
+| Data outputs | `output_out[3:0]`; controller connections must be configured as inputs |
+
+Pad cell types and pad electrical behavior will be taken from the final padframe (**PENDING**). For reference only, the team's wrapper `src/chipathon_wrapper/chip_top.sv` currently instantiates `gf180mcu_fd_io__in_s` for `clk`, `gf180mcu_fd_io__in_c` for `rst_n` and the eight data inputs, and `gf180mcu_fd_io__bi_24t` (always output) for the four outputs; `chip_core.sv` turns the data-input pull-up and pull-down off. These must be checked against the final padframe before testing.
 
 Once the package and board are known, a connection table (chip pin → package pin → board connector → controller pin) will be added here.
 
@@ -89,6 +92,8 @@ First output nibbles: `0001 0000` = 0x00010000 = 1.0, then `0002 0000` = 2.0, an
 
 The tester only has to replay the file and compare.
 
+**When to drive and when to sample.** Change `rst_n` and `input_in` just after each **falling** clock edge, so they are stable at the next rising edge where they are captured. Read `output_out` at the **falling** edge, half a period after the rising edge that updated it. `test/pin_tb.sv` uses exactly this timing. Before hardware testing, confirm that this schedule meets the implemented I/O constraints after including pad, board and level-shifter delays.
+
 ## 5. Safe power-up and current measurement
 
 1. With the chip unpowered, set the bench supply to 0 V and set a low current limit (**PENDING**: value after package and board are known).
@@ -109,7 +114,7 @@ Run on every chip. Record chip ID, VDD, clock frequency, room temperature and th
 | ID | Test | Vectors | Conditions | Pass criterion |
 |---|---|---|---|---|
 | T1 | Power-up and idle current | none | Section 5 | No abnormal current; values recorded |
-| T2 | Reset and idle outputs | any | 1 MHz | Outputs read 0 in reset and after edges 0–125 (checked in every vector file) |
+| T2 | Reset and idle outputs | any | 1 MHz | Outputs read 0 from the second rising edge while reset is asserted, and at the specified samples after edges 0–125 following reset release. |
 | T3 | Bring-up suite | `--suite` | 1 MHz, nominal VDD | All nibbles match |
 | T4 | Full functional | 33 regression matrices (`--cases`) + 1,000 random (`--random 1000`) | 1 MHz, nominal VDD | All nibbles match |
 | T5 | Design clock | T3 + T4 | 22.2 MHz, nominal VDD | All nibbles match |
@@ -135,7 +140,7 @@ The 33 regression matrices include more exact-arithmetic cases (powers of two up
 
 ## 7. Pass/fail
 
-A chip **passes** if T1–T5 and the repeatability test T9 pass. T6–T8 are characterization and are reported as measured. The pattern generator must meet input/output timing requirements; a 25 MHz clock output alone does not establish this capability.
+A chip **passes** if T1–T5 and the repeatability test T9 pass. T6–T8 are characterization and are reported as measured. The pattern generator must follow the drive and sample timing of Section 4 at the test frequency; a 25 MHz clock output alone does not establish this capability.
 
 ## 8. Accuracy report (separate from pass/fail)
 
@@ -150,7 +155,7 @@ Exact-arithmetic cases should match mathematics only when the multiplier's suppo
 1. Repeat at 1 MHz to separate timing failures from functional ones.
 2. Check reset timing and the edge numbering of Section 4 with the oscilloscope.
 3. Compare captured and expected nibbles. Find the first wrong element and whether the error is in one output bit, one array position (row/column) or all results.
-4. Replay the same vectors in gate-level simulation (`test/run_pin_test.sh <PDK_ROOT>`) for comparison.
+4. Preserve the exact failing vector file, captured outputs and test conditions. Replay that same vector file through the pin-level RTL and gate-level testbench; the standard regression alone may not include the failing silicon case.
 
 ## 10. Publishing results
 
@@ -180,8 +185,8 @@ The reference model in `test/a34_vectors.py` reproduces all 528 result words of 
 ## 12. Known limitations
 
 - One matrix per reset; there is no handshake, so the tester must follow the fixed timing in Section 4.
-- Sums outside the Q16.16 range (±32768) wrap around. The model includes this, so bit-exact comparison still applies.
-- The design has been verified in simulation and static timing analysis only; these tests are the first silicon measurements.
+- The signed Q16.16 representable range is −32768 to 32768 − 2⁻¹⁶. Accumulator overflow wraps around; product-conversion saturation and quantization are separate behaviors represented by the reference model.
+- The corrected ASIC implementation has been verified through simulation, static timing analysis and physical-design checks. Silicon measurements have not yet been performed.
 
 ## Files
 
