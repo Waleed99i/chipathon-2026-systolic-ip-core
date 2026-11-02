@@ -318,7 +318,7 @@ The seven-cell ECO cleared the remaining slew and capacitance violations. Placem
 
 Reproducibility was verified in two stages: an RTL-to-checkpoint rebuild produced a byte-identical checkpoint, and a checkpoint-to-GDS replay reproduced the powered netlist byte-for-byte and the GDS polygon geometry and labels across all 27 layers. GDS file bytes differed.
 
-These are pre-silicon, block-level results under the recorded constraints and tool/PDK environment. They do not establish integrated-chip signoff, pad-aware IR/EM signoff, measured silicon performance or organizer acceptance. A new organizer-supplied DEF or padframe may require further physical-design work.
+These are pre-silicon, block-level results under the recorded constraints and tool/PDK environment. 
 
 ## Early Flow Validation (Workshop/Padring Baseline)
 
