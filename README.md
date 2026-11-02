@@ -15,7 +15,7 @@
 
 This project implements a configurable **NxN systolic matrix accelerator IP** targeting **GF180MCU**, following a complete **RTL-to-GDSII** design flow. The architecture consists of modular **Processing Elements (PEs)** built around an **approximate logarithmic MAC unit** to improve hardware efficiency.
 
-The current design uses **FP16 inputs**, performs approximate floating-point multiplication, converts the result to fixed-point, and accumulates partial sums using a **32-bit Q16.16 accumulator**. While the architecture is fully parameterized, the current implementation and validation are based on a **4×4 systolic array**, with FPGA validation on the **Xilinx Nexys A7**.
+The current design uses **FP16 inputs**, performs approximate floating-point multiplication, converts each product **directly to signed Q16.16**, and accumulates partial sums using a **32-bit Q16.16 accumulator**. The reusable RTL modules are parameterized, while the current ASIC implementation and physical verification cover a fixed **4×4 systolic array**. The approximate MAC has previously been demonstrated on the **Xilinx Nexys A7**; this is separate from validating the complete corrected ASIC implementation on FPGA.
 
 ---
 
@@ -26,23 +26,26 @@ The current design uses **FP16 inputs**, performs approximate floating-point mul
 | Project Name | RTL-to-GDSII Design of a Configurable Matrix Accelerator IP on GF180MCU |
 | Track | A |
 | Team | A34 – SiliconForge |
-| Target Technology | GF180MCU |
-| Hardware Description Language | Verilog |
-| Target Flow | RTL → FPGA Validation → RTL-to-GDSII |
-| Architecture | Parameterized NxN Systolic Array |
-| Demonstration Configuration | 4×4 Systolic Array |
+| Target Technology | GlobalFoundries GF180MCU 180 nm, gf180mcuD |
+| Hardware Description Language | Verilog / SystemVerilog |
+| Target Flow | RTL verification → synthesis → physical design → block-level signoff → GDSII |
+| Architecture | Parameterized RTL modules; current ASIC implementation fixed at 4×4 |
+| Implemented Configuration | 4×4 Systolic Array |
 | Compute Unit | Processing Element (PE) |
 | Arithmetic Unit | Approximate Multiply-Accumulate (MAC) |
-| Input Precision | FP16 (IEEE-754 Half Precision) |
-| Multiplier Output | FP16 (Approximate Logarithmic Multiplier) |
-| Accumulator Precision | Q16.16 (32-bit Fixed Point) |
-| Interface | Ready-Valid Protocol |
-| FPGA Platform | Xilinx Nexys A7 |
-| ASIC Block | Block B |
-| Estimated Area | 1117 μm × 558 μm |
-| Available Pins | 16 |
-| Optional Extension | Lightweight Open-Source RISC-V Integration |
-
+| Input Format | FP16 encoding (IEEE-754 half-precision format); arithmetic is approximate |
+| Multiplier Output | FP16-encoded approximate logarithmic product |
+| Converted Product | Signed Q16.16, converted directly from the FP16 product without an intermediate Q8.8 conversion |
+| Accumulator / Result | Signed 32-bit Q16.16 |
+| Interface | Fixed-cycle protocol: 8-bit input and 4-bit output; no external ready/valid handshake |
+| Transaction Control | Reset before each matrix multiplication |
+| Compute Schedule | 3N−2 = 10 internal compute events for N=4; not the complete external transaction latency |
+| Clock Target | 45 ns (approximately 22.22 MHz) |
+| FPGA Platform | Xilinx Nexys A7 — earlier approximate-MAC demonstration, separate from complete corrected-system validation |
+| ASIC Top Cell | chip_core |
+| Implemented Block Boundary | 1675 μm × 1675 μm; final shared-chip allocation subject to organizer confirmation |
+| Logical Pad Definitions | 16 total: clock, reset, 8 inputs, 4 outputs, VDD and VSS; final package pin numbering pending |
+| Optional Extension | Future work: lightweight open-source RISC-V integration |
 ---
 
 
@@ -57,8 +60,8 @@ Key design objectives include:
 - Parameterized NxN systolic array architecture
 - Modular Processing Element (PE) based design
 - Approximate MAC implementation for reduced hardware complexity
-- Ready-Valid protocol based communication
-- FPGA validation prior to ASIC implementation
+- Fixed-cycle communication for the current chip wrapper; ready-valid interfacing remains a possible future extension
+- RTL and gate-level verification, with earlier module-level FPGA demonstration
 - Optional lightweight RISC-V integration
 - OR integration with a ML Framework
 - Tapeout-ready RTL targeting GF180MCU
@@ -120,10 +123,10 @@ and will do integration afterwards with riscv core or ML framework
 | **Processing Element (PE)** | FP16 activation, FP16 weight | FP16 activation, FP16 weight, Q16.16 partial sum | Core computational element of the systolic array. Each PE performs one MAC operation while forwarding activations and weights to neighboring PEs. |
 | **Input Datapath** | **16 × 2N** | **16 × (2N-1)** | Accepts the external input stream, separates activations and weights, and prepares row and column data streams for the Data Feeders. |
 | **Data Feeders** | **16 × (2N-1)** | **FP16 streams** | Aligns and schedules incoming operands with appropriate delays before injecting them into the systolic array. |
-| **Ready-Valid (RV) Interface** | Ready, Valid, Data | Ready, Valid, Data | Implements a standard ready-valid handshake protocol for modular communication between external logic and the accelerator. |
+| **Chip Wrapper** | Clock, reset, 8-bit input | 4-bit output | Transfers input bytes and output nibbles on a fixed schedule, with no external ready/valid handshake. Reset is required before each matrix. |
 | **Output Datapath** | **32 × (N × N)** | **64** | Collects the final outputs from every Processing Element and formats the result matrix for external transfer. |
 | **Register** | Data, Clock, Reset | Registered Data | Pipeline register with reset logic and multiplexing support. Stores intermediate values between clock cycles. |
-| **Counter** | Clock, Reset | Count | Controls systolic computation timing. Counts from **0** to **2N−1** (0–7 for a 4×4 array). |
+| **Counter** | Clock, Reset, done | valid_out | Controls the compute-event schedule using COUNT_MAX = 3N−2, which is 10 for N=4. This is an internal compute schedule, not the complete chip transaction latency. |
 
 In Our Example N=4 since 4x4 systolic
 
@@ -134,25 +137,27 @@ In Our Example N=4 since 4x4 systolic
 
 | Item | Value |
 |------|-------|
-| Chip Block | B |
-| Fraction of Chip | 1/8 |
-| Estimated Area | 1117 μm × 558 μm |
-| Digital Pins | 16 |
-| Supply | Single VDD |
-| Ground | Common GND |
+| Implemented Block | chip_core |
+| Final Shared-Chip Allocation | Subject to organizer confirmation |
+| Implemented Block Boundary | 1675 μm × 1675 μm |
+| Logical Signal Pads | 14: clock, reset, 8 inputs and 4 outputs |
+| Power/Ground Definitions | VDD and VSS |
+| Package Pin Numbering | Pending final package and padframe |
 
 ---
 
 # Pin Configuration
 
-| Pin | Signal | Direction | Type | Description |
-|----|--------|-----------|------|-------------|
-| 1 | clk | Input | Digital | System Clock |
-| 2 | rst_n | Input | Digital | Active-Low Reset |
-| 3-10 | data_in[7:0] | Input | Digital | Accelerator Input Data Bus |
-| 11–14 | data_out[3:0] | Output | Digital | Accelerator Output Data Bus |
-| 15 | VDD | Power | Power | Supply Voltage |
-| 16 | GND | Power | Ground | Common Ground |
+| Signal | Direction | Description |
+|--------|-----------|-------------|
+| clk | Input | System clock |
+| rst_n | Input | Active-low reset; reset before each matrix |
+| input_in_0 … input_in_7 | Input | Eight-bit input data bus |
+| output_out_0 … output_out_3 | Output function | Four-bit output bus, using bidirectional pad cells |
+| VDD | Power | Block supply |
+| VSS | Ground | Block ground |
+
+See [info.yaml](info.yaml) for pad definitions and [TEST_PLAN.md](TEST_PLAN.md) for the verified fixed-cycle protocol.
 
 
 
@@ -222,9 +227,9 @@ The project follows a structured four-phase implementation strategy, progressing
 | Phase | Objectives |   Status |
 |--------|------------|--------------|
 | **Phase 1** | Approximate MAC, Processing Element (PE), Parameterized Systolic Array RTL, Functional Verification | Completed |
-| **Phase 2** | Input/Output Datapaths, Data Feeders, Ready-Valid Interface, System Integration | Completed |
+| **Phase 2** | Input/Output Datapaths, Data Feeders, Fixed-Cycle Chip Wrapper, System Integration | Completed |
 | **Phase 3** | FPGA Synthesis & Validation, Performance Optimization | In Progress |
-| **Phase 4** | RTL Synthesis, Physical Design, Signoff Verification, RTL-to-GDSII | In Progress |
+| **Phase 4** | Corrected block implementation and verification completed; shared-chip integration/fabrication pending 
 
 ---
 
@@ -273,7 +278,7 @@ Future FPGA validation includesComplete Synthesis of Systolic Array
 
 The project targets a complete RTL-to-GDSII implementation using the **GF180MCU** technology.
 
-The planned backend flow includes:
+The completed block-level backend flow includes:
 
 - RTL Synthesis
 - Static Timing Analysis
@@ -323,6 +328,14 @@ Before integrating the real accelerator, the LibreLane/GF180MCU toolchain was va
 | 30ns | 33 MHz |  Pass |  Pass | +13.99ns |
 
 These results validate the tool/PDK flow only; they are not timing results for the integrated accelerator (see Final Signoff above).
+
+## Test Plan and Reproducibility
+
+- [Silicon test plan](TEST_PLAN.md): fixed-cycle pin timing, bring-up tests, pass/fail criteria, equipment requirements and publication of measured results.
+- [Pin-level verification](test/sim_results/20261031_095426/SUMMARY.txt): 93 matrix transactions passed on both RTL and the final gate-level netlist, with zero mismatches. Deliberately incorrect vectors were detected.
+- [Reproduction guide](reproduce/README.md): the RTL-to-checkpoint rebuild produced a byte-identical checkpoint. The checkpoint-to-GDS replay produced a byte-identical powered netlist and matching GDS geometry and labels across all 27 layers.
+
+The two reproduction stages used the existing Nix environment and local PDK. Independent tool/PDK installation has not been demonstrated. Approximate arithmetic, finite numerical range and reset-per-matrix operation remain documented limitations.
 
 ## Submission
 `info.yaml` and `lvs_config.json` reference the final `chip_core` design. GDS output (45ns, fully timing-closed, DRC/LVS/Antenna clean) is included at `gds/chip_core.gds`.
