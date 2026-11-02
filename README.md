@@ -229,7 +229,7 @@ The project follows a structured four-phase implementation strategy, progressing
 | **Phase 1** | Approximate MAC, Processing Element (PE), Parameterized Systolic Array RTL, Functional Verification | Completed |
 | **Phase 2** | Input/Output Datapaths, Data Feeders, Fixed-Cycle Chip Wrapper, System Integration | Completed |
 | **Phase 3** | FPGA Synthesis & Validation, Performance Optimization | In Progress |
-| **Phase 4** | Corrected block implementation and verification completed; shared-chip integration/fabrication pending 
+| **Phase 4** | Corrected block implementation and verification completed; shared-chip integration/fabrication | In Progress | 
 
 ---
 
